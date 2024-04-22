@@ -1,0 +1,244 @@
+openapi: 3.0.3
+info:
+  title: Tebex Checkout API
+  description: |-
+    The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.
+    
+    You must receive prior authorisation before the Checkout API is enabled on your account. Please contact customer support or your account manager to discover if you qualify to use the Checkout API before beginning integration.
+  termsOfService: https://tebex.io/terms-creator-agreement
+  contact:
+    email: tebex-integrations@overwolf.com
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+  version: 1.0.0
+servers:
+  - url: https://checkout.tebex.io/api
+tags:
+  - name: basket
+    description: To start a transaction, a basket must be created. The basket, similar to a standard eCommerce basket will contain the items that the customer is purchasing.
+  - name: ident
+    description: A string identifier representing the basket
+paths:
+  /baskets:
+    post:
+      tags:
+      - basket
+      summary: Create a basket that can be used to pay for items
+      description: This will create and return a `Basket` that can be paid for by redirecting the user to `links.checkout`
+      operationId: createBasket
+      requestBody:
+        description: Create a basket, returning the full basket object and payment link.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                return_url:
+                  type: string
+                  description: The URL a customer can return to without completing checkout
+                  example: "https://example.tebex.io/"
+                complete_url:
+                  type: string
+                  description: URL the customer can return to after completing payment
+                  example: "https://example.tebex.io/complete"
+                custom:
+                  type: object
+                  description: Any custom data to be passed through the request. This will be returned in a post-completion webhook.
+                  example: {
+                    foo: bar,
+                  }
+                first_name:
+                  type: string
+                  description: The first name of the customer
+                  example: Neil
+                last_name:
+                  type: string
+                  description: The last name of the customer
+                  example: McNeil
+                email:
+                  type: string
+                  description: The email address of the customer
+                  example: example@tebex.io
+                expires_at:
+                  type: string
+                  description: An ISO8601 formatted date. After this date the basket cannot be used to checkout.
+                  example: 2024-01-27T18:09:51Z
+                complete_auto_redirect:
+                  type: boolean
+                  description: Automatically redirect to the complete_url provided
+                  example: true
+                country:
+                  type: string
+                  description: An ISO 3166-1 alpha-2 character code representing the customer's country.
+                  example: US
+                creator_code:
+                  type: string
+                  description: The creator code that should automatically be applied to this basket #TODO
+      responses:
+        '200':
+          description: Basket created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Basket"
+        '400':
+          description: Invalid basket information provided
+components:
+  schemas:
+    Basket:
+      type: object
+      properties:
+        ident:
+          type: string
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        expire:
+          type: string
+          example: 2022-10-25 15:15:40
+        price:
+          type: number
+          example: 1.27
+        priceDetails:
+          $ref: '#/components/schemas/PriceDetails'
+        type:
+          type: string
+          example: single
+        complete:
+          type: boolean
+          example: false
+        tax:
+          type: object
+          example: null #FIXME
+        username:
+          type: string
+          example: null #FIXME
+        discounts:
+          type: array
+          example: []
+        coupons:
+          type: array
+          example: []
+        giftcards:
+          type: array
+          example: []
+        address:
+          $ref: '#/components/schemas/Address'
+        actions:
+          type: object
+          example: null #TODO
+        game_currency:
+          type: object
+          example: null #TODO
+        tebex_account_id: # TODO
+          type: string
+          example: null
+        verified:
+          type: boolean
+          example: false #TODO
+        rows:
+          type: array
+          example: []
+        fingerprint:
+          type: string
+          example: ""
+        creator_code:
+          type: string
+          example: ""
+        roundup: #TODO FIXME
+          type: boolean
+          example: false
+        custom: 
+          type: object
+          example: 
+            foo: bar
+            ref: 1234
+        links:
+          $ref: "#/components/schemas/BasketLinks"
+    BasketLinks:
+      type: object
+      properties:
+        payment:
+          type: string
+          description: The `links.payment` property is only returned if the basket has been paid for and a payment exists with the `complete`,`refund`, or `chargeback` status.
+          example: https://checkout.tebex.io/api/payments/tbx-12345
+        checkout:
+          type: string
+          description: The `links.checkout` property is only returned if the basket has not been paid, and is the URL to send the customer to make payment
+          example: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+    PriceDetails:
+      type: object
+      properties:
+        fullPrice:
+          type: number
+        subTotal:
+          type: number
+        discounts:
+          type: array
+        total:
+          type: number
+        surcharges:
+          type: array
+        tax:
+          type: number
+        balance:
+          type: number
+        sales:
+          type: array
+        giftcards:
+          type: array
+        recurring:
+          type: boolean #FIXME
+        roundUp:
+          type: boolean #FIXME
+      example:
+        fullPrice: 1.40
+        subTotal: 1.27
+        discounts: []
+        total: 1.40
+        surcharges: []
+        tax: 0.13
+        balance: 0
+        sales: []
+        giftcards: []
+        recurring: false #FIXME
+        roundUp: false #FIXME
+    Address:
+      type: object
+      properties:
+        name:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+        state_id:
+          type: string
+        country:
+          type: string
+        postal_code:
+          type: string
+      example:
+        name: Neil McNeil
+        first_name: Neil
+        last_name: McNeil
+        address: 37 Broadhurst Gardens, London, United Kingdom, NW6 3QT
+        email: example@tebex.io
+        state_id: null
+        country: UK
+        postal_code: NW6 3QT
+  requestBodies:
+    Basket:
+      description: A basket with items to be purchased
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Basket'
+
+  securitySchemes:
+    tebex_checkout_auth_basic:
+      type: http
+      scheme: basic
