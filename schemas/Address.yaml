@@ -1,0 +1,27 @@
+type: object
+properties:
+  name:
+    type: string
+  first_name:
+    type: string
+  last_name:
+    type: string
+  address:
+    type: string
+  email:
+    type: string
+  state_id:
+    type: string
+  country:
+    type: string
+  postal_code:
+    type: string
+example:
+  name: Neil McNeil
+  first_name: Neil
+  last_name: McNeil
+  address: 37 Broadhurst Gardens, London, United Kingdom, NW6 3QT
+  email: example@tebex.io
+  state_id: null
+  country: UK
+  postal_code: NW6 3QT

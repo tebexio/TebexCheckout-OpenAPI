@@ -1,0 +1,36 @@
+type: object
+properties:
+  fullPrice:
+    type: number
+  subTotal:
+    type: number
+  discounts:
+    type: array
+  total:
+    type: number
+  surcharges:
+    type: array
+  tax:
+    type: number
+  balance:
+    type: number
+  sales:
+    type: array
+  giftcards:
+    type: array
+  recurring:
+    type: boolean #FIXME
+  roundUp:
+    type: boolean #FIXME
+example:
+  fullPrice: 1.40
+  subTotal: 1.27
+  discounts: []
+  total: 1.40
+  surcharges: []
+  tax: 0.13
+  balance: 0
+  sales: []
+  giftcards: []
+  recurring: false #FIXME
+  roundUp: false #FIXME

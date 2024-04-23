@@ -1,0 +1,67 @@
+type: object
+properties:
+  ident:
+    type: string
+    example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+  expire:
+    type: string
+    example: 2022-10-25 15:15:40
+  price:
+    type: number
+    example: 1.27
+  priceDetails:
+    $ref: './PriceDetails.yaml'
+  type:
+    type: string
+    example: single
+  complete:
+    type: boolean
+    example: false
+  tax:
+    type: object
+    example: null #FIXME
+  username:
+    type: string
+    example: null #FIXME
+  discounts:
+    type: array
+    example: []
+  coupons:
+    type: array
+    example: []
+  giftcards:
+    type: array
+    example: []
+  address:
+    $ref: './Address.yaml'
+  actions:
+    type: object
+    example: null #TODO
+  game_currency:
+    type: object
+    example: null #TODO
+  tebex_account_id: # TODO
+    type: string
+    example: null
+  verified:
+    type: boolean
+    example: false #TODO
+  rows:
+    type: array
+    example: []
+  fingerprint:
+    type: string
+    example: ""
+  creator_code:
+    type: string
+    example: ""
+  roundup: #TODO FIXME
+    type: boolean
+    example: false
+  custom: 
+    type: object
+    example: 
+      foo: bar
+      ref: 1234
+  links:
+    $ref: "./BasketLinks.yaml"

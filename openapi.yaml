@@ -15,15 +15,141 @@ info:
 servers:
   - url: https://checkout.tebex.io/api
 tags:
-  - name: basket
-    description: To start a transaction, a basket must be created. The basket, similar to a standard eCommerce basket will contain the items that the customer is purchasing.
-  - name: ident
+  - name: Ident
     description: A string identifier representing the basket
+  - name: Baskets
+    description: To start a transaction, a basket must be created. The basket, similar to a standard eCommerce basket will contain the items that the customer is purchasing.
+  - name: Recurring Payments
+    description: Payments with reference IDs like `tbx-r-`. Can be paused, reeactivated, and cancelled provided a valid reference id.
+  - name: Payments
+    description: Single payments (`tbx-`) can be fetched and refunded with a valid reference id.
 paths:
+  /baskets/{ident}:
+    get:
+      tags:
+      - Baskets
+      operationId: getBasketById
+      summary: Fetch a basket by its identifier
+  /baskets/{ident}/packages:
+    post:
+      tags:
+      - Baskets
+      operationId: addPackageToBasket
+      summary: Add a package to the basket
+      description: This adds a package (an object descripting the product) to the basket `{ident}`
+  /baskets/{ident}/packages/{row.id}:
+    delete:
+      tags:
+      - Baskets
+      operationId: removeRowFromBasket
+      summary: 
+        Remove a row from the basket
+      description:
+        This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+  /baskets/{ident}/sales:
+    post:
+      tags:
+      - Baskets
+      operationId: addSaleToBasket
+      summary:
+        Add a sale to the basket
+      description: Adds a `Sale` to the basket with `{ident}`. Sales cannot be applied to baskets with `revenue_share` set.
+      requestBody:
+        description: Provide a `Sale` as an object to apply it to the basket.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sale'
+  /checkout:
+    post:
+      tags:
+      - Checkout
+      operationId: createCheckoutRequest
+      summary:
+        Create a checkout request
+      description: This API call allows the complete checkout flow (create basket, add items, add sale) to be made in a single API call, for when the Seller is managing the basket locally. **This endpoint requires prior approval - please contact your account manager.**
+  /payments/{txnId}?type=txn_id:
+    get:
+      tags:
+      - Payments
+      operationId: getPaymentById
+      summary: Fetch a payment by its transaction ID
+      description: This will fetch the given payment associated with this transaction id. Single payment transaction IDs begin with `tbx-`
+      parameters:
+        - in: path
+          name: txnId
+          schema:
+            type: string
+            example: tbx-55fff4107740a1f40d844ff89607557f45bfafb3
+          required: true
+          description: The payment reference to fetch.
+  /payments/{txnId}/refund?type=txn_id:
+    post:
+      tags:
+      - Payments
+      operationId: refundPaymentById
+      summary: Refund a payment by its transaction ID
+      description: This will refund the given payment associated with this transaction id.
+      parameters:
+        - in: path
+          name: txnId
+          schema:
+            type: string
+            example: tbx-55fff4107740a1f40d844ff89607557f45bfafb3
+          required: true
+          description: The payment reference to refund.
+  /recurring-payments/{reference}:
+    get:
+      tags:
+      - Recurring Payments
+      operationId: getRecurringPayment
+      summary: Fetch a recurring payment (subscription) by its reference
+      parameters:
+        - in: path
+          name: reference
+          schema:
+            type: string
+            example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
+          required: true
+          description: The recurring payment reference to fetch.
+    put:
+      tags: 
+      - Recurring Payments
+      operationId: updateSubscription
+      summary: Update a subscription with a new product / amount to pay - replacing the existing product
+      description: If the new subscription amount is higher than the existing amount, a pro-rata charge will be made to cover the cost of the new price up until the next billing date. `This endpoint requires prior approval - please contact your account manager.`
+    delete:
+      tags:
+      - Recurring Payments
+      summary: Cancel a recurring payment
+      description: This cancels the recurring payment for the reference provided. Recurring payment references start with `tbx-r-`
+      operationId: cancelRecurringPayment
+      parameters:
+        - in: path
+          name: reference
+          schema:
+            type: string
+            example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
+          required: true
+          description: The recurring payment reference to cancel.
+  /recurring-payments/{reference}/status:
+    put:
+      tags:
+      - Recurring Payments
+      operationId: pauseOrReactivateRecurringPayment
+      summary: Pause or reactivate a recurring payment
+      parameters:
+        - in: path
+          name: reference
+          schema:
+            type: string
+            example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
+          required: true
+          description: The recurring payment reference to update.
   /baskets:
     post:
       tags:
-      - basket
+      - Baskets
       summary: Create a basket that can be used to pay for items
       description: This will create and return a `Basket` that can be paid for by redirecting the user to `links.checkout`
       operationId: createBasket
@@ -86,150 +212,18 @@ paths:
           description: Invalid basket information provided
 components:
   schemas:
+    ErrorResponse:
+      $ref: ./schemas/ErrorResponse-RFC7807.yaml
     Basket:
-      type: object
-      properties:
-        ident:
-          type: string
-          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
-        expire:
-          type: string
-          example: 2022-10-25 15:15:40
-        price:
-          type: number
-          example: 1.27
-        priceDetails:
-          $ref: '#/components/schemas/PriceDetails'
-        type:
-          type: string
-          example: single
-        complete:
-          type: boolean
-          example: false
-        tax:
-          type: object
-          example: null #FIXME
-        username:
-          type: string
-          example: null #FIXME
-        discounts:
-          type: array
-          example: []
-        coupons:
-          type: array
-          example: []
-        giftcards:
-          type: array
-          example: []
-        address:
-          $ref: '#/components/schemas/Address'
-        actions:
-          type: object
-          example: null #TODO
-        game_currency:
-          type: object
-          example: null #TODO
-        tebex_account_id: # TODO
-          type: string
-          example: null
-        verified:
-          type: boolean
-          example: false #TODO
-        rows:
-          type: array
-          example: []
-        fingerprint:
-          type: string
-          example: ""
-        creator_code:
-          type: string
-          example: ""
-        roundup: #TODO FIXME
-          type: boolean
-          example: false
-        custom: 
-          type: object
-          example: 
-            foo: bar
-            ref: 1234
-        links:
-          $ref: "#/components/schemas/BasketLinks"
+      $ref: ./schemas/Basket.yaml
     BasketLinks:
-      type: object
-      properties:
-        payment:
-          type: string
-          description: The `links.payment` property is only returned if the basket has been paid for and a payment exists with the `complete`,`refund`, or `chargeback` status.
-          example: https://checkout.tebex.io/api/payments/tbx-12345
-        checkout:
-          type: string
-          description: The `links.checkout` property is only returned if the basket has not been paid, and is the URL to send the customer to make payment
-          example: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+      $ref: ./schemas/BasketLinks.yaml
     PriceDetails:
-      type: object
-      properties:
-        fullPrice:
-          type: number
-        subTotal:
-          type: number
-        discounts:
-          type: array
-        total:
-          type: number
-        surcharges:
-          type: array
-        tax:
-          type: number
-        balance:
-          type: number
-        sales:
-          type: array
-        giftcards:
-          type: array
-        recurring:
-          type: boolean #FIXME
-        roundUp:
-          type: boolean #FIXME
-      example:
-        fullPrice: 1.40
-        subTotal: 1.27
-        discounts: []
-        total: 1.40
-        surcharges: []
-        tax: 0.13
-        balance: 0
-        sales: []
-        giftcards: []
-        recurring: false #FIXME
-        roundUp: false #FIXME
+      $ref: ./schemas/PriceDetails.yaml
     Address:
-      type: object
-      properties:
-        name:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        address:
-          type: string
-        email:
-          type: string
-        state_id:
-          type: string
-        country:
-          type: string
-        postal_code:
-          type: string
-      example:
-        name: Neil McNeil
-        first_name: Neil
-        last_name: McNeil
-        address: 37 Broadhurst Gardens, London, United Kingdom, NW6 3QT
-        email: example@tebex.io
-        state_id: null
-        country: UK
-        postal_code: NW6 3QT
+      $ref: ./schemas/Address.yaml
+    Sale:
+      $ref: ./schemas/Sale.yaml
   requestBodies:
     Basket:
       description: A basket with items to be purchased
@@ -237,7 +231,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Basket'
-
   securitySchemes:
     tebex_checkout_auth_basic:
       type: http

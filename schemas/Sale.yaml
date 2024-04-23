@@ -1,0 +1,15 @@
+type: object
+properties:
+  name:
+    type: string
+    description: The name of the sale (displayed to the customer)
+    example: Test Sale
+  discount_type:
+    type: string
+    enum: [percentage, amount]
+    description: The type of discount, either `percentage` for deducting a percentage of each item, or `amount` to deduct a fixed amount from each item.
+    example: amount
+  amount:
+    type: number
+    description: The amount or percentage to deduct
+    example: 4.99
