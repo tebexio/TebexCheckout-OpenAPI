@@ -19,10 +19,10 @@ properties:
     example: false
   tax:
     type: object
-    example: null #FIXME
+    example: null #use API
   username:
     type: string
-    example: null #FIXME
+    example: null #IS nullable, find out how to doc this properly
   discounts:
     type: array
     example: []
@@ -36,28 +36,33 @@ properties:
     $ref: './Address.yaml'
   actions:
     type: object
-    example: null #TODO
+    example: null #TODO potentially deprecated
+    description: A set of actions associated with the Basket, to be provided via login webhooks. #TODO
   game_currency:
     type: object
-    example: null #TODO
-  tebex_account_id: # TODO
+    example: null
+    description: Deprecated
+  tebex_account_id:
     type: string
     example: null
+    description: Deprecated
   verified:
     type: boolean
-    example: false #TODO
+    example: false 
+    description: Potentially deprecated #TODO
   rows:
     type: array
     example: []
   fingerprint:
-    type: string
+    type: string #nullable
     example: ""
+    description: Browser fingerprint to identify the user
   creator_code:
     type: string
-    example: ""
-  roundup: #TODO FIXME
+    description: The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
+  roundup: #TODO not active
     type: boolean
-    example: false
+    example: false # nullable object
   custom: 
     type: object
     example: 

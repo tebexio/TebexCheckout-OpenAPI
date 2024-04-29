@@ -36,7 +36,7 @@ paths:
       - Baskets
       operationId: addPackageToBasket
       summary: Add a package to the basket
-      description: This adds a package (an object descripting the product) to the basket `{ident}`
+      description: This adds a package (an object describing the product) to the basket `{ident}`
   /baskets/{ident}/packages/{row.id}:
     delete:
       tags:
@@ -200,7 +200,7 @@ paths:
                   example: US
                 creator_code:
                   type: string
-                  description: The creator code that should automatically be applied to this basket #TODO
+                  description: The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
       responses:
         '200':
           description: Basket created successfully
@@ -210,6 +210,18 @@ paths:
                 $ref: "#/components/schemas/Basket"
         '400':
           description: Invalid basket information provided
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/ErrorResponse"
+                properties: #TODO
+                  type:
+                    type: string
+                    example: https://checkout.tebex.io/api/baskets
+                  instance:
+                    type: string
+                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3
 components:
   schemas:
     ErrorResponse:
