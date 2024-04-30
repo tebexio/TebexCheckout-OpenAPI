@@ -1,0 +1,28 @@
+type: object
+properties:
+  name:
+    type: string
+    description: The name of the item being purchased. This should be user-friendly as it is shown to the customer on checkout and receipts.
+    required: true
+  price:
+    type: number
+    example: 1.27
+    description: A float (decimal describing the price of the package in your account currency)
+    required: true
+  expiry_period:
+    type: string
+    enum: [day, month, year]
+    description: The renewal period of this item
+    example: month
+    required: false
+  expiry_length:
+    type: int
+    description: An integer representing the number of `expiry_periods` that make up the renewal period.
+    example: 3
+  metaData:
+    type: object
+    properties:
+      custom: #TODO 
+        type: string
+        description: A free-text string field that is passed back to you via the webhook (for example, a tracking ID)
+        example: Foo

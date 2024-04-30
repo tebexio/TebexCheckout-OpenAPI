@@ -30,14 +30,137 @@ paths:
       - Baskets
       operationId: getBasketById
       summary: Fetch a basket by its identifier
+      parameters:
+        - in: path
+          name: ident
+          schema:
+            type: string
+            example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          required: true
+          description: The basket identifier.
+      description: |- 
+          Gets the basket associated with the provided identifier.
+      responses:
+        '200':
+          description: |- 
+            Successful response returns the basket.
+            
+            The `links.payment` property is only returned if the basket has been paid for, and a payment exist with the **complete**/**refund**/**chargeback** status.
+
+            The `links.checkout` property is only returned if the basket has not been paid, and is the URL to send the customer to in order to complete payment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+        '404':
+          description: Basket not found.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/ErrorResponse"
+                properties:
+                  type:
+                    type: string
+                    example: https://checkout.tebex.io/api/baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+                  title:
+                    type: string
+                    example: Basket not found.
+                  status:
+                    type: number
+                    example: 404
+                  detail:
+                    type: string
+                    example: A basket with the ID '1a-55fff4107740a1f40d844ff89607557f45bfafb3' was not found.
+                  instance:
+                    type: string
+                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+                
   /baskets/{ident}/packages:
+    parameters:
+      - in: path
+        name: ident
+        schema:
+          type: string
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        required: true
+        description: The basket identifier.
     post:
       tags:
       - Baskets
       operationId: addPackageToBasket
       summary: Add a package to the basket
-      description: This adds a package (an object describing the product) to the basket `{ident}`
+      description: This adds a package (an object describing the product) to the basket `{ident}`. **This endpoint requires prior approval. Please contact your account manager.**
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                package:
+                  type: object 
+                  $ref: '#/components/schemas/Package'
+                qty:
+                  type: integer
+                  description: The quantity of `package` in this basket. This is not the total quantity of overall items in the basket.
+                  example: 2
+                type:
+                  type: string
+                  enum: [single,subscription]
+                  example: single
+                  description: The type of payment, either `single` for one-time payments or `subscription`.
+                  required: [single]
+                revenue_share:
+                  type: array
+                  description: An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**
+                  example: []
+      responses:
+        '200':
+          description: Package is successfully added to the basket, and basket is returned. #TODO with updated totals?
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Basket"        
+        '400':
+          description: Improperly formatted package.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/ErrorResponse"
+                properties:
+                  type:
+                    type: string
+                    example: https://checkout.tebex.io/api/baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
+                  title:
+                    type: string
+                    example: Bad Request
+                  status:
+                    type: number
+                    example: 400
+                  detail:
+                    type: string
+                    example: The 'package.name' parameter is required.
+                  instance:
+                    type: string
+                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
+        '404':
+          description: Basket not found. See error schema for specifics.
   /baskets/{ident}/packages/{row.id}:
+    parameters:
+        - in: path
+          name: ident
+          schema:
+            type: string
+            example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          required: true
+          description: The basket identifier.
+        - in: path
+          name: row.id
+          schema:
+            type: integer
+            example: 1
+          required: true
+          description: The `id` of the `basket.rows` row to remove.
     delete:
       tags:
       - Baskets
@@ -46,20 +169,67 @@ paths:
         Remove a row from the basket
       description:
         This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+      responses:
+        '204':
+          description: Successfully deleted row from the basket.
+        '400': #TODO confirm, finish
+          description: Bad Request
+        '404': #TODO confirm, finish schema
+          description: Row or basket not found.
   /baskets/{ident}/sales:
+    parameters:
+      - in: path
+        name: ident
+        schema:
+          type: string
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        required: true
+        description: The basket identifier.
     post:
       tags:
       - Baskets
       operationId: addSaleToBasket
       summary:
         Add a sale to the basket
-      description: Adds a `Sale` to the basket with `{ident}`. Sales cannot be applied to baskets with `revenue_share` set.
+      description: Adds a `Sale` to the basket with `{ident}`. **Sales cannot be applied to baskets with `revenue_share` set.**
       requestBody:
         description: Provide a `Sale` as an object to apply it to the basket.
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Sale'
+      responses:
+        '200':
+          description: Successfully adds sale to basket.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+        '400':
+          description: Bad request. Improperly formatted Sale or this basket cannot accept sales.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/ErrorResponse"
+                properties:
+                  type:
+                    type: string
+                    example: https://checkout.tebex.io/api/baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
+                  title:
+                    type: string
+                    example: Bad Request
+                  status:
+                    type: number
+                    example: 400
+                  detail:
+                    type: string
+                    example: Sales cannot be applied to baskets with `revenue_share` set.
+                  instance:
+                    type: string
+                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
+        '404':
+          description: Basket not found. See error schema for specifics.
   /checkout:
     post:
       tags:
@@ -68,6 +238,51 @@ paths:
       summary:
         Create a checkout request
       description: This API call allows the complete checkout flow (create basket, add items, add sale) to be made in a single API call, for when the Seller is managing the basket locally. **This endpoint requires prior approval - please contact your account manager.**
+      requestBody:
+        description: Provide a `Basket`, an array of `Packages` to be added to the basket, and an optional `Sale` to complete the full checkout flow in one call.
+        content:
+          application/json:
+            schema:
+              required:
+                - "basket"
+                - "items"
+              properties:
+                basket:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    email:
+                      type: string
+                    return_url:
+                      type: string
+                    complete_url:
+                      type: string
+                    custom: # TODO confirm
+                      type: object
+                      example: {
+                        "foo": "bar", #TODO confirm
+                        "trackingId": 127000 #TODO confirm
+                      }
+                items:
+                  type: array
+                  description: An array of `Packages` in the basket.
+                  items:
+                    $ref: '#components/schemas/Package'
+                sale:
+                  $ref: '#/components/schemas/Sale'
+      responses:
+        '200':
+          description: Successfully created basket. The basket will be returned with `links` containing the URLs you should direct the customer to in order to complete payment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+        '400':
+          description: Bad request. #TODO complete
+              
   /payments/{txnId}?type=txn_id:
     get:
       tags:
@@ -83,6 +298,15 @@ paths:
             example: tbx-55fff4107740a1f40d844ff89607557f45bfafb3
           required: true
           description: The payment reference to fetch.
+      responses:
+        '200':
+          description: Payment fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '404': #TODO complete
+          description: Transaction not found.
   /payments/{txnId}/refund?type=txn_id:
     post:
       tags:
@@ -98,6 +322,15 @@ paths:
             example: tbx-55fff4107740a1f40d844ff89607557f45bfafb3
           required: true
           description: The payment reference to refund.
+      responses:
+        '200':
+          description: Payment refunded successfully. The payment details are returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '404': #TODO confirm
+          description: Payment not found.
   /recurring-payments/{reference}:
     get:
       tags:
@@ -112,12 +345,48 @@ paths:
             example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
           required: true
           description: The recurring payment reference to fetch.
+      responses:
+        '200':
+          description: Successfully fetched recurring payment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+        '404': #TODO confirm, finish
+          description: Recurring payment not found.
     put:
       tags: 
       - Recurring Payments
       operationId: updateSubscription
       summary: Update a subscription with a new product / amount to pay - replacing the existing product
-      description: If the new subscription amount is higher than the existing amount, a pro-rata charge will be made to cover the cost of the new price up until the next billing date. `This endpoint requires prior approval - please contact your account manager.`
+      description: |- 
+        If the new subscription amount is higher than the existing amount, a pro-rata charge will be made to cover the cost of the new price up until the next billing date. 
+        
+        **This endpoint requires prior approval - please contact your account manager.**
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                items:
+                  description: An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/Package'
+                    #TODO FIXME non-confirming to the other endpoints
+                    # https://docs.tebex.io/developers/checkout-api/endpoints#update-a-subscription-with-a-new-product-amount-to-pay-replacing-the-existing-product
+                    # Asks for array of items but also includes basket parameters
+      responses:
+        '200':
+          description: Successfully updated subscription. The updated `RecurringPayment` is returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+        '400': #TODO finish
+          description: Bad request
+        '404': #TODO confirm
+          description: Recurring payment not found.
     delete:
       tags:
       - Recurring Payments
@@ -132,6 +401,15 @@ paths:
             example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
           required: true
           description: The recurring payment reference to cancel.
+      responses:
+        '200': #TODO confirm this isn't a 204
+          description: Recurring payment cancelled successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+        '404':
+          description: Recurring payment not found.
   /recurring-payments/{reference}/status:
     put:
       tags:
@@ -146,6 +424,32 @@ paths:
             example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
           required: true
           description: The recurring payment reference to update.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - "status"
+              properties:
+                status:
+                  type: string
+                  enum: [Paused,Active] #TODO confirm, non-confirming to case
+                  description: Your desired state of the recurring payment. Provide `Paused` with `paused_until` to pause a recurring payment. Otherwise, provide `Active` to resume a recurring payment.
+                paused_until:
+                  type: string
+                  description: "To pause a payment, provide a ISO8601 formatted date on which the payment should be reactivated."
+                  example: 2023-01-18T16:43:53.000000Z
+      responses:
+        '200':
+          description: Successfully paused or reactivated a payment. The `RecurringPayment` is returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+        '400': #TODO confirm
+          description: Bad request.
+        '404': #TODO finish
+          description: Recurring payment not found.
   /baskets:
     post:
       tags:
@@ -201,6 +505,7 @@ paths:
                 creator_code:
                   type: string
                   description: The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
+                  example: Academy10
       responses:
         '200':
           description: Basket created successfully
@@ -228,6 +533,12 @@ components:
       $ref: ./schemas/ErrorResponse-RFC7807.yaml
     Basket:
       $ref: ./schemas/Basket.yaml
+    Package:
+      $ref: ./schemas/Package.yaml
+    BasketPackage:
+      $ref: ./schemas/BasketPackage.yaml
+    RevenueShare:
+      $ref: ./schemas/RevenueShare.yaml
     BasketLinks:
       $ref: ./schemas/BasketLinks.yaml
     PriceDetails:
@@ -236,6 +547,10 @@ components:
       $ref: ./schemas/Address.yaml
     Sale:
       $ref: ./schemas/Sale.yaml
+    Payment:
+      $ref: ./schemas/Payment.yaml
+    RecurringPayment:
+      $ref: ./schemas/RecurringPayment.yaml
   requestBodies:
     Basket:
       description: A basket with items to be purchased

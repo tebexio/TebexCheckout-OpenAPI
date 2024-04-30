@@ -1,0 +1,143 @@
+#TODO TODO TODO
+type: object
+properties:
+  transaction_id:
+    type: string
+    example: "tbx-26929122a56954-0e15be"
+  status:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      description:
+        type: string
+        example: "Complete"
+  payment_sequence:
+    type: string
+    example: "oneoff"
+  created_at:
+    type: string
+    format: date-time
+    example: "2022-10-19T15:49:15.000000Z"
+  price:
+    type: object
+    properties:
+      amount:
+        type: number
+        format: float
+        example: 5.35
+      currency:
+        type: string
+        example: "USD"
+  fees:
+    type: object
+    properties:
+      tax:
+        type: object
+        properties:
+          amount:
+            type: number
+            format: float
+            example: 0
+          currency:
+            type: string
+            example: "USD"
+      gateway:
+        type: object
+        properties:
+          amount:
+            type: number
+            format: float
+            example: 0.45
+          currency:
+            type: string
+            example: "USD"
+  customer:
+    type: object
+    properties:
+      first_name:
+        type: string
+        example: "Test"
+      last_name:
+        type: string
+        example: "Test"
+      email:
+        type: string
+        example: "test@test.com"
+      ip:
+        type: string
+        example: "1.2.3.4"
+      username:
+        type: string
+        nullable: true
+      marketing_consent:
+        type: boolean
+        example: false
+      country:
+        type: string
+        example: "TS"
+      postal_code:
+        type: string
+        nullable: true
+  products:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        quantity:
+          type: integer
+        base_price:
+          type: object
+          properties:
+            amount:
+              type: number
+              format: float
+            currency:
+              type: string
+        paid_price:
+          type: object
+          properties:
+            amount:
+              type: number
+              format: float
+            currency:
+              type: string
+        variables:
+          type: array
+          items:
+            type: string
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        custom:
+          type: string
+        username:
+          type: string
+          nullable: true
+  coupons:
+    type: array
+    items:
+      type: string
+  gift_cards:
+    type: array
+    items:
+      type: string
+  recurring_payment_reference:
+    type: string
+    nullable: true
+  custom:
+    type: object
+    properties:
+      user:
+        type: string
+        example: "test@test.com"
+      ref:
+        type: string
+        example: "abc-123"

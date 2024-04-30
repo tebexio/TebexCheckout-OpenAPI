@@ -1,0 +1,80 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 5000
+  created_at:
+    type: string
+    format: date-time
+    example: "2022-12-16T16:43:06.000000Z"
+  updated_at:
+    type: string
+    format: date-time
+    example: "2022-12-16T16:43:06.000000Z"
+  paused_at:
+    type: string
+    format: date-time
+    nullable: true
+  paused_until:
+    type: string
+    format: date-time
+    nullable: true
+  next_payment_date:
+    type: string
+    example: "2022-12-30T16:43:06"
+  reference:
+    type: string
+    example: "88"
+  account_id:
+    type: integer
+    example: 1
+  interval:
+    type: string
+    example: "P2W"
+  cancelled_at:
+    type: string
+    format: date-time
+    nullable: true
+  status:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      class:
+        type: string
+        example: "success"
+      description:
+        type: string
+        example: "Active"
+      active:
+        type: integer
+        example: 1
+  amount:
+    type: object
+    properties:
+      amount:
+        type: number
+        format: float
+        example: 7
+      tax:
+        type: number
+        format: float
+        example: 1.4
+      period:
+        type: string
+        example: "P2W"
+  cancel_reason:
+    type: string
+    nullable: true
+  links:
+    type: object
+    properties:
+      initial_payment:
+        type: string
+        example: "https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id"
+      payment_history:
+        type: array
+        items:
+          type: string
+          example: "https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id"
