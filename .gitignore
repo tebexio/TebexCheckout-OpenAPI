@@ -2,3 +2,4 @@
 /_out
 /_generated
 .DS_Store
+e2e_test_results.csv
