@@ -53,31 +53,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/Basket'
         '404':
-          description: Basket not found.
-          content:
-            application/json:
-              schema:
-                allOf:
-                 - $ref: "#/components/schemas/ErrorResponse"
-                properties: 
-                  type:
-                    type: string
-                    example: https://checkout.tebex.io/api/baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3
-                  title:
-                    type: string
-                    example: Basket not found.
-                  status:
-                    type: number
-                    example: 404
-                  detail:
-                    type: string
-                    example: A basket with the ID '1a-55fff4107740a1f40d844ff89607557f45bfafb3' was not found.
-                  instance:
-                    type: string
-                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3
-                
+          description: Basket not found.               
   /baskets/{ident}/packages:
-    parameters:
+    post:
+      parameters:
       - in: path
         name: ident
         schema:
@@ -85,12 +64,11 @@ paths:
           example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
         required: true
         description: The basket identifier.
-    post:
       tags:
       - Baskets
-      operationId: addPackageToBasket
+      operationId: addPackage
       summary: Add a package to the basket
-      description: This adds a package (an object describing the product) to the basket `{ident}`. **This endpoint requires prior approval. Please contact your account manager.**
+      description: This adds a package (an object describing the product) to the basket `{ident}`. For subscriptions, **only one subscription item may be in a basket at a time**, and it cannot be included with one-time payment items. **This endpoint requires prior approval. Please contact your account manager.**
       requestBody:
         content:
           application/json:
@@ -115,53 +93,32 @@ paths:
                     $ref: '#/components/schemas/RevenueShare'
       responses:
         '200':
-          description: Package is successfully added to the basket, and basket is returned. #TODO with updated totals?
+          description: Package is successfully added to the basket, and basket is returned.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Basket"        
+                $ref: "#/components/schemas/Basket"
         '400':
-          description: Improperly formatted package.
-          content:
-            application/json:
-              schema:
-                allOf:
-                 - $ref: "#/components/schemas/ErrorResponse"
-                properties:
-                  type:
-                    type: string
-                    example: https://checkout.tebex.io/api/baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
-                  title:
-                    type: string
-                    example: Bad Request
-                  status:
-                    type: number
-                    example: 400
-                  detail:
-                    type: string
-                    example: The 'package.name' parameter is required.
-                  instance:
-                    type: string
-                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
+          description: Improperly formatted package. See ErrorResponse.
         '404':
-          description: Basket not found. See error schema for specifics.
+          description: Basket not found.
   /baskets/{ident}/packages/{row.id}:
-    parameters:
-        - in: path
-          name: ident
-          schema:
-            type: string
-            example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
-          required: true
-          description: The basket identifier.
-        - in: path
-          name: row.id
-          schema:
-            type: integer
-            example: 1
-          required: true
-          description: The `id` of the `basket.rows` row to remove.
     delete:
+      parameters:
+      - in: path
+        name: ident
+        schema:
+          type: string
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        required: true
+        description: The basket identifier.
+      - in: path
+        name: row.id
+        schema:
+          type: integer
+          example: 1
+        required: true
+        description: The `id` of the `basket.rows` row to remove.
       tags:
       - Baskets
       operationId: removeRowFromBasket
@@ -171,13 +128,14 @@ paths:
         This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
       responses:
         '204':
-          description: Successfully deleted row from the basket.
-        '400': #TODO confirm, finish
-          description: Bad Request
-        '404': #TODO confirm, finish schema
+          description: Successfully deleted a row from the basket.
+        '400':
+          description: Bad Request. See ErrorResponse.
+        '404':
           description: Row or basket not found.
   /baskets/{ident}/sales:
-    parameters:
+    post:
+      parameters:
       - in: path
         name: ident
         schema:
@@ -185,7 +143,6 @@ paths:
           example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
         required: true
         description: The basket identifier.
-    post:
       tags:
       - Baskets
       operationId: addSaleToBasket
@@ -206,40 +163,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Basket'
         '400':
-          description: Bad request. Improperly formatted Sale or this basket cannot accept sales.
-          content:
-            application/json:
-              schema:
-                allOf:
-                 - $ref: "#/components/schemas/ErrorResponse"
-                properties:
-                  type:
-                    type: string
-                    example: https://checkout.tebex.io/api/baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
-                  title:
-                    type: string
-                    example: Bad Request
-                  status:
-                    type: number
-                    example: 400
-                  detail:
-                    type: string
-                    example: Sales cannot be applied to baskets with `revenue_share` set.
-                  instance:
-                    type: string
-                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3/packages
+          description: Bad request. Improperly formatted Sale or this basket cannot accept sales. See ErrorResponse.
         '404':
-          description: Basket not found. See error schema for specifics.
+          description: Basket not found.
   /checkout:
     post:
       tags:
       - Checkout
-      operationId: createCheckoutRequest
+      operationId: checkout
       summary:
         Create a checkout request
       description: This API call allows the complete checkout flow (create basket, add items, add sale) to be made in a single API call, for when the Seller is managing the basket locally. **This endpoint requires prior approval - please contact your account manager.**
       requestBody:
-        description: Provide a `Basket`, an array of `Packages` to be added to the basket, and an optional `Sale` to complete the full checkout flow in one call.
+        description: Provide a `Basket`, an array of `Packages` to be added to the basket, and an optional `Sale` to complete the full checkout flow in one call. **Only one subscription item may be in the basket at a time.**
         content:
           application/json:
             schema:
@@ -248,6 +184,7 @@ paths:
                 - "items"
               properties:
                 basket:
+                  description: An object containing the customer's information, relevant links, and any custom tracking data.
                   type: object
                   properties:
                     first_name:
@@ -260,17 +197,24 @@ paths:
                       type: string
                     complete_url:
                       type: string
-                    custom: # TODO confirm
+                    custom:
                       type: object
-                      example: {
-                        "foo": "bar", #TODO confirm
-                        "trackingId": 127000 #TODO confirm
-                      }
+                  example:
+                    first_name: Neil
+                    last_name: McNeil
+                    email: example@tebex.io
+                    return_url: https://tebex.io
+                    complete_url: https://tebex.io
+                    custom: {
+                        "foo": "bar",
+                        "trackingId": 127,
+                        "list": ["1", "2", "3"]
+                    }
                 items:
                   type: array
                   description: An array of `Packages` in the basket.
                   items:
-                    $ref: '#/components/schemas/Package'
+                    $ref: '#/components/schemas/CheckoutItem'
                 sale:
                   $ref: '#/components/schemas/Sale'
       responses:
@@ -281,7 +225,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Basket'
         '400':
-          description: Bad request. #TODO complete
+          description: Bad Request. See ErrorResponse.
               
   /payments/{txnId}?type=txn_id:
     get:
@@ -305,7 +249,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Payment'
-        '404': #TODO complete
+        '404':
           description: Transaction not found.
   /payments/{txnId}/refund?type=txn_id:
     post:
@@ -329,7 +273,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Payment'
-        '404': #TODO confirm
+        '404':
           description: Payment not found.
   /recurring-payments/{reference}:
     get:
@@ -352,7 +296,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurringPayment'
-        '404': #TODO confirm, finish
+        '404':
           description: Recurring payment not found.
     put:
       tags: 
@@ -381,9 +325,6 @@ paths:
                   type: array
                   items: 
                     $ref: '#/components/schemas/Package'
-                    #TODO FIXME non-confirming to the other endpoints
-                    # https://docs.tebex.io/developers/checkout-api/endpoints#update-a-subscription-with-a-new-product-amount-to-pay-replacing-the-existing-product
-                    # Asks for array of items but also includes basket parameters
       responses:
         '200':
           description: Successfully updated subscription. The updated `RecurringPayment` is returned.
@@ -391,9 +332,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurringPayment'
-        '400': #TODO finish
-          description: Bad request
-        '404': #TODO confirm
+        '400':
+          description: Bad Request.
+        '404':
           description: Recurring payment not found.
     delete:
       tags:
@@ -410,7 +351,7 @@ paths:
           required: true
           description: The recurring payment reference to cancel.
       responses:
-        '200': #TODO confirm this isn't a 204
+        '200':
           description: Recurring payment cancelled successfully.
           content:
             application/json:
@@ -422,7 +363,7 @@ paths:
     put:
       tags:
       - Recurring Payments
-      operationId: pauseOrReactivateRecurringPayment
+      operationId: updateRecurringPayment
       summary: Pause or reactivate a recurring payment
       parameters:
         - in: path
@@ -441,8 +382,9 @@ paths:
               properties:
                 status:
                   type: string
-                  enum: [Paused,Active] #TODO confirm, non-confirming to case
+                  enum: [Paused,Active]
                   description: Your desired state of the recurring payment. Provide `Paused` with `paused_until` to pause a recurring payment. Otherwise, provide `Active` to resume a recurring payment.
+                  example: Active
                 paused_until:
                   type: string
                   description: "To pause a payment, provide a ISO8601 formatted date on which the payment should be reactivated."
@@ -454,9 +396,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurringPayment'
-        '400': #TODO confirm
-          description: Bad request.
-        '404': #TODO finish
+        '400':
+          description: Bad Request. See ErrorResponse.
+        '404':
           description: Recurring payment not found.
   /baskets:
     post:
@@ -522,19 +464,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Basket"
         '400':
-          description: Invalid basket information provided
+          description: Invalid basket information provided.
           content:
             application/json:
               schema:
-                allOf:
-                 - $ref: "#/components/schemas/ErrorResponse"
-                properties:
-                  type:
-                    type: string
-                    example: https://checkout.tebex.io/api/baskets
-                  instance:
-                    type: string
-                    example: baskets/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     ErrorResponse:
@@ -562,7 +496,33 @@ components:
         instance:
           type: string
           description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced
-          example: TODO
+          example: /path/to/ref
+
+    CheckoutItem:
+      type: object
+      description: An item added to a basket as part of the `/checkout` request.
+      properties:
+        package:
+          $ref: '#/components/schemas/Package'
+          example:
+            price: 1.27
+            name: 1000 Gold
+
+    GiftCard: #TODO
+      type: object
+    
+    RecurringPeriod: #TODO
+      type: object
+
+    Tax: #TODO
+      type: object
+
+    Discount: #TODO
+      type: object
+
+    Coupon: #TODO
+      type: object
+
     Basket:
       type: object
       properties:
@@ -580,72 +540,110 @@ components:
         type:
           type: string
           example: single
+        recurring:
+          type: boolean
+          example: false
+        recurringPeriod:
+          $ref: '#/components/schemas/RecurringPeriod'
+          nullable: true
+        recurringNextPaymentDate:
+          type: string
+          nullable: true
+        isPaymentMethodUpdate:
+          type: boolean
+          example: false
+        returnUrl:
+          type: string
+          nullable: true
+          example: null
         complete:
           type: boolean
           example: false
         tax:
-          type: object
-          example: null #use API
+          $ref: '#/components/schemas/Tax'
         username:
           type: string
-          example: null #IS nullable, find out how to doc this properly
+          example: null
+          nullable: true
         discounts:
-          type: array
+          type: array 
           items:
-            type: object #TODO
+            $ref: '#/components/schemas/Discount'
         coupons:
-          type: array
+          type: array 
           items:
-            type: object #TODO
+            $ref: '#/components/schemas/Coupon'
         giftcards:
           type: array
           items:
-            type: object #TODO
+            $ref: '#/components/schemas/GiftCard'
         address:
           $ref: '#/components/schemas/Address'
-        actions:
-          type: object
-          example: null #TODO potentially deprecated
-          description: A set of actions associated with the Basket, to be provided via login webhooks. #TODO
-        game_currency:
-          type: object
-          example: null
-          description: Deprecated
-        tebex_account_id:
-          type: string
-          example: null
-          description: Deprecated
-        verified:
-          type: boolean
-          example: false 
-          description: Potentially deprecated #TODO
+#        actions:
+#          type: object
+#          example: null 
+#          description: A set of actions associated with the Basket, to be provided via login webhooks.
+#          nullable: true
+#        game_currency:
+#          type: object
+#          example: null
+#          description: Deprecated
+#          nullable: true
+#        tebex_account_id:
+#          type: string
+#          example: null
+#          description: Deprecated
+#        verified:
+#          type: boolean
+#          example: false 
+#          description: Potentially deprecated
         rows:
           type: array
           items:
-            $ref: "#/components/schemas/BasketPackage"
+            $ref: "#/components/schemas/BasketItem"
         fingerprint:
-          type: string #nullable
+          type: string
           example: ""
           description: Browser fingerprint to identify the user
+          nullable: true
         creator_code:
           type: string
           description: The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
-        roundup: #TODO not active
+        roundup:
           type: boolean
-          example: false # nullable object
+          example: false
+          nullable: true
+        cancel_url:
+          type: string
+          example: https://tebex.io
+        complete_url:
+          type: string
+          nullable: true
+          example: null
+        complete_auto_redirect:
+          type: boolean
+          example: false
         custom: 
           type: object
+          nullable: true
           example: 
             foo: bar
             ref: 1234
+        
         links:
           $ref: "#/components/schemas/BasketLinks"
+
+        payment:
+          $ref: "#/components/schemas/Payment"
+          nullable: true
+
     Package:
       type: object
       properties:
         name:
           type: string
           description: The name of the item being purchased. This should be user-friendly as it is shown to the customer on checkout and receipts.
+          example: 1000 Gold
         price:
           type: number
           example: 1.27
@@ -662,13 +660,16 @@ components:
         metaData:
           type: object
           properties:
-            custom: #TODO 
+            custom:
               type: string
               description: A free-text string field that is passed back to you via the webhook (for example, a tracking ID)
               example: Foo
-    BasketPackage:
+          example:
+            foo: bar
+
+    BasketItem:
       type: object
-      description: A package within a basket.
+      description: A package within an existing basket.
       properties:
         qty:
           type: integer
@@ -680,7 +681,7 @@ components:
           example: single
           description: The type of payment, either `single` for one-time payments or `subscription`.
         revenue_share:
-          type: object
+          type: array
           description: An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**
           items:
             $ref: '#/components/schemas/RevenueShare'
@@ -689,14 +690,14 @@ components:
       properties:
         wallet_ref:
           type: string
-          example: 123 #TODO
+          example: some_wallet_reference #TODO
         amount:
           type: number
           example: 0.50
           description: A float (decimal) value representing the amount of this payment in your account currency that is credited to the `wallet_ref`
         gateway_fee_percent:
           type: number
-          example: 50.00 #FIXME
+          example: 50.00
           description: A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.
     BasketLinks:
       type: object
@@ -722,10 +723,10 @@ components:
             type: object #TODO
         total:
           type: number
-        surcharges:
-          type: array
-          items:
-            type: object #TODO
+        # surcharges: #TODO unused
+        #   type: array
+        #   items:
+        #     type: object #TODO
         tax:
           type: number
         balance:
@@ -733,17 +734,17 @@ components:
         sales:
           type: array
           items:
-            type: object #TODO
+            $ref: '#/components/schemas/Sale'
         giftcards:
           type: array
           items:
-            type: object #TODO
-        recurring: #TODO will be made obsolete in the next few weeks, potential do not document.
-          type: object
-          description: Contains recurring amount. Limited to 1 subscription package in the basket at a time. 
-        roundUp: #TODO review
+            $ref: '#/components/schemas/GiftCard'
+#        recurring:   will be made obsolete in the next few weeks, potential do not document.
+#          type: object
+#          description: Contains recurring amount. Limited to 1 subscription package in the basket at a time. 
+        roundUp:
           type: number
-          description: Nullable int #TODO 
+          nullable: true
       example:
         fullPrice: 1.40
         subTotal: 1.27
@@ -754,8 +755,7 @@ components:
         balance: 0
         sales: []
         giftcards: []
-        recurring: {}
-        roundUp: 1.27 #TODO
+        roundUp: null
     Address:
       type: object
       properties:
@@ -771,6 +771,7 @@ components:
           type: string
         state_id:
           type: string
+          nullable: true
         country:
           type: string
         postal_code:
@@ -823,7 +824,7 @@ components:
           format: date-time
           example: "2022-10-19T15:49:15.000000Z"
         price:
-          type: object
+          type: object # TODO
           properties:
             amount:
               type: number
@@ -833,10 +834,10 @@ components:
               type: string
               example: "USD"
         fees:
-          type: object
+          type: object #TODO
           properties:
             tax:
-              type: object
+              type: object #TODO
               properties:
                 amount:
                   type: number
@@ -846,7 +847,7 @@ components:
                   type: string
                   example: "USD"
             gateway:
-              type: object
+              type: object #TODO
               properties:
                 amount:
                   type: number
@@ -856,7 +857,7 @@ components:
                   type: string
                   example: "USD"
         customer:
-          type: object
+          type: object #TODO
           properties:
             first_name:
               type: string

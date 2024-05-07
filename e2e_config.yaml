@@ -1,0 +1,17 @@
+auth:
+  username: ''
+  password: ''
+order:
+ - url: POST /baskets
+   persist: ident
+ - url: GET /baskets/{ident}
+ - url: POST /baskets/{ident}/packages
+ - url: POST /baskets/{ident}/sales
+ - url: DELETE /baskets/{ident}/packages/{row.id}
+ - url: GET /payments/{txnId}?type=txn_id
+ - url: POST /payments/{txnId}/refund?type=txn_id
+ - url: GET /recurring-payments/{reference}
+ - url: PUT /recurring-payments/{reference}
+ - url: PUT /recurring-payments/{reference}/status
+ - url: DELETE /recurring-payments/{reference}
+ - url: POST /checkout
