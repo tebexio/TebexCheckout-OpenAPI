@@ -633,9 +633,9 @@ components:
         links:
           $ref: "#/components/schemas/BasketLinks"
 
-        payment:
-          $ref: "#/components/schemas/Payment"
-          nullable: true
+        # payment: #TODO internal only?
+        #   $ref: "#/components/schemas/Payment"
+        #   nullable: true
 
     Package:
       type: object
@@ -723,10 +723,6 @@ components:
             type: object #TODO
         total:
           type: number
-        # surcharges: #TODO unused
-        #   type: array
-        #   items:
-        #     type: object #TODO
         tax:
           type: number
         balance:
