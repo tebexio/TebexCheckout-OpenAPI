@@ -9,6 +9,7 @@ import ast
 
 from requests.auth import HTTPBasicAuth
 from typing import List
+from datetime import datetime, timezone
 
 PASSES = 0
 FAILURES = 0
@@ -199,7 +200,6 @@ class Route:
                     print(f"{red('  error - no items for array: ' + key)}")
                     return "error"
             else:
-                print(property.keys())
                 print(f"{red('  error - no example for parameter ' + key)}")
                 return "error"
             
@@ -219,15 +219,15 @@ class Route:
         for parameter in parameters:
             examplePayload[parameter.key] = parameter.example
 
-        return str(examplePayload)
+        return examplePayload
     
-    def getEmptyRequestBody(self) -> str:
+    def getEmptyRequestBody(self) -> dict:
         """
             An empty request body should be a representation of an 'empty' object for the API.
         """
-        return ""
+        return {}
     
-    def getMalformedRequestBody(self) -> str:
+    def getMalformedRequestBody(self) -> dict:
         """
             A malformed request body should appear valid but have invalid data
         """
@@ -236,33 +236,45 @@ class Route:
 
         #FIXME
         if 'datetime.datetime' in exampleRequestBody:
-            return str({'foo':'bar'})
+            return {'foo':'bar'}
         
         if exampleRequestBody is not None and exampleRequestBody != "error" and exampleRequestBody != "":
             exampleRequestBody = json.loads(exampleRequestBody)
             for key in exampleRequestBody.keys():
                 malformedPayload[key] = "<value>"
-        return str(malformedPayload)
+        return malformedPayload
     
-    def run(self, path, requestBody: str) -> Response:
+    def run(self, path, requestBody: dict) -> Response:
         """
             Executes a given route with the provided request body. 
             A `Response` is returned containing the response code, a text copy of the response, and json response if provided.
         """
         
         try:
-            #print(yellow(requestBody))
-            jsonRequestBody = "" if requestBody == "" else json.loads(requestBody.replace("'", "\""))
+            jsonRequestBodyDict = {}
+            if requestBody is not None and requestBody != "":    
+                for key, value in requestBody.items():
+                    if isinstance(value, datetime):
+                        requestBody[key] = convert_datetime(value)
+                # Convert the dictionary to a JSON string
+                jsonRequestBody = json.dumps(requestBody)
+                # Attempt to load the JSON string back to a dictionary as a simulation of receiving and processing JSON data
+                jsonRequestBodyDict = json.loads(jsonRequestBody)
+
+            #jsonRequestBodyDict = "" if requestBody == None or requestBody == "" or requestBody == {} else json.loads(requestBody.replace("'", "\""))
+            # Python datetimes are not serialized to json, for any datetimes we put them in a serializable format here.
+            #print(yellow(jsonRequestBodyDict))
+            
             auth = HTTPBasicAuth(CONFIG['auth']['username'], CONFIG['auth']['password'])
 
             if self.method == "get":
-                response = requests.get(API_PATH + path, json = jsonRequestBody, auth=auth)
+                response = requests.get(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
             elif self.method == "post":
-                response = requests.post(API_PATH + path, json = jsonRequestBody, auth=auth)
+                response = requests.post(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
             elif self.method == "put":
-                response = requests.put(API_PATH + path, json = jsonRequestBody, auth=auth)
+                response = requests.put(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
             elif self.method == "delete":
-                response = requests.delete(API_PATH + path, json = jsonRequestBody, auth=auth)
+                response = requests.delete(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
             else:
                 print(" invalid method: " + red(str(self.method)))
                 return None
@@ -338,7 +350,7 @@ def writeTestResult(name: str, verb: str, path: str, url: str, request: str, exp
         'Verb': verb, 
         'Path': path,
         'URL': url, 
-        'Request': request.replace(",","\",\""), 
+        'Request': json.dumps(request, default=convert_datetime).replace(",","\",\""), 
         'Expected': str(expectedCode), 
         'Actual': str(actualCode), 
         'Response': "html document" if "DOCTYPE" in responseBody else responseBody, 
@@ -364,7 +376,7 @@ def testRoute(route: Route, expectedResponseCode: int):
         #print(f"  using: " + blue_underline(pathWithFilledVars), end='')
 
     # Test using the example body first, ensuring that we were able to find and parse it
-    testingRequestBody = ""
+    testingRequestBody = {}
     if expectedResponseCode == 200 or expectedResponseCode == 204:
         testingRequestBody = route.getExampleRequestBody()
         if testingRequestBody == "error":
@@ -384,14 +396,17 @@ def testRoute(route: Route, expectedResponseCode: int):
         writeTestFail(red("unexpected response code in spec, potential missing request body: " + expectedResponseCode))
         return
     
-    # Run the request and handle the response
+
+    # Ensure an empty request body is always a dict
+    if testingRequestBody == "":
+        testingRequestBody = {}
+
     testResponse = route.run(pathWithFilledVars, testingRequestBody)
     if testResponse is not None and testResponse.code != expectedResponseCode:
         #if testingRequestBody is not None and testingRequestBody != "":
             #print(f" | '{grey(testingRequestBody)}'")
             
-        writeTestFail(f"got {testResponse.code} | " + grey(testResponse.jsonBody))
-        print("     request body: " + yellow(testingRequestBody))
+        writeTestFail(f"got {testResponse.code} | request: " + yellow(testingRequestBody) + " | response: " + grey(testResponse.jsonBody))
         writeTestResult(testName, testVerb, testUrl, pathWithFilledVars, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "")
         return
     elif testResponse is None:
@@ -425,7 +440,7 @@ def testRoute(route: Route, expectedResponseCode: int):
         
 
         #print(" response: " + str(testResponse))
-        writeTestPass(f"completed successfuly")
+        writeTestPass(f"")
         writeTestResult(testName, testVerb, testUrl, pathWithFilledVars, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
     
     # Run additional tests
@@ -492,6 +507,12 @@ def main():
     print("------------------------------------------------------------")
     print("Testing completed. Results written to `e2e_test_results.csv`")
     
+# Convert datetime objects to ISO 8601 format strings
+def convert_datetime(obj):
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    return obj
+
 # Helper functions for printing colors 
 def grey(text: str) -> str:
     return "\033[38;5;244m" + str(text) + "\033[0m"
