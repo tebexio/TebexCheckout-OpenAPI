@@ -11,10 +11,11 @@ We will provide our current JSON and YAML schemas as Releases in this repository
 - `generate_sdks.sh` - Generates SDKs using the `openapigenerator` in our officially supported languages. This will also compile YAML and JSON versions of the OpenAPI spec.
 
 ## Developer Resources
-All of our plugins are open source and welcome contributions from the community. If you wish to make a contribution, please review **CONTRIBUTING.md** for guidelines
-and things to know before making your contribution.
+If you wish to make a contribution, please review **CONTRIBUTING.md** for guidelines and things to know before making your contribution.
 
 ### Environment Requirements
+These are required only if you want to run our included end-to-end tests and SDK generation. Otherwise, you may use our Release versions of the API specification for use in OpenAPI compatible generators.
+
 - NPM (to install `openapigenerator`)
 - Python 3.x
 - Required Python packages:
