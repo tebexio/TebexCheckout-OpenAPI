@@ -87,7 +87,7 @@ paths:
                   description: The type of payment, either `single` for one-time payments or `subscription`.
                   required: [single]
                 revenue_share:
-                  type: object
+                  type: array
                   description: An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**
                   items:
                     $ref: '#/components/schemas/RevenueShare'
@@ -443,7 +443,7 @@ paths:
                 expires_at:
                   type: string
                   description: An ISO8601 formatted date. After this date the basket cannot be used to checkout.
-                  example: 2024-01-27T18:09:51Z
+                  example: 2025-01-27T18:09:51Z
                 complete_auto_redirect:
                   type: boolean
                   description: Automatically redirect to the complete_url provided
@@ -455,7 +455,7 @@ paths:
                 creator_code:
                   type: string
                   description: The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
-                  example: Academy10
+                  example: 
       responses:
         '200':
           description: Basket created successfully

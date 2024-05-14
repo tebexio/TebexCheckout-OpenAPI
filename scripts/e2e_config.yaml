@@ -1,6 +1,10 @@
 auth:
   username: ''
   password: ''
+variables:
+  reference: 'tbx-r-714133083'
+  row.id: 127
+  txnId: 'tbx-84513324a17503-b1a93d'
 order:
  - url: POST /baskets
    persist: ident

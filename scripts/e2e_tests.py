@@ -18,7 +18,7 @@ API_PATH = ""
 
 OPENAPI_SPEC = {}       # Full document spec as dict
 CONFIG = {}             # Full config as dict
-PERSIST_VARIABLES = []  # Variables from config marked `persist`
+PERSIST_VARIABLES = {}  # Variables from config marked `persist`
 REPORT = None           # CSV writer
 
 def expandRef(ref: str) -> dict:
@@ -82,6 +82,19 @@ class Route:
         self.operationId = operationId
         self.definition = routeDefinition
 
+    def expandPathTokensWithNoVar(self) -> str:
+        """
+            If a route's path contains parameters ex. `/baskets/{ident}/packages/{row.id}`, this function returns the path with 'novar' replacing their token.
+        """
+        tokenPattern = r'\{[^}]*\}'
+        matches = re.findall(tokenPattern, self.path)
+        parsedPath = self.path
+
+        for curlyBraceMatch in matches:
+            parsedPath = parsedPath.replace(curlyBraceMatch, "novar")
+    
+        return parsedPath
+    
     def expandPathTokens(self) -> str:
         """
             If a route's path contains parameters ex. `/baskets/{ident}/packages/{row.id}`, this function returns the path with example 
@@ -105,6 +118,9 @@ class Route:
                     writeTestFail(paramName + " has no schema")
                     return "error"
                 
+                if paramName in PERSIST_VARIABLES.keys():
+                    parsedPath = parsedPath.replace(curlyBraceMatch, PERSIST_VARIABLES[paramName])
+
                 if paramName == strippedMatch:
                     matchedParameter = pathParameters[paramIndex]
                     #print(f"matched {matchedParameter} to {strippedMatch}")
@@ -267,6 +283,7 @@ class Route:
             
             auth = HTTPBasicAuth(CONFIG['auth']['username'], CONFIG['auth']['password'])
 
+            jsonRequestBody = json.dumps(jsonRequestBodyDict)
             if self.method == "get":
                 response = requests.get(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
             elif self.method == "post":
@@ -345,6 +362,9 @@ def writeTestFail(message: str):
     print(f" {red('[FAIL]')} {message}")
 
 def writeTestResult(name: str, verb: str, path: str, url: str, request: str, expectedCode: int, actualCode: int, responseBody: str, passed: bool, notes: str):
+    #if "DOCTYPE" in responseBody:
+        #print(red("   !! html response: " + responseBody))
+
     REPORT.writerow({
         'Name': name, 
         'Verb': verb, 
@@ -357,7 +377,7 @@ def writeTestResult(name: str, verb: str, path: str, url: str, request: str, exp
         'Status': "Pass" if passed else "Fail", 
         'Notes': notes})
     
-def testRoute(route: Route, expectedResponseCode: int):
+def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None):
     """
         Tests a route against an expected response code. The appropriate requestBody will be fetched from the route definition.
     """
@@ -365,19 +385,17 @@ def testRoute(route: Route, expectedResponseCode: int):
     testName = route.definition['description'] if 'description' in route.definition else route.definition['operationId']
     testVerb = route.method
     testUrl = route.path
-    
-    # Check for URL parameters and fill them with their example values
-    pathWithFilledVars = route.path
-    if '{' in route.path:
-        pathWithFilledVars = route.expandPathTokens()
-        if pathWithFilledVars == "error":
-            return
-        
-        #print(f"  using: " + blue_underline(pathWithFilledVars), end='')
 
     # Test using the example body first, ensuring that we were able to find and parse it
     testingRequestBody = {}
+    testPath = route.path
     if expectedResponseCode == 200 or expectedResponseCode == 204:
+        if '{' in route.path:
+            testPath = route.expandPathTokens()
+            if testPath == "error":
+                return
+            print(f"  using: " + blue_underline(testPath), end='')
+
         testingRequestBody = route.getExampleRequestBody()
         if testingRequestBody == "error":
             writeTestFail(f"invalid schema")
@@ -388,7 +406,10 @@ def testRoute(route: Route, expectedResponseCode: int):
             writeTestFail(f"invalid schema")
             return
     elif expectedResponseCode == 404:
-        #testingRequestBody = route.getEmptyRequestBody() FIXME
+        if '{' in testPath:
+            testPath = route.expandPathTokensWithNoVar()
+        print(f"  using: " + blue_underline(testPath), end='')
+        testingRequestBody = route.getEmptyRequestBody()
         if testingRequestBody == "error":
             writeTestFail(f"invalid schema")
             return
@@ -401,19 +422,27 @@ def testRoute(route: Route, expectedResponseCode: int):
     if testingRequestBody == "":
         testingRequestBody = {}
 
-    testResponse = route.run(pathWithFilledVars, testingRequestBody)
+    testResponse = route.run(testPath, testingRequestBody)
     if testResponse is not None and testResponse.code != expectedResponseCode:
         #if testingRequestBody is not None and testingRequestBody != "":
             #print(f" | '{grey(testingRequestBody)}'")
-            
-        writeTestFail(f"got {testResponse.code} | request: " + yellow(testingRequestBody) + " | response: " + grey(testResponse.jsonBody))
-        writeTestResult(testName, testVerb, testUrl, pathWithFilledVars, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "")
+
+        writeTestFail(f"got {testResponse.code} | request: " + yellow(json.dumps(testingRequestBody)) + " | response: " + grey(json.dumps(testResponse.jsonBody)))
+        writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "")
         return
-    elif testResponse is None:
+    elif testResponse is None: # No response from remote
         return
-    else:
-        #if testingRequestBody is not None and testingRequestBody != "":
-            #print(f" | '{grey(testingRequestBody)}'")
+    else: # we got an expected response code
+
+        # check the json response for variables to persist
+        if testResponse.jsonBody is not {} and persistVars is not None:
+            jsonBodyDict = json.dumps(testResponse.jsonBody)
+            jsonBodyDict = json.loads(jsonBodyDict)
+            for var in persistVars:
+                if var in jsonBodyDict:
+                    print(purple(f" persisting response variable: {var}={jsonBodyDict[var]}"), end='')
+                    global PERSIST_VARIABLES
+                    PERSIST_VARIABLES[var] = jsonBodyDict[var]
         
         #ensure response body matches expected if content is provided
         expectedResponseJson = route.definition['responses'][str(expectedResponseCode)]
@@ -431,17 +460,17 @@ def testRoute(route: Route, expectedResponseCode: int):
 
             if len(keysMissing) > 0:
                 writeTestFail(f"API response keys do not match specification")
-                writeTestResult(testName, testVerb, testUrl, pathWithFilledVars, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "Response keys do not match specification")
+                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "Response keys do not match specification")
                 return
             else:
-                writeTestPass(f"completes example operation with expected response")
-                writeTestResult(testName, testVerb, testUrl, pathWithFilledVars, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
+                writeTestPass(f"")
+                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
                 return
         
 
         #print(" response: " + str(testResponse))
         writeTestPass(f"")
-        writeTestResult(testName, testVerb, testUrl, pathWithFilledVars, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
+        writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
     
     # Run additional tests
     #writeTestFail("enforces field requirements")
@@ -461,7 +490,7 @@ def main():
        The overall number of test passes and fails are also printed on completion.
     """
     parseConfig()
-    routes = parseOpenAPISpec("openapi.yaml")
+    routes = parseOpenAPISpec("../openapi.yaml")
     numRoutesTested = 0
     routesTested = []
 
@@ -471,20 +500,26 @@ def main():
     REPORT = csv.DictWriter(csvReport, fieldnames=['Name', 'Verb', 'Path', 'URL', 'Request', 'Expected', 'Actual','Response', 'Status', 'Notes'])
     REPORT.writeheader()
 
-    for route in routes:
-        #DEV
-        #if route.path != '/checkout':
-        #    continue
-        #DEV
-        possibleResponses = route.getPossibleResponseCodes()
-        print(f"{purple(route.method.upper())} {blue_underline(route.path)}")
-        for possibleResponseCode in possibleResponses:
-            print(f"  -> expect {possibleResponseCode}", end='')
-            testRoute(route, possibleResponseCode)
-            
-        routesTested.append(route)
-        numRoutesTested += 1
-    
+    # Persist any pre-defined variables
+    global PERSIST_VARIABLES
+    for variable in CONFIG['variables']:
+        PERSIST_VARIABLES[str(variable)] = str(CONFIG['variables'][variable])
+
+    for order in CONFIG['order']:
+        for route in routes:
+            parsedRoute = route.method.lower() + " " + route.path.lower()
+            if parsedRoute == order['url'].lower():
+                possibleResponses = route.getPossibleResponseCodes()
+                print(f"{purple(route.method.upper())} {blue_underline(route.path)}")
+                for possibleResponseCode in possibleResponses:
+                    print(f"  -> expect {possibleResponseCode}", end='')
+                    if 'persist' in order:
+                        testRoute(route, possibleResponseCode, [order['persist']])
+                    else:
+                        testRoute(route, possibleResponseCode)
+                routesTested.append(route)
+                numRoutesTested += 1
+
     csvReport.close()
 
     # Print the overall passes and fails
