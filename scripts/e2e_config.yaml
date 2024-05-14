@@ -1,13 +1,13 @@
 auth:
   username: ''
   password: ''
-variables:
+variables: # path variable replacements for {varname} in the paths below
   reference: 'tbx-r-714133083'
-  row.id: 127
+  row.id: 1
   txnId: 'tbx-84513324a17503-b1a93d'
 order:
  - url: POST /baskets
-   persist: ident
+   persist: ident # save the response ident and use it for the next requests
  - url: GET /baskets/{ident}
  - url: POST /baskets/{ident}/packages
  - url: POST /baskets/{ident}/sales
