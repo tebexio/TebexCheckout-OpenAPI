@@ -1,0 +1,367 @@
+# TebexCheckout.BasketsApi
+
+All URIs are relative to *https://checkout.tebex.io/api*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**add_package**](BasketsApi.md#add_package) | **POST** /baskets/{ident}/packages | Add a package to the basket
+[**add_sale_to_basket**](BasketsApi.md#add_sale_to_basket) | **POST** /baskets/{ident}/sales | Add a sale to the basket
+[**create_basket**](BasketsApi.md#create_basket) | **POST** /baskets | Create a basket that can be used to pay for items
+[**get_basket_by_id**](BasketsApi.md#get_basket_by_id) | **GET** /baskets/{ident} | Fetch a basket by its identifier
+[**remove_row_from_basket**](BasketsApi.md#remove_row_from_basket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket
+
+
+# **add_package**
+> Basket add_package(ident, add_package_request=add_package_request)
+
+Add a package to the basket
+
+This adds a package (an object describing the product) to the basket `{ident}`. For subscriptions, **only one subscription item may be in a basket at a time**, and it cannot be included with one-time payment items. **This endpoint requires prior approval. Please contact your account manager.**
+
+### Example
+
+
+```python
+import TebexCheckout
+from TebexCheckout.models.add_package_request import AddPackageRequest
+from TebexCheckout.models.basket import Basket
+from TebexCheckout.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://checkout.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexCheckout.Configuration(
+    host = "https://checkout.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexCheckout.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexCheckout.BasketsApi(api_client)
+    ident = '1a-55fff4107740a1f40d844ff89607557f45bfafb3' # str | The basket identifier.
+    add_package_request = TebexCheckout.AddPackageRequest() # AddPackageRequest |  (optional)
+
+    try:
+        # Add a package to the basket
+        api_response = api_instance.add_package(ident, add_package_request=add_package_request)
+        print("The response of BasketsApi->add_package:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling BasketsApi->add_package: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ident** | **str**| The basket identifier. | 
+ **add_package_request** | [**AddPackageRequest**](AddPackageRequest.md)|  | [optional] 
+
+### Return type
+
+[**Basket**](Basket.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Package is successfully added to the basket, and basket is returned. |  -  |
+**400** | Improperly formatted package. See ErrorResponse. |  -  |
+**404** | Basket not found. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **add_sale_to_basket**
+> Basket add_sale_to_basket(ident, sale=sale)
+
+Add a sale to the basket
+
+Adds a `Sale` to the basket with `{ident}`. **Sales cannot be applied to baskets with `revenue_share` set.**
+
+### Example
+
+
+```python
+import TebexCheckout
+from TebexCheckout.models.basket import Basket
+from TebexCheckout.models.sale import Sale
+from TebexCheckout.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://checkout.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexCheckout.Configuration(
+    host = "https://checkout.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexCheckout.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexCheckout.BasketsApi(api_client)
+    ident = '1a-55fff4107740a1f40d844ff89607557f45bfafb3' # str | The basket identifier.
+    sale = TebexCheckout.Sale() # Sale | Provide a `Sale` as an object to apply it to the basket. (optional)
+
+    try:
+        # Add a sale to the basket
+        api_response = api_instance.add_sale_to_basket(ident, sale=sale)
+        print("The response of BasketsApi->add_sale_to_basket:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling BasketsApi->add_sale_to_basket: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ident** | **str**| The basket identifier. | 
+ **sale** | [**Sale**](Sale.md)| Provide a &#x60;Sale&#x60; as an object to apply it to the basket. | [optional] 
+
+### Return type
+
+[**Basket**](Basket.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully adds sale to basket. |  -  |
+**400** | Bad request. Improperly formatted Sale or this basket cannot accept sales. See ErrorResponse. |  -  |
+**404** | Basket not found. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_basket**
+> Basket create_basket(create_basket_request=create_basket_request)
+
+Create a basket that can be used to pay for items
+
+This will create and return a `Basket` that can be paid for by redirecting the user to `links.checkout`
+
+### Example
+
+
+```python
+import TebexCheckout
+from TebexCheckout.models.basket import Basket
+from TebexCheckout.models.create_basket_request import CreateBasketRequest
+from TebexCheckout.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://checkout.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexCheckout.Configuration(
+    host = "https://checkout.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexCheckout.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexCheckout.BasketsApi(api_client)
+    create_basket_request = TebexCheckout.CreateBasketRequest() # CreateBasketRequest | Create a basket, returning the full basket object and payment link. (optional)
+
+    try:
+        # Create a basket that can be used to pay for items
+        api_response = api_instance.create_basket(create_basket_request=create_basket_request)
+        print("The response of BasketsApi->create_basket:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling BasketsApi->create_basket: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_basket_request** | [**CreateBasketRequest**](CreateBasketRequest.md)| Create a basket, returning the full basket object and payment link. | [optional] 
+
+### Return type
+
+[**Basket**](Basket.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Basket created successfully |  -  |
+**400** | Invalid basket information provided. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_basket_by_id**
+> Basket get_basket_by_id(ident)
+
+Fetch a basket by its identifier
+
+Gets the basket associated with the provided identifier.
+
+### Example
+
+
+```python
+import TebexCheckout
+from TebexCheckout.models.basket import Basket
+from TebexCheckout.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://checkout.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexCheckout.Configuration(
+    host = "https://checkout.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexCheckout.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexCheckout.BasketsApi(api_client)
+    ident = '1a-55fff4107740a1f40d844ff89607557f45bfafb3' # str | The basket identifier.
+
+    try:
+        # Fetch a basket by its identifier
+        api_response = api_instance.get_basket_by_id(ident)
+        print("The response of BasketsApi->get_basket_by_id:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling BasketsApi->get_basket_by_id: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ident** | **str**| The basket identifier. | 
+
+### Return type
+
+[**Basket**](Basket.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response returns the basket.  The &#x60;links.payment&#x60; property is only returned if the basket has been paid for, and a payment exist with the **complete**/**refund**/**chargeback** status.  The &#x60;links.checkout&#x60; property is only returned if the basket has not been paid, and is the URL to send the customer to in order to complete payment. |  -  |
+**404** | Basket not found. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_row_from_basket**
+> remove_row_from_basket(ident, row_id)
+
+Remove a row from the basket
+
+This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+
+### Example
+
+
+```python
+import TebexCheckout
+from TebexCheckout.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://checkout.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexCheckout.Configuration(
+    host = "https://checkout.tebex.io/api"
+)
+
+
+# Enter a context with an instance of the API client
+with TebexCheckout.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexCheckout.BasketsApi(api_client)
+    ident = '1a-55fff4107740a1f40d844ff89607557f45bfafb3' # str | The basket identifier.
+    row_id = 1 # int | The `id` of the `basket.rows` row to remove.
+
+    try:
+        # Remove a row from the basket
+        api_instance.remove_row_from_basket(ident, row_id)
+    except Exception as e:
+        print("Exception when calling BasketsApi->remove_row_from_basket: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ident** | **str**| The basket identifier. | 
+ **row_id** | **int**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successfully deleted a row from the basket. |  -  |
+**400** | Bad Request. See ErrorResponse. |  -  |
+**404** | Row or basket not found. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

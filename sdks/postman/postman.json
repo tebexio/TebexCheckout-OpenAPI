@@ -1,0 +1,673 @@
+{
+	"info": {
+		"name": "Tebex Checkout API",
+		"description": {
+		    "content": "The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.\n\nYou must receive prior authorisation before the Checkout API is enabled on your account. Please contact customer support or your account manager to discover if you qualify to use the Checkout API before beginning integration.",
+		    "type": "text/markdown"
+		},
+		"version": "1.0.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+	        {
+	            "name": "Checkout",
+	            "item": [
+	                        {
+    "name": "/checkout",
+                "description": "This API call allows the complete checkout flow (create basket, add items, add sale) to be made in a single API call, for when the Seller is managing the basket locally. **This endpoint requires prior approval - please contact your account manager.**",
+                 "item": [
+                            {
+                                "name": "Create a checkout request",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"basket\": \"<string>\",\n \"items\": \"<string>\",\n \"sale\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/checkout",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "checkout"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This API call allows the complete checkout flow (create basket, add items, add sale) to be made in a single API call, for when the Seller is managing the basket locally. **This endpoint requires prior approval - please contact your account manager.**"
+                                }
+                            }
+                            ]
+                        }
+	                    ]
+	        },
+	        {
+	            "name": "Baskets",
+	            "item": [
+	                        {
+    "name": "/baskets",
+                "description": "This will create and return a `Basket` that can be paid for by redirecting the user to `links.checkout`",
+                 "item": [
+                            {
+                                "name": "Create a basket that can be used to pay for items",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"return_url\": \"<string>\",\n \"complete_url\": \"<string>\",\n \"custom\": \"<string>\",\n \"first_name\": \"<string>\",\n \"last_name\": \"<string>\",\n \"email\": \"<string>\",\n \"expires_at\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\",\n \"country\": \"<string>\",\n \"creator_code\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This will create and return a `Basket` that can be paid for by redirecting the user to `links.checkout`"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:ident",
+                "description": "Gets the basket associated with the provided identifier.",
+                 "item": [
+                            {
+                                "name": "Fetch a basket by its identifier",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:ident",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":ident"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "ident",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Gets the basket associated with the provided identifier."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:ident/packages",
+                "description": "This adds a package (an object describing the product) to the basket `{ident}`. For subscriptions, **only one subscription item may be in a basket at a time**, and it cannot be included with one-time payment items. **This endpoint requires prior approval. Please contact your account manager.**",
+                 "item": [
+                            {
+                                "name": "Add a package to the basket",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"package\": \"<string>\",\n \"qty\": \"<number>\",\n \"type\": \"<string>\",\n \"revenue_share\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:ident/packages",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":ident",
+                                            "packages"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "ident",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This adds a package (an object describing the product) to the basket `{ident}`. For subscriptions, **only one subscription item may be in a basket at a time**, and it cannot be included with one-time payment items. **This endpoint requires prior approval. Please contact your account manager.**"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:ident/packages/:row.id",
+                "description": "This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.",
+                 "item": [
+                            {
+                                "name": "Remove a row from the basket",
+                                "request": {
+                                    "method": "DELETE",
+                                    "header": [
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:ident/packages/:row.id",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":ident",
+                                            "packages",
+                                            ":row.id"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "ident",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            },
+                                            {
+                                                "key": "rowPeriodid",
+                                                "value": "",
+                                                "description": "The `id` of the `basket.rows` row to remove."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:ident/sales",
+                "description": "Adds a `Sale` to the basket with `{ident}`. **Sales cannot be applied to baskets with `revenue_share` set.**",
+                 "item": [
+                            {
+                                "name": "Add a sale to the basket",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"name\": \"<string>\",\n \"discount_type\": \"<string>\",\n \"amount\": \"<number>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:ident/sales",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":ident",
+                                            "sales"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "ident",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "Adds a `Sale` to the basket with `{ident}`. **Sales cannot be applied to baskets with `revenue_share` set.**"
+                                }
+                            }
+                            ]
+                        }
+	                    ]
+	        },
+	        {
+	            "name": "Payments",
+	            "item": [
+	                        {
+    "name": "/payments/:txnId/refund?type&#x3D;txn_id",
+                "description": "This will refund the given payment associated with this transaction id.",
+                 "item": [
+                            {
+                                "name": "Refund a payment by its transaction ID",
+                                "request": {
+                                    "method": "POST",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/payments/:txnId/refund?type&#x3D;txn_id",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "payments",
+                                            ":txnId",
+                                            "refund?type&#x3D;txn_id"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "txnId",
+                                                "value": "",
+                                                "description": "The payment reference to refund."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This will refund the given payment associated with this transaction id."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/payments/:txnId?type&#x3D;txn_id",
+                "description": "This will fetch the given payment associated with this transaction id. Single payment transaction IDs begin with `tbx-`",
+                 "item": [
+                            {
+                                "name": "Fetch a payment by its transaction ID",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/payments/:txnId?type&#x3D;txn_id",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "payments",
+                                            ":txnId?type&#x3D;txn_id"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "txnId",
+                                                "value": "",
+                                                "description": "The payment reference to fetch."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This will fetch the given payment associated with this transaction id. Single payment transaction IDs begin with `tbx-`"
+                                }
+                            }
+                            ]
+                        }
+	                    ]
+	        },
+	        {
+	            "name": "Recurring Payments",
+	            "item": [
+	                        {
+    "name": "/recurring-payments/:reference",
+                "description": "This cancels the recurring payment for the reference provided. Recurring payment references start with `tbx-r-`",
+                 "item": [
+                            {
+                                "name": "Cancel a recurring payment",
+                                "request": {
+                                    "method": "DELETE",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/recurring-payments/:reference",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "recurring-payments",
+                                            ":reference"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "reference",
+                                                "value": "",
+                                                "description": "The recurring payment reference to cancel."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This cancels the recurring payment for the reference provided. Recurring payment references start with `tbx-r-`"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/recurring-payments/:reference",
+                "description": "",
+                 "item": [
+                            {
+                                "name": "Fetch a recurring payment (subscription) by its reference",
+                                "request": {
+                                    "method": "GET",
+                                    "header": [
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/recurring-payments/:reference",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "recurring-payments",
+                                            ":reference"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "reference",
+                                                "value": "",
+                                                "description": "The recurring payment reference to fetch."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": ""
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/recurring-payments/:reference",
+                "description": "If the new subscription amount is higher than the existing amount, a pro-rata charge will be made to cover the cost of the new price up until the next billing date.   **This endpoint requires prior approval - please contact your account manager.**",
+                 "item": [
+                            {
+                                "name": "Update a subscription with a new product / amount to pay - replacing the existing product",
+                                "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"items\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/recurring-payments/:reference",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "recurring-payments",
+                                            ":reference"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "reference",
+                                                "value": "",
+                                                "description": "The recurring payment reference to fetch."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "If the new subscription amount is higher than the existing amount, a pro-rata charge will be made to cover the cost of the new price up until the next billing date.   **This endpoint requires prior approval - please contact your account manager.**"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/recurring-payments/:reference/status",
+                "description": "",
+                 "item": [
+                            {
+                                "name": "Pause or reactivate a recurring payment",
+                                "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "key": "Accept",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"status\": \"<string>\",\n \"paused_until\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/recurring-payments/:reference/status",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "recurring-payments",
+                                            ":reference",
+                                            "status"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "reference",
+                                                "value": "",
+                                                "description": "The recurring payment reference to update."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": ""
+                                }
+                            }
+                            ]
+                        }
+	                    ]
+	        }
+    ],
+    "auth": {
+            		"type": "basic",
+            		"basic": [
+            			{
+            				"key": "username",
+            				"value": "{{USERNAME}}",
+            				"type": "string"
+            			},
+            			{
+            				"key": "password",
+            				"value": "{{PASSWORD}}",
+            				"type": "string"
+            			}
+            		]
+            	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://checkout.tebex.io/api",
+			"type": "string"
+        }
+	]
+}
+

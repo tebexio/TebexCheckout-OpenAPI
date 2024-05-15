@@ -1,0 +1,1374 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: tebex-integrations@overwolf.com
+  description: |-
+    The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.
+
+    You must receive prior authorisation before the Checkout API is enabled on your account. Please contact customer support or your account manager to discover if you qualify to use the Checkout API before beginning integration.
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+  termsOfService: https://tebex.io/terms-creator-agreement
+  title: Tebex Checkout API
+  version: 1.0.0
+servers:
+- url: https://checkout.tebex.io/api
+tags:
+- description: A string identifier representing the basket
+  name: Ident
+- description: "To start a transaction, a basket must be created. The basket, similar\
+    \ to a standard eCommerce basket will contain the items that the customer is purchasing."
+  name: Baskets
+- description: "Payments with reference IDs like `tbx-r-`. Can be paused, reeactivated,\
+    \ and cancelled provided a valid reference id."
+  name: Recurring Payments
+- description: Single payments (`tbx-`) can be fetched and refunded with a valid reference
+    id.
+  name: Payments
+paths:
+  /baskets/{ident}:
+    get:
+      description: Gets the basket associated with the provided identifier.
+      operationId: getBasketById
+      parameters:
+      - description: The basket identifier.
+        explode: false
+        in: path
+        name: ident
+        required: true
+        schema:
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+          description: |-
+            Successful response returns the basket.
+
+            The `links.payment` property is only returned if the basket has been paid for, and a payment exist with the **complete**/**refund**/**chargeback** status.
+
+            The `links.checkout` property is only returned if the basket has not been paid, and is the URL to send the customer to in order to complete payment.
+        "404":
+          description: Basket not found.
+      summary: Fetch a basket by its identifier
+      tags:
+      - Baskets
+  /baskets/{ident}/packages:
+    post:
+      description: "This adds a package (an object describing the product) to the\
+        \ basket `{ident}`. For subscriptions, **only one subscription item may be\
+        \ in a basket at a time**, and it cannot be included with one-time payment\
+        \ items. **This endpoint requires prior approval. Please contact your account\
+        \ manager.**"
+      operationId: addPackage
+      parameters:
+      - description: The basket identifier.
+        explode: false
+        in: path
+        name: ident
+        required: true
+        schema:
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addPackage_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+          description: "Package is successfully added to the basket, and basket is\
+            \ returned."
+        "400":
+          description: Improperly formatted package. See ErrorResponse.
+        "404":
+          description: Basket not found.
+      summary: Add a package to the basket
+      tags:
+      - Baskets
+  /baskets/{ident}/packages/{row.id}:
+    delete:
+      description: "This will remove the given `{row.id}` from the basket `{ident}`.\
+        \ The basket must be re-fetched after running to receive updated totals."
+      operationId: removeRowFromBasket
+      parameters:
+      - description: The basket identifier.
+        explode: false
+        in: path
+        name: ident
+        required: true
+        schema:
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      - description: The `id` of the `basket.rows` row to remove.
+        explode: false
+        in: path
+        name: row.id
+        required: true
+        schema:
+          example: 1
+          type: integer
+        style: simple
+      responses:
+        "204":
+          description: Successfully deleted a row from the basket.
+        "400":
+          description: Bad Request. See ErrorResponse.
+        "404":
+          description: Row or basket not found.
+      summary: Remove a row from the basket
+      tags:
+      - Baskets
+  /baskets/{ident}/sales:
+    post:
+      description: "Adds a `Sale` to the basket with `{ident}`. **Sales cannot be\
+        \ applied to baskets with `revenue_share` set.**"
+      operationId: addSaleToBasket
+      parameters:
+      - description: The basket identifier.
+        explode: false
+        in: path
+        name: ident
+        required: true
+        schema:
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sale'
+        description: Provide a `Sale` as an object to apply it to the basket.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+          description: Successfully adds sale to basket.
+        "400":
+          description: Bad request. Improperly formatted Sale or this basket cannot
+            accept sales. See ErrorResponse.
+        "404":
+          description: Basket not found.
+      summary: Add a sale to the basket
+      tags:
+      - Baskets
+  /checkout:
+    post:
+      description: "This API call allows the complete checkout flow (create basket,\
+        \ add items, add sale) to be made in a single API call, for when the Seller\
+        \ is managing the basket locally. **This endpoint requires prior approval\
+        \ - please contact your account manager.**"
+      operationId: checkout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkout_request'
+        description: "Provide a `Basket`, an array of `Packages` to be added to the\
+          \ basket, and an optional `Sale` to complete the full checkout flow in one\
+          \ call. **Only one subscription item may be in the basket at a time.**"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+          description: Successfully created basket. The basket will be returned with
+            `links` containing the URLs you should direct the customer to in order
+            to complete payment.
+        "400":
+          description: Bad Request. See ErrorResponse.
+      summary: Create a checkout request
+      tags:
+      - Checkout
+  /payments/{txnId}?type=txn_id:
+    get:
+      description: This will fetch the given payment associated with this transaction
+        id. Single payment transaction IDs begin with `tbx-`
+      operationId: getPaymentById
+      parameters:
+      - description: The payment reference to fetch.
+        explode: false
+        in: path
+        name: txnId
+        required: true
+        schema:
+          example: tbx-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: Payment fetched successfully.
+        "404":
+          description: Transaction not found.
+      summary: Fetch a payment by its transaction ID
+      tags:
+      - Payments
+  /payments/{txnId}/refund?type=txn_id:
+    post:
+      description: This will refund the given payment associated with this transaction
+        id.
+      operationId: refundPaymentById
+      parameters:
+      - description: The payment reference to refund.
+        explode: false
+        in: path
+        name: txnId
+        required: true
+        schema:
+          example: tbx-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: Payment refunded successfully. The payment details are returned.
+        "404":
+          description: Payment not found.
+      summary: Refund a payment by its transaction ID
+      tags:
+      - Payments
+  /recurring-payments/{reference}:
+    delete:
+      description: This cancels the recurring payment for the reference provided.
+        Recurring payment references start with `tbx-r-`
+      operationId: cancelRecurringPayment
+      parameters:
+      - description: The recurring payment reference to cancel.
+        explode: false
+        in: path
+        name: reference
+        required: true
+        schema:
+          example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+          description: Recurring payment cancelled successfully.
+        "404":
+          description: Recurring payment not found.
+      summary: Cancel a recurring payment
+      tags:
+      - Recurring Payments
+    get:
+      operationId: getRecurringPayment
+      parameters:
+      - description: The recurring payment reference to fetch.
+        explode: false
+        in: path
+        name: reference
+        required: true
+        schema:
+          example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+          description: Successfully fetched recurring payment.
+        "404":
+          description: Recurring payment not found.
+      summary: Fetch a recurring payment (subscription) by its reference
+      tags:
+      - Recurring Payments
+    put:
+      description: "If the new subscription amount is higher than the existing amount,\
+        \ a pro-rata charge will be made to cover the cost of the new price up until\
+        \ the next billing date. \n\n**This endpoint requires prior approval - please\
+        \ contact your account manager.**"
+      operationId: updateSubscription
+      parameters:
+      - description: The recurring payment reference to fetch.
+        explode: false
+        in: path
+        name: reference
+        required: true
+        schema:
+          example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSubscription_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+          description: Successfully updated subscription. The updated `RecurringPayment`
+            is returned.
+        "400":
+          description: Bad Request.
+        "404":
+          description: Recurring payment not found.
+      summary: Update a subscription with a new product / amount to pay - replacing
+        the existing product
+      tags:
+      - Recurring Payments
+  /recurring-payments/{reference}/status:
+    put:
+      operationId: updateRecurringPayment
+      parameters:
+      - description: The recurring payment reference to update.
+        explode: false
+        in: path
+        name: reference
+        required: true
+        schema:
+          example: tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRecurringPayment_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringPayment'
+          description: Successfully paused or reactivated a payment. The `RecurringPayment`
+            is returned.
+        "400":
+          description: Bad Request. See ErrorResponse.
+        "404":
+          description: Recurring payment not found.
+      summary: Pause or reactivate a recurring payment
+      tags:
+      - Recurring Payments
+  /baskets:
+    post:
+      description: This will create and return a `Basket` that can be paid for by
+        redirecting the user to `links.checkout`
+      operationId: createBasket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBasket_request'
+        description: "Create a basket, returning the full basket object and payment\
+          \ link."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Basket'
+          description: Basket created successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid basket information provided.
+      summary: Create a basket that can be used to pay for items
+      tags:
+      - Baskets
+components:
+  requestBodies:
+    Basket:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Basket'
+      description: A basket with items to be purchased
+  schemas:
+    ErrorResponse:
+      example:
+        instance: /path/to/ref
+        detail: Parameter 'first_name' is required.
+        type: ""
+        title: Bad Request
+        status: 400
+      properties:
+        type:
+          description: "A URI reference [RFC3986] that identifies the problem type.\
+            \  This specification encourages that, when dereferenced, it provide human-readable\
+            \ documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]).\
+            \  When this member is not present, its value is assumed to be \"about:blank\"\
+            ."
+        title:
+          description: "A short, human-readable summary of the problem type.  It SHOULD\
+            \ NOT change from occurrence to occurrence of the problem, except for\
+            \ purposes of localization"
+          example: Bad Request
+          type: string
+        status:
+          description: The HTTP status code generated by the origin server for the
+            occurrence of the problem.
+          example: 400
+          type: integer
+        detail:
+          description: A human-readable explanation specific to this occurrence of
+            the problem.
+          example: Parameter 'first_name' is required.
+          type: string
+        instance:
+          description: A URI reference that identifies the specific occurrence of
+            the problem. It may or may not yield further information if dereferenced
+          example: /path/to/ref
+          type: string
+      type: object
+    CheckoutItem:
+      description: An item added to a basket as part of the `/checkout` request.
+      properties:
+        package:
+          $ref: '#/components/schemas/Package'
+      type: object
+    GiftCard:
+      type: object
+    RecurringPeriod:
+      type: object
+    Tax:
+      type: object
+    Discount:
+      type: object
+    Coupon:
+      type: object
+    Basket:
+      example:
+        giftcards:
+        - null
+        - null
+        ident: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        type: single
+        complete_auto_redirect: false
+        discounts:
+        - null
+        - null
+        coupons:
+        - null
+        - null
+        price: 1.27
+        fingerprint: ""
+        links:
+          payment: https://checkout.tebex.io/api/payments/tbx-12345
+          checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        returnUrl: returnUrl
+        creator_code: creator_code
+        address:
+          name: Neil McNeil
+          first_name: Neil
+          last_name: McNeil
+          address: "37 Broadhurst Gardens, London, United Kingdom, NW6 3QT"
+          email: example@tebex.io
+          state_id: null
+          country: UK
+          postal_code: NW6 3QT
+        recurringPeriod: "{}"
+        recurring: false
+        custom:
+          foo: bar
+          ref: 1234
+        recurringNextPaymentDate: recurringNextPaymentDate
+        tax: "{}"
+        rows:
+        - qty: 2
+          revenue_share:
+          - amount: 0.5
+            wallet_ref: some_wallet_reference
+            gateway_fee_percent: 50.0
+          - amount: 0.5
+            wallet_ref: some_wallet_reference
+            gateway_fee_percent: 50.0
+          type: single
+        - qty: 2
+          revenue_share:
+          - amount: 0.5
+            wallet_ref: some_wallet_reference
+            gateway_fee_percent: 50.0
+          - amount: 0.5
+            wallet_ref: some_wallet_reference
+            gateway_fee_percent: 50.0
+          type: single
+        isPaymentMethodUpdate: false
+        expire: 2022-10-25 15:15:40
+        priceDetails:
+          fullPrice: 1.4
+          subTotal: 1.27
+          discounts: []
+          total: 1.4
+          surcharges: []
+          tax: 0.13
+          balance: 0
+          sales: []
+          giftcards: []
+          roundUp: null
+        complete: false
+        roundup: false
+        cancel_url: https://tebex.io
+        complete_url: complete_url
+        username: username
+      properties:
+        ident:
+          example: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+        expire:
+          example: 2022-10-25 15:15:40
+          type: string
+        price:
+          example: 1.27
+          type: number
+        priceDetails:
+          $ref: '#/components/schemas/PriceDetails'
+        type:
+          example: single
+          type: string
+        recurring:
+          example: false
+          type: boolean
+        recurringPeriod:
+          type: object
+        recurringNextPaymentDate:
+          nullable: true
+          type: string
+        isPaymentMethodUpdate:
+          example: false
+          type: boolean
+        returnUrl:
+          nullable: true
+          type: string
+          example: null
+        complete:
+          example: false
+          type: boolean
+        tax:
+          type: object
+        username:
+          nullable: true
+          type: string
+          example: null
+        discounts:
+          items:
+            $ref: '#/components/schemas/Discount'
+          type: array
+        coupons:
+          items:
+            $ref: '#/components/schemas/Coupon'
+          type: array
+        giftcards:
+          items:
+            $ref: '#/components/schemas/GiftCard'
+          type: array
+        address:
+          $ref: '#/components/schemas/Address'
+        rows:
+          items:
+            $ref: '#/components/schemas/BasketItem'
+          type: array
+        fingerprint:
+          description: Browser fingerprint to identify the user
+          example: ""
+          nullable: true
+          type: string
+        creator_code:
+          description: The creator code is used to share a percentage of the payment
+            with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
+          type: string
+        roundup:
+          example: false
+          nullable: true
+          type: boolean
+        cancel_url:
+          example: https://tebex.io
+          type: string
+        complete_url:
+          nullable: true
+          type: string
+          example: null
+        complete_auto_redirect:
+          example: false
+          type: boolean
+        custom:
+          example:
+            foo: bar
+            ref: 1234
+          nullable: true
+          type: object
+        links:
+          $ref: '#/components/schemas/BasketLinks'
+      type: object
+    Package:
+      properties:
+        name:
+          description: The name of the item being purchased. This should be user-friendly
+            as it is shown to the customer on checkout and receipts.
+          example: 1000 Gold
+          type: string
+        price:
+          description: A float (decimal describing the price of the package in your
+            account currency)
+          example: 1.27
+          type: number
+        expiry_period:
+          description: The renewal period of this item
+          enum:
+          - day
+          - month
+          - year
+          example: month
+          type: string
+        expiry_length:
+          description: An integer representing the number of `expiry_periods` that
+            make up the renewal period.
+          example: 3
+          type: integer
+        metaData:
+          $ref: '#/components/schemas/Package_metaData'
+      type: object
+    BasketItem:
+      description: A package within an existing basket.
+      example:
+        qty: 2
+        revenue_share:
+        - amount: 0.5
+          wallet_ref: some_wallet_reference
+          gateway_fee_percent: 50.0
+        - amount: 0.5
+          wallet_ref: some_wallet_reference
+          gateway_fee_percent: 50.0
+        type: single
+      properties:
+        qty:
+          description: The quantity of `package` in this basket. This is not the total
+            quantity of overall items in the basket.
+          example: 2
+          type: integer
+        type:
+          description: "The type of payment, either `single` for one-time payments\
+            \ or `subscription`."
+          enum:
+          - single
+          - subscription
+          example: single
+          type: string
+        revenue_share:
+          description: An array of payment destination objects describing how the
+            purchase should be split between multiple wallets. **Only available with
+            pre-agreement from Tebex.**
+          items:
+            $ref: '#/components/schemas/RevenueShare'
+          type: array
+      type: object
+    RevenueShare:
+      example:
+        amount: 0.5
+        wallet_ref: some_wallet_reference
+        gateway_fee_percent: 50.0
+      properties:
+        wallet_ref:
+          example: some_wallet_reference
+          type: string
+        amount:
+          description: A float (decimal) value representing the amount of this payment
+            in your account currency that is credited to the `wallet_ref`
+          example: 0.5
+          type: number
+        gateway_fee_percent:
+          description: A float (decimal) value representing the percentage of the
+            gateway fee that should be dedicated from this wallet’s revenue share.
+            This optional value can be anywhere between 0 - 100.
+          example: 50.0
+          type: number
+      type: object
+    BasketLinks:
+      example:
+        payment: https://checkout.tebex.io/api/payments/tbx-12345
+        checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+      properties:
+        payment:
+          description: "The `links.payment` property is only returned if the basket\
+            \ has been paid for and a payment exists with the `complete`,`refund`,\
+            \ or `chargeback` status."
+          example: https://checkout.tebex.io/api/payments/tbx-12345
+          type: string
+        checkout:
+          description: "The `links.checkout` property is only returned if the basket\
+            \ has not been paid, and is the URL to send the customer to make payment"
+          example: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+          type: string
+      type: object
+    PriceDetails:
+      example:
+        fullPrice: 1.4
+        subTotal: 1.27
+        discounts: []
+        total: 1.4
+        surcharges: []
+        tax: 0.13
+        balance: 0
+        sales: []
+        giftcards: []
+        roundUp: null
+      properties:
+        fullPrice:
+          type: number
+        subTotal:
+          type: number
+        discounts:
+          items:
+            type: object
+          type: array
+        total:
+          type: number
+        tax:
+          type: number
+        balance:
+          type: number
+        sales:
+          items:
+            $ref: '#/components/schemas/Sale'
+          type: array
+        giftcards:
+          items:
+            $ref: '#/components/schemas/GiftCard'
+          type: array
+        roundUp:
+          nullable: true
+          type: number
+      type: object
+    Address:
+      example:
+        name: Neil McNeil
+        first_name: Neil
+        last_name: McNeil
+        address: "37 Broadhurst Gardens, London, United Kingdom, NW6 3QT"
+        email: example@tebex.io
+        state_id: null
+        country: UK
+        postal_code: NW6 3QT
+      properties:
+        name:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+        state_id:
+          nullable: true
+          type: string
+        country:
+          type: string
+        postal_code:
+          type: string
+      type: object
+    Sale:
+      example:
+        amount: 4.99
+        name: Test Sale
+        discount_type: amount
+      properties:
+        name:
+          description: The name of the sale (displayed to the customer)
+          example: Test Sale
+          type: string
+        discount_type:
+          description: "The type of discount, either `percentage` for deducting a\
+            \ percentage of each item, or `amount` to deduct a fixed amount from each\
+            \ item."
+          enum:
+          - percentage
+          - amount
+          example: amount
+          type: string
+        amount:
+          description: The amount or percentage to deduct
+          example: 4.99
+          type: number
+      type: object
+    Payment:
+      example:
+        transaction_id: tbx-26929122a56954-0e15be
+        payment_sequence: oneoff
+        fees:
+          tax:
+            amount: 0
+            currency: USD
+          gateway:
+            amount: 0.45
+            currency: USD
+        gift_cards:
+        - gift_cards
+        - gift_cards
+        recurring_payment_reference: recurring_payment_reference
+        coupons:
+        - coupons
+        - coupons
+        price:
+          amount: 5.35
+          currency: USD
+        custom:
+          ref: abc-123
+          user: test@test.com
+        created_at: 2022-10-19T15:49:15Z
+        status:
+          description: Complete
+          id: 1
+        customer:
+          country: TS
+          ip: 1.2.3.4
+          last_name: Test
+          postal_code: postal_code
+          first_name: Test
+          marketing_consent: false
+          email: test@test.com
+          username: username
+        products:
+        - paid_price:
+            amount: 6.0274563
+            currency: currency
+          variables:
+          - variables
+          - variables
+          quantity: 0
+          expires_at: 2000-01-23T04:56:07.000+00:00
+          custom: custom
+          name: name
+          base_price:
+            amount: 6.0274563
+            currency: currency
+          id: id
+          username: username
+        - paid_price:
+            amount: 6.0274563
+            currency: currency
+          variables:
+          - variables
+          - variables
+          quantity: 0
+          expires_at: 2000-01-23T04:56:07.000+00:00
+          custom: custom
+          name: name
+          base_price:
+            amount: 6.0274563
+            currency: currency
+          id: id
+          username: username
+      properties:
+        transaction_id:
+          example: tbx-26929122a56954-0e15be
+          type: string
+        status:
+          $ref: '#/components/schemas/Payment_status'
+        payment_sequence:
+          example: oneoff
+          type: string
+        created_at:
+          example: 2022-10-19T15:49:15Z
+          format: date-time
+          type: string
+        price:
+          $ref: '#/components/schemas/Payment_price'
+        fees:
+          $ref: '#/components/schemas/Payment_fees'
+        customer:
+          $ref: '#/components/schemas/Payment_customer'
+        products:
+          items:
+            $ref: '#/components/schemas/Payment_products_inner'
+          type: array
+        coupons:
+          items:
+            type: string
+          type: array
+        gift_cards:
+          items:
+            type: string
+          type: array
+        recurring_payment_reference:
+          nullable: true
+          type: string
+        custom:
+          $ref: '#/components/schemas/Payment_custom'
+      type: object
+    RecurringPayment:
+      example:
+        cancelled_at: 2000-01-23T04:56:07.000+00:00
+        amount:
+          amount: 7
+          period: P2W
+          tax: 1.4
+        created_at: 2022-12-16T16:43:06Z
+        next_payment_date: 2022-12-30T16:43:06
+        reference: "88"
+        cancel_reason: cancel_reason
+        paused_at: 2000-01-23T04:56:07.000+00:00
+        account_id: 1
+        updated_at: 2022-12-16T16:43:06Z
+        paused_until: 2000-01-23T04:56:07.000+00:00
+        interval: P2W
+        links:
+          initial_payment: https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+          payment_history:
+          - https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+          - https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+        id: 5000
+        status:
+          description: Active
+          active: 1
+          id: 2
+          class: success
+      properties:
+        id:
+          example: 5000
+          type: integer
+        created_at:
+          example: 2022-12-16T16:43:06Z
+          format: date-time
+          type: string
+        updated_at:
+          example: 2022-12-16T16:43:06Z
+          format: date-time
+          type: string
+        paused_at:
+          format: date-time
+          nullable: true
+          type: string
+        paused_until:
+          format: date-time
+          nullable: true
+          type: string
+        next_payment_date:
+          example: 2022-12-30T16:43:06
+          type: string
+        reference:
+          example: "88"
+          type: string
+        account_id:
+          example: 1
+          type: integer
+        interval:
+          example: P2W
+          type: string
+        cancelled_at:
+          format: date-time
+          nullable: true
+          type: string
+        status:
+          $ref: '#/components/schemas/RecurringPayment_status'
+        amount:
+          $ref: '#/components/schemas/RecurringPayment_amount'
+        cancel_reason:
+          nullable: true
+          type: string
+        links:
+          $ref: '#/components/schemas/RecurringPayment_links'
+      type: object
+    addPackage_request:
+      properties:
+        package:
+          $ref: '#/components/schemas/Package'
+        qty:
+          description: The quantity of `package` in this basket. This is not the total
+            quantity of overall items in the basket.
+          example: 2
+          type: integer
+        type:
+          description: "The type of payment, either `single` for one-time payments\
+            \ or `subscription`."
+          enum:
+          - single
+          - subscription
+          example: single
+          required:
+          - single
+          type: string
+        revenue_share:
+          description: An array of payment destination objects describing how the
+            purchase should be split between multiple wallets. **Only available with
+            pre-agreement from Tebex.**
+          items:
+            $ref: '#/components/schemas/RevenueShare'
+          type: array
+    checkout_request_basket:
+      description: "An object containing the customer's information, relevant links,\
+        \ and any custom tracking data."
+      example:
+        first_name: Neil
+        last_name: McNeil
+        email: example@tebex.io
+        return_url: https://tebex.io
+        complete_url: https://tebex.io
+        custom:
+          foo: bar
+          trackingId: 127
+          list:
+          - "1"
+          - "2"
+          - "3"
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        return_url:
+          type: string
+        complete_url:
+          type: string
+        custom:
+          type: object
+      type: object
+    checkout_request:
+      properties:
+        basket:
+          $ref: '#/components/schemas/checkout_request_basket'
+        items:
+          description: An array of `Packages` in the basket.
+          items:
+            $ref: '#/components/schemas/CheckoutItem'
+          type: array
+        sale:
+          $ref: '#/components/schemas/Sale'
+      required:
+      - basket
+      - items
+    updateSubscription_request:
+      properties:
+        items:
+          description: An array containing the item to be added to the recurring payment.
+            **Only 1 item is supported at this time.**
+          items:
+            $ref: '#/components/schemas/Package'
+          type: array
+    updateRecurringPayment_request:
+      properties:
+        status:
+          description: "Your desired state of the recurring payment. Provide `Paused`\
+            \ with `paused_until` to pause a recurring payment. Otherwise, provide\
+            \ `Active` to resume a recurring payment."
+          enum:
+          - Paused
+          - Active
+          example: Active
+          type: string
+        paused_until:
+          description: "To pause a payment, provide a ISO8601 formatted date on which\
+            \ the payment should be reactivated."
+          example: 2023-01-18T16:43:53.000000Z
+          type: string
+      required:
+      - status
+    createBasket_request:
+      properties:
+        return_url:
+          description: The URL a customer can return to without completing checkout
+          example: https://example.tebex.io/
+          type: string
+        complete_url:
+          description: URL the customer can return to after completing payment
+          example: https://example.tebex.io/complete
+          type: string
+        custom:
+          description: Any custom data to be passed through the request. This will
+            be returned in a post-completion webhook.
+          example:
+            foo: bar
+          type: object
+        first_name:
+          description: The first name of the customer
+          example: Neil
+          type: string
+        last_name:
+          description: The last name of the customer
+          example: McNeil
+          type: string
+        email:
+          description: The email address of the customer
+          example: example@tebex.io
+          type: string
+        expires_at:
+          description: An ISO8601 formatted date. After this date the basket cannot
+            be used to checkout.
+          example: 2025-01-27T18:09:51Z
+          type: string
+        complete_auto_redirect:
+          description: Automatically redirect to the complete_url provided
+          example: true
+          type: boolean
+        country:
+          description: An ISO 3166-1 alpha-2 character code representing the customer's
+            country.
+          example: US
+          type: string
+        creator_code:
+          description: The creator code is used to share a percentage of the payment
+            with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
+          type: string
+          example: null
+      type: object
+    Package_metaData:
+      example:
+        foo: bar
+      properties:
+        custom:
+          description: "A free-text string field that is passed back to you via the\
+            \ webhook (for example, a tracking ID)"
+          example: Foo
+          type: string
+      type: object
+    Payment_status:
+      example:
+        description: Complete
+        id: 1
+      properties:
+        id:
+          example: 1
+          type: integer
+        description:
+          example: Complete
+          type: string
+      type: object
+    Payment_price:
+      example:
+        amount: 5.35
+        currency: USD
+      properties:
+        amount:
+          example: 5.35
+          format: float
+          type: number
+        currency:
+          example: USD
+          type: string
+      type: object
+    Payment_fees_tax:
+      example:
+        amount: 0
+        currency: USD
+      properties:
+        amount:
+          example: 0
+          format: float
+          type: number
+        currency:
+          example: USD
+          type: string
+      type: object
+    Payment_fees_gateway:
+      example:
+        amount: 0.45
+        currency: USD
+      properties:
+        amount:
+          example: 0.45
+          format: float
+          type: number
+        currency:
+          example: USD
+          type: string
+      type: object
+    Payment_fees:
+      example:
+        tax:
+          amount: 0
+          currency: USD
+        gateway:
+          amount: 0.45
+          currency: USD
+      properties:
+        tax:
+          $ref: '#/components/schemas/Payment_fees_tax'
+        gateway:
+          $ref: '#/components/schemas/Payment_fees_gateway'
+      type: object
+    Payment_customer:
+      example:
+        country: TS
+        ip: 1.2.3.4
+        last_name: Test
+        postal_code: postal_code
+        first_name: Test
+        marketing_consent: false
+        email: test@test.com
+        username: username
+      properties:
+        first_name:
+          example: Test
+          type: string
+        last_name:
+          example: Test
+          type: string
+        email:
+          example: test@test.com
+          type: string
+        ip:
+          example: 1.2.3.4
+          type: string
+        username:
+          nullable: true
+          type: string
+        marketing_consent:
+          example: false
+          type: boolean
+        country:
+          example: TS
+          type: string
+        postal_code:
+          nullable: true
+          type: string
+      type: object
+    Payment_products_inner_base_price:
+      example:
+        amount: 6.0274563
+        currency: currency
+      properties:
+        amount:
+          format: float
+          type: number
+        currency:
+          type: string
+      type: object
+    Payment_products_inner:
+      example:
+        paid_price:
+          amount: 6.0274563
+          currency: currency
+        variables:
+        - variables
+        - variables
+        quantity: 0
+        expires_at: 2000-01-23T04:56:07.000+00:00
+        custom: custom
+        name: name
+        base_price:
+          amount: 6.0274563
+          currency: currency
+        id: id
+        username: username
+      properties:
+        id:
+          nullable: true
+          type: string
+        name:
+          type: string
+        quantity:
+          type: integer
+        base_price:
+          $ref: '#/components/schemas/Payment_products_inner_base_price'
+        paid_price:
+          $ref: '#/components/schemas/Payment_products_inner_base_price'
+        variables:
+          items:
+            type: string
+          type: array
+        expires_at:
+          format: date-time
+          nullable: true
+          type: string
+        custom:
+          type: string
+        username:
+          nullable: true
+          type: string
+      type: object
+    Payment_custom:
+      example:
+        ref: abc-123
+        user: test@test.com
+      properties:
+        user:
+          example: test@test.com
+          type: string
+        ref:
+          example: abc-123
+          type: string
+      type: object
+    RecurringPayment_status:
+      example:
+        description: Active
+        active: 1
+        id: 2
+        class: success
+      properties:
+        id:
+          example: 2
+          type: integer
+        class:
+          example: success
+          type: string
+        description:
+          example: Active
+          type: string
+        active:
+          example: 1
+          type: integer
+      type: object
+    RecurringPayment_amount:
+      example:
+        amount: 7
+        period: P2W
+        tax: 1.4
+      properties:
+        amount:
+          example: 7
+          format: float
+          type: number
+        tax:
+          example: 1.4
+          format: float
+          type: number
+        period:
+          example: P2W
+          type: string
+      type: object
+    RecurringPayment_links:
+      example:
+        initial_payment: https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+        payment_history:
+        - https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+        - https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+      properties:
+        initial_payment:
+          example: https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+          type: string
+        payment_history:
+          items:
+            example: https://checkout.tebex.io/api/payments/tbx-123123aabccd123-bf71ad?type=txn_id
+            type: string
+          type: array
+      type: object
+  securitySchemes:
+    tebex_checkout_auth_basic:
+      scheme: basic
+      type: http
+
