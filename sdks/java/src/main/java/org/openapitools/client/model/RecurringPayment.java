@@ -54,7 +54,7 @@ import TebexCheckout.JSON;
 /**
  * RecurringPayment
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-15T14:31:52.188140-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class RecurringPayment {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)

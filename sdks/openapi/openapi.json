@@ -835,9 +835,9 @@
       },
       "Address" : {
         "example" : {
-          "name" : "Neil McNeil",
-          "first_name" : "Neil",
-          "last_name" : "McNeil",
+          "name" : "Ted Tebex",
+          "first_name" : "Ted",
+          "last_name" : "Tebex",
           "address" : "37 Broadhurst Gardens, London, United Kingdom, NW6 3QT",
           "email" : "example@tebex.io",
           "state_id" : null,

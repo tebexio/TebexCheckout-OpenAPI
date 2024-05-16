@@ -50,7 +50,7 @@ import TebexCheckout.JSON;
 /**
  * An item added to a basket as part of the &#x60;/checkout&#x60; request.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-15T14:31:52.188140-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class CheckoutItem {
   public static final String SERIALIZED_NAME_PACKAGE = "package";
   @SerializedName(SERIALIZED_NAME_PACKAGE)

@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-15T14:31:52.188140-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class HttpBearerAuth implements Authentication {
   private final String scheme;
   private Supplier<String> tokenSupplier;

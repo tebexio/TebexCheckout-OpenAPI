@@ -49,7 +49,7 @@ import TebexCheckout.JSON;
 /**
  * UpdateRecurringPaymentRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-15T14:31:52.188140-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class UpdateRecurringPaymentRequest {
   /**
    * Your desired state of the recurring payment. Provide &#x60;Paused&#x60; with &#x60;paused_until&#x60; to pause a recurring payment. Otherwise, provide &#x60;Active&#x60; to resume a recurring payment.

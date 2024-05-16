@@ -58,7 +58,7 @@ class TestBasket(unittest.TestCase):
                 giftcards = [
                     TebexCheckout.models.gift_card.GiftCard()
                     ],
-                address = {"name":"Neil McNeil","first_name":"Neil","last_name":"McNeil","address":"37 Broadhurst Gardens, London, United Kingdom, NW6 3QT","email":"example@tebex.io","state_id":null,"country":"UK","postal_code":"NW6 3QT"},
+                address = {"name":"Ted Tebex","first_name":"Ted","last_name":"Tebex","address":"37 Broadhurst Gardens, London, United Kingdom, NW6 3QT","email":"example@tebex.io","state_id":null,"country":"UK","postal_code":"NW6 3QT"},
                 rows = [
                     TebexCheckout.models.basket_item.BasketItem(
                         qty = 2, 

@@ -1,7 +1,6 @@
 .github/workflows/python.yml
 .gitignore
 .gitlab-ci.yml
-.openapi-generator-ignore
 .travis.yml
 README.md
 TebexCheckout/TebexCheckout/__init__.py
@@ -90,4 +89,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_checkout_request_basket.py
 tox.ini
