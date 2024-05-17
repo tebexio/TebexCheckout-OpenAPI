@@ -273,6 +273,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Payment'
+        '422':
+          description: The payment cannot be refunded. Payments can only be refunded when a payment's `status` is Completed.
         '404':
           description: Payment not found.
   /recurring-payments/{reference}:
@@ -323,8 +325,11 @@ paths:
                 items:
                   description: An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**
                   type: array
-                  items: 
-                    $ref: '#/components/schemas/Package'
+                  items:
+                    type: object
+                    properties:
+                      package:
+                        $ref: '#/components/schemas/Package'
       responses:
         '200':
           description: Successfully updated subscription. The updated `RecurringPayment` is returned.
@@ -384,11 +389,11 @@ paths:
                   type: string
                   enum: [Paused,Active]
                   description: Your desired state of the recurring payment. Provide `Paused` with `paused_until` to pause a recurring payment. Otherwise, provide `Active` to resume a recurring payment.
-                  example: Active
+                  example: Paused
                 paused_until:
                   type: string
                   description: "To pause a payment, provide a ISO8601 formatted date on which the payment should be reactivated."
-                  example: 2023-01-18T16:43:53.000000Z
+                  example: 2025-01-27T16:43:53.000000Z
       responses:
         '200':
           description: Successfully paused or reactivated a payment. The `RecurringPayment` is returned.
@@ -397,7 +402,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/RecurringPayment'
         '400':
-          description: Bad Request. See ErrorResponse.
+          description: Bad Request. Some data is missing or incorrect. See ErrorResponse.
+        '422':
+          description: Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse.
         '404':
           description: Recurring payment not found.
   /baskets:
@@ -463,12 +470,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Basket"
-        '400':
-          description: Invalid basket information provided.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     ErrorResponse:
@@ -666,7 +667,11 @@ components:
               example: Foo
           example:
             foo: bar
-
+        type: 
+          type: string
+          enum: [single,subscription]
+          example: subscription
+          description: The type of payment, either `single` for one-time payments or `subscription`.
     BasketItem:
       type: object
       description: A package within an existing basket.
@@ -687,10 +692,11 @@ components:
             $ref: '#/components/schemas/RevenueShare'
     RevenueShare:
       type: object
+      nullable: true
       properties:
         wallet_ref:
           type: string
-          example: some_wallet_reference #TODO
+          example: "centralised_404244_127"
         amount:
           type: number
           example: 0.50
@@ -799,6 +805,7 @@ components:
           example: 4.99
     Payment:
       type: object
+      nullable: true
       properties:
         transaction_id:
           type: string
@@ -924,10 +931,12 @@ components:
           type: array
           items:
             type: string
+            example: []
         gift_cards:
           type: array
           items:
             type: string
+            example: []
         recurring_payment_reference:
           type: string
           nullable: true
