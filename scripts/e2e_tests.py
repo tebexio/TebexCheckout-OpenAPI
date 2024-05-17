@@ -91,7 +91,7 @@ class Route:
         parsedPath = self.path
 
         for curlyBraceMatch in matches:
-            parsedPath = parsedPath.replace(curlyBraceMatch, "novar")
+            parsedPath = parsedPath.replace(curlyBraceMatch, "NOVAR")
     
         return parsedPath
     
@@ -108,36 +108,23 @@ class Route:
         matchedPathParameters = []
 
         for curlyBraceMatch in matches:
-            for paramIndex, param in enumerate(pathParameters):
-                if "name" not in param:
-                    writeTestFail("parameter doesn't have name!?: " + param)
-                    return "error"
-                strippedMatch = curlyBraceMatch.replace("{", '').replace("}", '')
-                paramName = param["name"]
-                if "schema" not in param:
-                    writeTestFail(paramName + " has no schema")
-                    return "error"
-                
-                if paramName in PERSIST_VARIABLES.keys():
-                    parsedPath = parsedPath.replace(curlyBraceMatch, PERSIST_VARIABLES[paramName])
+            paramName = curlyBraceMatch.replace("{", "").replace("}", "")
 
-                if paramName == strippedMatch:
-                    matchedParameter = pathParameters[paramIndex]
-                    #print(f"matched {matchedParameter} to {strippedMatch}")
-                    
-                    if "example" not in matchedParameter["schema"]:
-                        writeTestFail("schema for url parameter " + str(matchedParameter) + " has no example")
-                        return "error"
-                    
-                    # Replace the path param with the example
-                    example = matchedParameter["schema"]["example"]
-                    parsedPath = parsedPath.replace(curlyBraceMatch, str(example))
-                    matchedPathParameters.append(paramName)
+            # Replace persisted variables first
+            if paramName in PERSIST_VARIABLES.keys():
+                parsedPath = parsedPath.replace(curlyBraceMatch, PERSIST_VARIABLES[paramName])
 
-            if len(matchedPathParameters) == 0:
-                writeTestFail("path parameter examples not found")
-                return "error"
-            parsedPath = parsedPath.replace(curlyBraceMatch, '???') #TODO
+            # Then replace the parameter with any example that we found
+            else:
+                for index in enumerate(pathParameters):
+                    parameter = pathParameters[index]
+                    if parameter["name"] == paramName:
+                        if "example" not in parameter["schema"]:
+                            writeTestFail("schema for url parameter " + str(parameter) + " has no example")
+                            return "error"
+                        example = parameter["schema"]["example"]
+                        parsedPath = parsedPath.replace(curlyBraceMatch, str(example))
+                        matchedPathParameters.append(paramName)
     
         return parsedPath
     
@@ -155,7 +142,7 @@ class Route:
             responseCodes.append(int(key))
         return responseCodes
 
-    def getExampleRequestBody(self) -> dict:
+    def getExampleRequestBody(self, omitVars: list = None) -> dict:
         """
             Builds an example payload to send to this Route based on the specification. 
             
@@ -170,8 +157,7 @@ class Route:
 
         # Some request bodies are references to full components/models and need to be expanded
         if "$ref" in exampleBodyDefinition.keys():
-            expandRef(exampleBodyDefinition["$ref"]) #TODO
-            return "" #TODO
+            exampleBodyDefinition = expandRef(exampleBodyDefinition["$ref"])
 
         # Go through each property and ensure the needed type info and example info are present. Otherwise we don't know
         # how to build the route's required payload correctly.
@@ -212,21 +198,24 @@ class Route:
                             exampleItems[itemKey] = itemsRef[itemKey]['example']
 
                     example = [exampleItems]
-                else:
-                    print(f"{red('  error - no items for array: ' + key)}")
-                    return "error"
+                else: # no ref, so it's probably a wrapped array of objects
+                    if "items" in property:
+                        itemArrayProps = property['items']['properties']
+                        exampleItems = {}
+                        for prop in itemArrayProps.keys():
+                            if "$ref" in itemArrayProps[prop]:
+                                itemArrayProps[prop] = expandRef(itemArrayProps[prop]['$ref'])
+                                innerItems = {}
+                                for expandedRefKey in itemArrayProps[prop]['properties'].keys():
+                                    innerItems[expandedRefKey] = itemArrayProps[prop]['properties'][expandedRefKey]['example']
+                                exampleItems[prop] = innerItems
+                            example = [exampleItems]
+                    else:
+                        print(f"{red('  error - no items for array: ' + key)}   available properties: {itemArrayProps.keys()}")
+                        return "error"
             else:
                 print(f"{red('  error - no example for parameter ' + key)}")
                 return "error"
-            
-            # # Types are required
-            # if "type" in property.keys():
-            #     typeName = property["type"]
-            # elif "type" in example.keys():
-            #     typeName = example["type"]
-            # else:
-            #     print(f"{red('  error - no type for parameter ' + key)}")
-            #     return "error"
 
             parameters.append(RequestParameter(key, typeName, example))
 
@@ -234,6 +223,13 @@ class Route:
         examplePayload = {}
         for parameter in parameters:
             examplePayload[parameter.key] = parameter.example
+
+        # If any vars need to be omitted, remove them before returning the request body
+        if omitVars is not None:
+            for omitVar in omitVars:
+                print(yellow(f"  omitting {omitVar} from example"), end='')
+                if omitVar in examplePayload:
+                    del examplePayload[omitVar]
 
         return examplePayload
     
@@ -282,16 +278,19 @@ class Route:
             #print(yellow(jsonRequestBodyDict))
             
             auth = HTTPBasicAuth(CONFIG['auth']['username'], CONFIG['auth']['password'])
+            headers = {
+                'Accept' : 'application/json'
+            }
 
             jsonRequestBody = json.dumps(jsonRequestBodyDict)
             if self.method == "get":
-                response = requests.get(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
+                response = requests.get(API_PATH + path, json = jsonRequestBodyDict, auth=auth, headers=headers)
             elif self.method == "post":
-                response = requests.post(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
+                response = requests.post(API_PATH + path, json = jsonRequestBodyDict, auth=auth, headers=headers)
             elif self.method == "put":
-                response = requests.put(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
+                response = requests.put(API_PATH + path, json = jsonRequestBodyDict, auth=auth, headers=headers)
             elif self.method == "delete":
-                response = requests.delete(API_PATH + path, json = jsonRequestBodyDict, auth=auth)
+                response = requests.delete(API_PATH + path, json = jsonRequestBodyDict, auth=auth, headers=headers)
             else:
                 print(" invalid method: " + red(str(self.method)))
                 return None
@@ -377,7 +376,7 @@ def writeTestResult(name: str, verb: str, path: str, url: str, request: str, exp
         'Status': "Pass" if passed else "Fail", 
         'Notes': notes})
     
-def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None):
+def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None, omitVars: list = None):
     """
         Tests a route against an expected response code. The appropriate requestBody will be fetched from the route definition.
     """
@@ -396,12 +395,17 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None)
                 return
             print(f"  using: " + blue_underline(testPath), end='')
 
-        testingRequestBody = route.getExampleRequestBody()
+        testingRequestBody = route.getExampleRequestBody(omitVars)
         if testingRequestBody == "error":
             writeTestFail(f"invalid schema")
             return
     elif expectedResponseCode == 400:
-        #testingRequestBody = route.getMalformedRequestBody() FIXME
+        if '{' in route.path:
+            testPath = route.expandPathTokens()
+            if testPath == "error":
+                return
+            print(f"  using: " + blue_underline(testPath), end='')
+
         if testingRequestBody == "error":
             writeTestFail(f"invalid schema")
             return
@@ -409,12 +413,19 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None)
         if '{' in testPath:
             testPath = route.expandPathTokensWithNoVar()
         print(f"  using: " + blue_underline(testPath), end='')
-        testingRequestBody = route.getEmptyRequestBody()
+        testingRequestBody = route.getExampleRequestBody()
+        if testingRequestBody == "error":
+            writeTestFail(f"invalid schema")
+            return
+    elif expectedResponseCode == 422:
+        if '{' in testPath:
+            testPath = route.expandPathTokens()
+        print(f"  using: " + blue_underline(testPath), end='')
         if testingRequestBody == "error":
             writeTestFail(f"invalid schema")
             return
     else:
-        writeTestFail(red("unexpected response code in spec, potential missing request body: " + expectedResponseCode))
+        writeTestFail(red("unexpected response code in spec, potential missing request body: " + str(expectedResponseCode)))
         return
     
 
@@ -467,17 +478,8 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None)
                 writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
                 return
         
-
-        #print(" response: " + str(testResponse))
         writeTestPass(f"")
         writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
-    
-    # Run additional tests
-    #writeTestFail("enforces field requirements")
-    #writeTestFail("rejects invalid parameters")
-    #writeTestFail("enforces error response")
-    #writeTestFail("handles empty")
-    #writeTestFail("handles malformed")
 
 def main():
     """
@@ -513,10 +515,13 @@ def main():
                 print(f"{purple(route.method.upper())} {blue_underline(route.path)}")
                 for possibleResponseCode in possibleResponses:
                     print(f"  -> expect {possibleResponseCode}", end='')
+                    omitVars = []
+                    if 'omit' in order:
+                        omitVars.append(order['omit'])
                     if 'persist' in order:
-                        testRoute(route, possibleResponseCode, [order['persist']])
+                        testRoute(route, possibleResponseCode, [order['persist']],omitVars)
                     else:
-                        testRoute(route, possibleResponseCode)
+                        testRoute(route, possibleResponseCode, None, omitVars)
                 routesTested.append(route)
                 numRoutesTested += 1
 

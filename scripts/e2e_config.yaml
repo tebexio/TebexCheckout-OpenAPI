@@ -10,6 +10,7 @@ order:
    persist: ident # save the response ident and use it for the next requests
  - url: GET /baskets/{ident}
  - url: POST /baskets/{ident}/packages
+   omit: revenue_share
  - url: POST /baskets/{ident}/sales
  - url: DELETE /baskets/{ident}/packages/{row.id}
  - url: GET /payments/{txnId}?type=txn_id
