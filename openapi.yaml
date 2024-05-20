@@ -129,8 +129,6 @@ paths:
       responses:
         '204':
           description: Successfully deleted a row from the basket.
-        '400':
-          description: Bad Request. See ErrorResponse.
         '404':
           description: Row or basket not found.
   /baskets/{ident}/sales:
@@ -328,6 +326,11 @@ paths:
                   items:
                     type: object
                     properties:
+                      type: 
+                        type: string
+                        enum: [single,subscription]
+                        example: subscription
+                        description: The type of payment, either `single` for one-time payments or `subscription`.
                       package:
                         $ref: '#/components/schemas/Package'
       responses:
@@ -401,8 +404,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurringPayment'
-        '400':
-          description: Bad Request. Some data is missing or incorrect. See ErrorResponse.
+        # '400': TODO
+        #   description: Bad Request. Some data is missing or incorrect. See ErrorResponse.
         '422':
           description: Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse.
         '404':
@@ -667,11 +670,6 @@ components:
               example: Foo
           example:
             foo: bar
-        type: 
-          type: string
-          enum: [single,subscription]
-          example: subscription
-          description: The type of payment, either `single` for one-time payments or `subscription`.
     BasketItem:
       type: object
       description: A package within an existing basket.
