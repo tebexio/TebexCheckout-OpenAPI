@@ -419,7 +419,7 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
             return
     elif expectedResponseCode == 422:
         if '{' in testPath:
-            testPath = route.expandPathTokens()
+            testPath = route.expandPathTokensWithNoVar()
         print(f"  using: " + blue_underline(testPath), end='')
         if testingRequestBody == "error":
             writeTestFail(f"invalid schema")
@@ -463,20 +463,54 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
                 expectedResponseJson = expectedResponseJson['schema']
                 if '$ref' in expectedResponseJson:
                     expectedResponseJson = expandRef(expectedResponseJson['$ref'])['properties']
+        
+            
+            #Support nested object types with refs
+            if 'type' in expectedResponseJson and expectedResponseJson['type'] == 'object':
+                expectedResponseJson = expectedResponseJson['properties']
 
+                # Headless defines values wrapped in a 'data' object, expand the ref so we test for the appropriate keys
+                if 'data' in expectedResponseJson and '$ref' in expectedResponseJson['data']:
+                    expectedResponseJson = expandRef(expectedResponseJson['data']['$ref'])['properties']
+                
             keysMissing = []
+            keysExtra = []
+
             for key in expectedResponseJson:
-                if key not in testResponse.jsonBody:
+                # Test for a wrapped "data" object so all inner keys are tested
+                if len(testResponse.jsonBody.keys()) == 1 and "data" in testResponse.jsonBody:
+                    if key not in testResponse.jsonBody["data"]:
+                        keysMissing.append(key)
+
+                # Otherwise the object is not wrapped, test the base object for the key
+                elif key not in testResponse.jsonBody:
                     keysMissing.append(key)
 
+            # check wrapped data
+            if "data" in testResponse.jsonBody:
+                for key in testResponse.jsonBody["data"]:
+                    if key not in expectedResponseJson:
+                        keysExtra.append(key)
+            else: # check non wrapped data
+                for key in testResponse.jsonBody:
+                    if key not in expectedResponseJson:
+                        keysExtra.append(key)
+
             if len(keysMissing) > 0:
-                writeTestFail(f"API response keys do not match specification")
-                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "Response keys do not match specification")
+                writeTestFail(f"API response keys were missing according to specification")
+                print(red(f"  keys missing:   {keysMissing}"))
+                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "API response keys were missing according to specification")
                 return
-            else:
-                writeTestPass(f"")
-                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
+            
+            if len(keysExtra) > 0:
+                writeTestFail(f"API response keys included extra data not in specification")
+                print(red(f"  keys extra:   {keysExtra}"))
+                writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "API response keys included extra data not in specification")
                 return
+            
+            writeTestPass(f"")
+            writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
+
         
         writeTestPass(f"")
         writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
