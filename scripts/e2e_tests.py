@@ -449,12 +449,20 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
         if testResponse.jsonBody is not {} and persistVars is not None:
             jsonBodyDict = json.dumps(testResponse.jsonBody)
             jsonBodyDict = json.loads(jsonBodyDict)
+            global PERSIST_VARIABLES
+
             for var in persistVars:
                 if var in jsonBodyDict:
-                    print(purple(f" persisting response variable: {var}={jsonBodyDict[var]}"), end='')
-                    global PERSIST_VARIABLES
+                    print(purple(f" persisting response variable: {var}={jsonBodyDict[var]}"), end='')        
                     PERSIST_VARIABLES[var] = jsonBodyDict[var]
-        
+                    continue
+
+                # support persisting wrapped data
+                if "data" in jsonBodyDict and var in jsonBodyDict["data"]:
+                    print(purple(f" persisting data response variable: {var}={jsonBodyDict['data'][var]}"), end='')        
+                    PERSIST_VARIABLES[var] = jsonBodyDict["data"][var]
+                    continue
+
         #ensure response body matches expected if content is provided
         expectedResponseJson = route.definition['responses'][str(expectedResponseCode)]
         if 'content' in expectedResponseJson:
@@ -477,39 +485,41 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
             keysExtra = []
 
             for key in expectedResponseJson:
+                if type(testResponse.jsonBody) == list:
+                    writeTestFail(f"unexpected list response") #TODO 
+                    return
+                    
                 # Test for a wrapped "data" object so all inner keys are tested
                 if len(testResponse.jsonBody.keys()) == 1 and "data" in testResponse.jsonBody:
-                    if key not in testResponse.jsonBody["data"]:
+                    if key not in testResponse.jsonBody["data"] and key != "data":
                         keysMissing.append(key)
 
                 # Otherwise the object is not wrapped, test the base object for the key
                 elif key not in testResponse.jsonBody:
                     keysMissing.append(key)
 
-            # check wrapped data
             if "data" in testResponse.jsonBody:
                 for key in testResponse.jsonBody["data"]:
-                    if key not in expectedResponseJson:
-                        keysExtra.append(key)
-            else: # check non wrapped data
-                for key in testResponse.jsonBody:
                     if key not in expectedResponseJson:
                         keysExtra.append(key)
 
             if len(keysMissing) > 0:
                 writeTestFail(f"API response keys were missing according to specification")
                 print(red(f"  keys missing:   {keysMissing}"))
+                print(yellow(f"  response: {testResponse.jsonBody}"))
                 writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "API response keys were missing according to specification")
                 return
             
             if len(keysExtra) > 0:
                 writeTestFail(f"API response keys included extra data not in specification")
                 print(red(f"  keys extra:   {keysExtra}"))
+                print(yellow(f"  response: {testResponse.jsonBody}"))
                 writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, False, "API response keys included extra data not in specification")
                 return
             
             writeTestPass(f"")
             writeTestResult(testName, testVerb, testUrl, testPath, testingRequestBody, expectedResponseCode, testResponse.code, testResponse.textBody, True, "")
+            return
 
         
         writeTestPass(f"")
