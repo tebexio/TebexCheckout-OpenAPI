@@ -112,7 +112,7 @@ class Route:
 
             # Replace persisted variables first
             if paramName in PERSIST_VARIABLES.keys():
-                parsedPath = parsedPath.replace(curlyBraceMatch, PERSIST_VARIABLES[paramName])
+                parsedPath = parsedPath.replace(curlyBraceMatch, str(PERSIST_VARIABLES[paramName]))
 
             # Then replace the parameter with any example that we found
             else:
@@ -452,6 +452,11 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
             global PERSIST_VARIABLES
 
             for var in persistVars:
+                if var == "rows.id" and "rows" in jsonBodyDict: # special support for basket row
+                    print(purple(f" persisting first row in basket rows: {var}={jsonBodyDict['rows'][0]['id']}"), end='')
+                    PERSIST_VARIABLES[var] = jsonBodyDict['rows'][0]['id']
+                    continue
+
                 if var in jsonBodyDict:
                     print(purple(f" persisting response variable: {var}={jsonBodyDict[var]}"), end='')        
                     PERSIST_VARIABLES[var] = jsonBodyDict[var]
