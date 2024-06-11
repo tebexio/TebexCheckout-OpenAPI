@@ -102,7 +102,7 @@ paths:
           description: Improperly formatted package. See ErrorResponse.
         '404':
           description: Basket not found.
-  /baskets/{ident}/packages/{row.id}:
+  /baskets/{ident}/packages/{rows.id}:
     delete:
       parameters:
       - in: path
@@ -113,7 +113,7 @@ paths:
         required: true
         description: The basket identifier.
       - in: path
-        name: row.id
+        name: rows.id
         schema:
           type: integer
           example: 1
@@ -125,7 +125,7 @@ paths:
       summary: 
         Remove a row from the basket
       description:
-        This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+        This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
       responses:
         '204':
           description: Successfully deleted a row from the basket.
@@ -319,18 +319,28 @@ paths:
         content:
           application/json:
             schema:
+              type: object
               properties:
                 items:
-                  description: An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**
                   type: array
+                  description: An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**
                   items:
                     type: object
                     properties:
                       type: 
                         type: string
-                        enum: [single,subscription]
+                        enum: [single, subscription]
                         example: subscription
                         description: The type of payment, either `single` for one-time payments or `subscription`.
+                      qty:
+                        type: number
+                        example: 1
+                      revenue_share:
+                        type: array
+                        nullable: true
+                        items:
+                          type: object
+                        example: []
                       package:
                         $ref: '#/components/schemas/Package'
       responses:
@@ -518,9 +528,6 @@ components:
     RecurringPeriod: #TODO
       type: object
 
-    Tax: #TODO
-      type: object
-
     Discount: #TODO
       type: object
 
@@ -538,15 +545,16 @@ components:
           example: 2022-10-25 15:15:40
         price:
           type: number
+          format: float
           example: 1.27
         priceDetails:
           $ref: '#/components/schemas/PriceDetails'
         type:
           type: string
           example: single
-        recurring:
-          type: boolean
-          example: false
+        # recurring:
+        #   type: boolean
+        #   example: false
         recurringPeriod:
           $ref: '#/components/schemas/RecurringPeriod'
           nullable: true
@@ -564,7 +572,8 @@ components:
           type: boolean
           example: false
         tax:
-          $ref: '#/components/schemas/Tax'
+          type: number
+          format: int32
         username:
           type: string
           example: null
@@ -604,7 +613,8 @@ components:
         rows:
           type: array
           items:
-            $ref: "#/components/schemas/BasketItem"
+            #$ref: "#/components/schemas/BasketItem"
+            $ref: "#/components/schemas/BasketRow"
         fingerprint:
           type: string
           example: ""
@@ -650,6 +660,7 @@ components:
           example: 1000 Gold
         price:
           type: number
+          format: float
           example: 1.27
           description: A float (decimal describing the price of the package in your account currency)
         expiry_period:
@@ -670,6 +681,170 @@ components:
               example: Foo
           example:
             foo: bar
+    BasketRow:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 173125385
+        basket:
+          type: integer
+          example: 725572301
+          description: Numeric basket ID
+        package:
+          type: integer
+          nullable: true
+          example: null
+          description: Package ID associated with this item
+        override:
+          type: integer
+          example: 0
+          description: Package ID associated with this item
+        quantity:
+          type: integer
+          example: 2
+        server:
+          type: integer
+          nullable: true
+          example: null
+        price:
+          type: number
+          format: float
+          example: 1.27
+        gift_username_id:
+          type: integer
+          nullable: true
+          example: null
+        options:
+          type: object
+          nullable: true
+          example: null
+        recurring:
+          type: boolean
+          example: false
+        recurring_period:
+          type: string
+          nullable: true
+          example: null
+        recurring_next_payment_date:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        meta:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "1000 Gold"
+            rowprice:
+              type: number
+              format: float
+              example: 2.54
+            initialprice:
+              type: number
+              format: float
+              example: 1.27
+            isCumulative:
+              type: boolean
+              example: false
+            requiredPackages:
+              type: array
+              items:
+                type: integer
+              example: []
+            requiresAny:
+              type: boolean
+              example: false
+            category:
+              type: boolean
+              example: false
+            producesGiftCard:
+              type: boolean
+              example: false
+            allowsGiftCards:
+              type: boolean
+              example: true
+            servers:
+              type: array
+              items:
+                type: integer
+              example: []
+            limits:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: false
+                    timestamp:
+                      type: integer
+                      example: 0
+                    limit:
+                      type: boolean
+                      example: false
+                global:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: false
+                    timestamp:
+                      type: integer
+                      example: 0
+                    limit:
+                      type: boolean
+                      example: false
+                packageExpiryTime:
+                  type: integer
+                  example: 0
+            hasDeliverables:
+              type: boolean
+              example: false
+            deliverableTypes:
+              type: array
+              items:
+                type: string
+              example: []
+            downloadLink:
+              type: string
+              example: ""
+            hasSellerProtection:
+              type: boolean
+              example: true
+            itemType:
+              type: string
+              nullable: true
+              example: null
+            revenue_share:
+              type: array
+              items:
+                type: number
+                format: float
+              example: []
+            image:
+              type: string
+              nullable: true
+              example: null
+            realprice:
+              type: number
+              format: float
+              example: 1.27
+        custom:
+          type: object
+          nullable: true
+          example: null
+        image_url:
+          type: string
+          nullable: true
+          example: null
+        recurring_price:
+          type: number
+          format: float
+          nullable: true
+          example: null
     BasketItem:
       type: object
       description: A package within an existing basket.
@@ -697,10 +872,12 @@ components:
           example: "centralised_404244_127"
         amount:
           type: number
+          format: float
           example: 0.50
           description: A float (decimal) value representing the amount of this payment in your account currency that is credited to the `wallet_ref`
         gateway_fee_percent:
           type: number
+          format: float
           example: 50.00
           description: A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.
     BasketLinks:
@@ -719,18 +896,23 @@ components:
       properties:
         fullPrice:
           type: number
+          format: float
         subTotal:
           type: number
+          format: float
         discounts:
           type: array
           items:
             type: object #TODO
         total:
           type: number
+          format: float
         tax:
           type: number
+          format: float
         balance:
           type: number
+          format: float
         sales:
           type: array
           items:
@@ -739,9 +921,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GiftCard'
-#        recurring:   will be made obsolete in the next few weeks, potential do not document.
-#          type: object
-#          description: Contains recurring amount. Limited to 1 subscription package in the basket at a time. 
+        recurring:
+          type: boolean
+          description: Contains recurring amount. Limited to 1 subscription package in the basket at a time. 
+        recurringPeriod:
+          type: object
+          nullable: true
+          $ref: '#/components/schemas/RecurringPeriod'
+        recurringNextPaymentDate:
+          type: object
+          nullable: true
+          #TODO
+        username:
+          type: string
         roundUp:
           type: number
           nullable: true
@@ -843,7 +1035,7 @@ components:
                 amount:
                   type: number
                   format: float
-                  example: 0
+                  example: 0.00
                 currency:
                   type: string
                   example: "USD"
