@@ -541,7 +541,7 @@ def main():
        The overall number of test passes and fails are also printed on completion.
     """
     parseConfig()
-    routes = parseOpenAPISpec("../openapi.yaml")
+    routes = parseOpenAPISpec("../checkout-api.yaml")
     numRoutesTested = 0
     routesTested = []
 
