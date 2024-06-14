@@ -18,6 +18,10 @@ import Address from './model/Address';
 import Basket from './model/Basket';
 import BasketItem from './model/BasketItem';
 import BasketLinks from './model/BasketLinks';
+import BasketRow from './model/BasketRow';
+import BasketRowMeta from './model/BasketRowMeta';
+import BasketRowMetaLimits from './model/BasketRowMetaLimits';
+import BasketRowMetaLimitsUser from './model/BasketRowMetaLimitsUser';
 import CheckoutItem from './model/CheckoutItem';
 import CheckoutRequest from './model/CheckoutRequest';
 import CheckoutRequestBasket from './model/CheckoutRequestBasket';
@@ -44,6 +48,7 @@ import RevenueShare from './model/RevenueShare';
 import Sale from './model/Sale';
 import UpdateRecurringPaymentRequest from './model/UpdateRecurringPaymentRequest';
 import UpdateSubscriptionRequest from './model/UpdateSubscriptionRequest';
+import UpdateSubscriptionRequestItemsInner from './model/UpdateSubscriptionRequestItemsInner';
 import BasketsApi from './TebexCheckout/BasketsApi';
 import CheckoutApi from './TebexCheckout/CheckoutApi';
 import PaymentsApi from './TebexCheckout/PaymentsApi';
@@ -117,6 +122,30 @@ export {
      * @property {module:TebexCheckout/model/BasketLinks}
      */
     BasketLinks,
+
+    /**
+     * The BasketRow model constructor.
+     * @property {module:TebexCheckout/model/BasketRow}
+     */
+    BasketRow,
+
+    /**
+     * The BasketRowMeta model constructor.
+     * @property {module:TebexCheckout/model/BasketRowMeta}
+     */
+    BasketRowMeta,
+
+    /**
+     * The BasketRowMetaLimits model constructor.
+     * @property {module:TebexCheckout/model/BasketRowMetaLimits}
+     */
+    BasketRowMetaLimits,
+
+    /**
+     * The BasketRowMetaLimitsUser model constructor.
+     * @property {module:TebexCheckout/model/BasketRowMetaLimitsUser}
+     */
+    BasketRowMetaLimitsUser,
 
     /**
      * The CheckoutItem model constructor.
@@ -273,6 +302,12 @@ export {
      * @property {module:TebexCheckout/model/UpdateSubscriptionRequest}
      */
     UpdateSubscriptionRequest,
+
+    /**
+     * The UpdateSubscriptionRequestItemsInner model constructor.
+     * @property {module:TebexCheckout/model/UpdateSubscriptionRequestItemsInner}
+     */
+    UpdateSubscriptionRequestItemsInner,
 
     /**
     * The BasketsApi service constructor.

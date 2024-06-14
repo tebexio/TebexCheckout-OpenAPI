@@ -58,7 +58,7 @@ class UpdateSubscriptionRequest implements ModelInterface, ArrayAccess, \JsonSer
       * @var string[]
       */
     protected static $openAPITypes = [
-        'items' => '\TebexCheckout\Model\Package[]'
+        'items' => '\TebexCheckout\Model\UpdateSubscriptionRequestItemsInner[]'
     ];
 
     /**
@@ -293,7 +293,7 @@ class UpdateSubscriptionRequest implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets items
      *
-     * @return \TebexCheckout\Model\Package[]|null
+     * @return \TebexCheckout\Model\UpdateSubscriptionRequestItemsInner[]|null
      */
     public function getItems()
     {
@@ -303,7 +303,7 @@ class UpdateSubscriptionRequest implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets items
      *
-     * @param \TebexCheckout\Model\Package[]|null $items An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**
+     * @param \TebexCheckout\Model\UpdateSubscriptionRequestItemsInner[]|null $items An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**
      *
      * @return self
      */

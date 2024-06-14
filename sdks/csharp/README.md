@@ -121,7 +121,7 @@ Class | Method | HTTP request | Description
 *BasketsApi* | [**AddSaleToBasket**](docs/BasketsApi.md#addsaletobasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket
 *BasketsApi* | [**CreateBasket**](docs/BasketsApi.md#createbasket) | **POST** /baskets | Create a basket that can be used to pay for items
 *BasketsApi* | [**GetBasketById**](docs/BasketsApi.md#getbasketbyid) | **GET** /baskets/{ident} | Fetch a basket by its identifier
-*BasketsApi* | [**RemoveRowFromBasket**](docs/BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket
+*BasketsApi* | [**RemoveRowFromBasket**](docs/BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
 *CheckoutApi* | [**Checkout**](docs/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request
 *PaymentsApi* | [**GetPaymentById**](docs/PaymentsApi.md#getpaymentbyid) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID
 *PaymentsApi* | [**RefundPaymentById**](docs/PaymentsApi.md#refundpaymentbyid) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID
@@ -139,6 +139,10 @@ Class | Method | HTTP request | Description
  - [Model.Basket](docs/Basket.md)
  - [Model.BasketItem](docs/BasketItem.md)
  - [Model.BasketLinks](docs/BasketLinks.md)
+ - [Model.BasketRow](docs/BasketRow.md)
+ - [Model.BasketRowMeta](docs/BasketRowMeta.md)
+ - [Model.BasketRowMetaLimits](docs/BasketRowMetaLimits.md)
+ - [Model.BasketRowMetaLimitsUser](docs/BasketRowMetaLimitsUser.md)
  - [Model.CheckoutItem](docs/CheckoutItem.md)
  - [Model.CheckoutRequest](docs/CheckoutRequest.md)
  - [Model.CheckoutRequestBasket](docs/CheckoutRequestBasket.md)
@@ -165,6 +169,7 @@ Class | Method | HTTP request | Description
  - [Model.Sale](docs/Sale.md)
  - [Model.UpdateRecurringPaymentRequest](docs/UpdateRecurringPaymentRequest.md)
  - [Model.UpdateSubscriptionRequest](docs/UpdateSubscriptionRequest.md)
+ - [Model.UpdateSubscriptionRequestItemsInner](docs/UpdateSubscriptionRequestItemsInner.md)
 
 
 <a id="documentation-for-authorization"></a>

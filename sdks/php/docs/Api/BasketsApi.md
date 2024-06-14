@@ -8,7 +8,7 @@ All URIs are relative to https://checkout.tebex.io/api, except if the operation 
 | [**addSaleToBasket()**](BasketsApi.md#addSaleToBasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket |
 | [**createBasket()**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById()**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
-| [**removeRowFromBasket()**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket |
+| [**removeRowFromBasket()**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
 
 
 ## `addPackage()`
@@ -242,12 +242,12 @@ No authorization required
 ## `removeRowFromBasket()`
 
 ```php
-removeRowFromBasket($ident, $row_id)
+removeRowFromBasket($ident, $rows_id)
 ```
 
 Remove a row from the basket
 
-This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
 
 ### Example
 
@@ -263,10 +263,10 @@ $apiInstance = new TebexCheckout\Api\BasketsApi(
     new GuzzleHttp\Client()
 );
 $ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The basket identifier.
-$row_id = 1; // int | The `id` of the `basket.rows` row to remove.
+$rows_id = 1; // int | The `id` of the `basket.rows` row to remove.
 
 try {
-    $apiInstance->removeRowFromBasket($ident, $row_id);
+    $apiInstance->removeRowFromBasket($ident, $rows_id);
 } catch (Exception $e) {
     echo 'Exception when calling BasketsApi->removeRowFromBasket: ', $e->getMessage(), PHP_EOL;
 }
@@ -277,7 +277,7 @@ try {
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **ident** | **string**| The basket identifier. | |
-| **row_id** | **int**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | |
+| **rows_id** | **int**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | |
 
 ### Return type
 

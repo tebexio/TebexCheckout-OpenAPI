@@ -36,7 +36,7 @@ class TestPaymentFeesTax(unittest.TestCase):
         model = PaymentFeesTax()
         if include_optional:
             return PaymentFeesTax(
-                amount = 0,
+                amount = 0.0,
                 currency = 'USD'
             )
         else:

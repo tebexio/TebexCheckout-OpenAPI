@@ -13,8 +13,8 @@
 
 import ApiClient from '../ApiClient';
 import Address from './Address';
-import BasketItem from './BasketItem';
 import BasketLinks from './BasketLinks';
+import BasketRow from './BasketRow';
 import PriceDetails from './PriceDetails';
 
 /**
@@ -66,9 +66,6 @@ class Basket {
             if (data.hasOwnProperty('type')) {
                 obj['type'] = ApiClient.convertToType(data['type'], 'String');
             }
-            if (data.hasOwnProperty('recurring')) {
-                obj['recurring'] = ApiClient.convertToType(data['recurring'], 'Boolean');
-            }
             if (data.hasOwnProperty('recurringPeriod')) {
                 obj['recurringPeriod'] = ApiClient.convertToType(data['recurringPeriod'], Object);
             }
@@ -85,7 +82,7 @@ class Basket {
                 obj['complete'] = ApiClient.convertToType(data['complete'], 'Boolean');
             }
             if (data.hasOwnProperty('tax')) {
-                obj['tax'] = ApiClient.convertToType(data['tax'], Object);
+                obj['tax'] = ApiClient.convertToType(data['tax'], 'Number');
             }
             if (data.hasOwnProperty('username')) {
                 obj['username'] = ApiClient.convertToType(data['username'], 'String');
@@ -103,7 +100,7 @@ class Basket {
                 obj['address'] = Address.constructFromObject(data['address']);
             }
             if (data.hasOwnProperty('rows')) {
-                obj['rows'] = ApiClient.convertToType(data['rows'], [BasketItem]);
+                obj['rows'] = ApiClient.convertToType(data['rows'], [BasketRow]);
             }
             if (data.hasOwnProperty('fingerprint')) {
                 obj['fingerprint'] = ApiClient.convertToType(data['fingerprint'], 'String');
@@ -190,7 +187,7 @@ class Basket {
             }
             // validate the optional field `rows` (array)
             for (const item of data['rows']) {
-                BasketItem.validateJSON(item);
+                BasketRow.validateJSON(item);
             };
         }
         // ensure the json data is a string
@@ -248,11 +245,6 @@ Basket.prototype['priceDetails'] = undefined;
 Basket.prototype['type'] = undefined;
 
 /**
- * @member {Boolean} recurring
- */
-Basket.prototype['recurring'] = undefined;
-
-/**
  * @member {Object} recurringPeriod
  */
 Basket.prototype['recurringPeriod'] = undefined;
@@ -278,7 +270,7 @@ Basket.prototype['returnUrl'] = undefined;
 Basket.prototype['complete'] = undefined;
 
 /**
- * @member {Object} tax
+ * @member {Number} tax
  */
 Basket.prototype['tax'] = undefined;
 
@@ -308,7 +300,7 @@ Basket.prototype['giftcards'] = undefined;
 Basket.prototype['address'] = undefined;
 
 /**
- * @member {Array.<module:TebexCheckout/model/BasketItem>} rows
+ * @member {Array.<module:TebexCheckout/model/BasketRow>} rows
  */
 Basket.prototype['rows'] = undefined;
 

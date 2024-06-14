@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
@@ -50,7 +49,7 @@ import TebexCheckout.JSON;
 /**
  * RevenueShare
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-14T12:22:39.312899-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class RevenueShare {
   public static final String SERIALIZED_NAME_WALLET_REF = "wallet_ref";
   @SerializedName(SERIALIZED_NAME_WALLET_REF)
@@ -58,11 +57,11 @@ public class RevenueShare {
 
   public static final String SERIALIZED_NAME_AMOUNT = "amount";
   @SerializedName(SERIALIZED_NAME_AMOUNT)
-  private BigDecimal amount;
+  private Float amount;
 
   public static final String SERIALIZED_NAME_GATEWAY_FEE_PERCENT = "gateway_fee_percent";
   @SerializedName(SERIALIZED_NAME_GATEWAY_FEE_PERCENT)
-  private BigDecimal gatewayFeePercent;
+  private Float gatewayFeePercent;
 
   public RevenueShare() {
   }
@@ -86,7 +85,7 @@ public class RevenueShare {
   }
 
 
-  public RevenueShare amount(BigDecimal amount) {
+  public RevenueShare amount(Float amount) {
     this.amount = amount;
     return this;
   }
@@ -96,16 +95,16 @@ public class RevenueShare {
    * @return amount
   **/
   @javax.annotation.Nullable
-  public BigDecimal getAmount() {
+  public Float getAmount() {
     return amount;
   }
 
-  public void setAmount(BigDecimal amount) {
+  public void setAmount(Float amount) {
     this.amount = amount;
   }
 
 
-  public RevenueShare gatewayFeePercent(BigDecimal gatewayFeePercent) {
+  public RevenueShare gatewayFeePercent(Float gatewayFeePercent) {
     this.gatewayFeePercent = gatewayFeePercent;
     return this;
   }
@@ -115,11 +114,11 @@ public class RevenueShare {
    * @return gatewayFeePercent
   **/
   @javax.annotation.Nullable
-  public BigDecimal getGatewayFeePercent() {
+  public Float getGatewayFeePercent() {
     return gatewayFeePercent;
   }
 
-  public void setGatewayFeePercent(BigDecimal gatewayFeePercent) {
+  public void setGatewayFeePercent(Float gatewayFeePercent) {
     this.gatewayFeePercent = gatewayFeePercent;
   }
 

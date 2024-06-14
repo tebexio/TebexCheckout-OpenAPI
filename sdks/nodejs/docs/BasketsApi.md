@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**addSaleToBasket**](BasketsApi.md#addSaleToBasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket
 [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items
 [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier
-[**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket
+[**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
 
 
 
@@ -204,11 +204,11 @@ No authorization required
 
 ## removeRowFromBasket
 
-> removeRowFromBasket(ident, rowId)
+> removeRowFromBasket(ident, rowsId)
 
 Remove a row from the basket
 
-This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
 
 ### Example
 
@@ -217,8 +217,8 @@ import TebexCheckoutApi from 'tebex_checkout_api';
 
 let apiInstance = new TebexCheckoutApi.BasketsApi();
 let ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
-let rowId = 1; // Number | The `id` of the `basket.rows` row to remove.
-apiInstance.removeRowFromBasket(ident, rowId, (error, data, response) => {
+let rowsId = 1; // Number | The `id` of the `basket.rows` row to remove.
+apiInstance.removeRowFromBasket(ident, rowsId, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -233,7 +233,7 @@ apiInstance.removeRowFromBasket(ident, rowId, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ident** | **String**| The basket identifier. | 
- **rowId** | **Number**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | 
+ **rowsId** | **Number**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | 
 
 ### Return type
 

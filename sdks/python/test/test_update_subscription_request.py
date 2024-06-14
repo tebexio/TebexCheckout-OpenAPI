@@ -37,12 +37,16 @@ class TestUpdateSubscriptionRequest(unittest.TestCase):
         if include_optional:
             return UpdateSubscriptionRequest(
                 items = [
-                    TebexCheckout.models.package.Package(
-                        name = '1000 Gold', 
-                        price = 1.27, 
-                        expiry_period = 'month', 
-                        expiry_length = 3, 
-                        meta_data = {"foo":"bar"}, )
+                    TebexCheckout.models.update_subscription_request_items_inner.updateSubscription_request_items_inner(
+                        type = 'subscription', 
+                        qty = 1, 
+                        revenue_share = [], 
+                        package = TebexCheckout.models.package.Package(
+                            name = '1000 Gold', 
+                            price = 1.27, 
+                            expiry_period = 'month', 
+                            expiry_length = 3, 
+                            meta_data = {"foo":"bar"}, ), )
                     ]
             )
         else:

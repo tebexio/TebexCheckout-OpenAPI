@@ -11,7 +11,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 *BasketsApi* | [**addSaleToBasket**](Apis/BasketsApi.md#addsaletobasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket |
 *BasketsApi* | [**createBasket**](Apis/BasketsApi.md#createbasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 *BasketsApi* | [**getBasketById**](Apis/BasketsApi.md#getbasketbyid) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
-*BasketsApi* | [**removeRowFromBasket**](Apis/BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket |
+*BasketsApi* | [**removeRowFromBasket**](Apis/BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
 | *CheckoutApi* | [**checkout**](Apis/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request |
 | *PaymentsApi* | [**getPaymentById**](Apis/PaymentsApi.md#getpaymentbyid) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID |
 *PaymentsApi* | [**refundPaymentById**](Apis/PaymentsApi.md#refundpaymentbyid) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID |
@@ -28,6 +28,10 @@ All URIs are relative to *https://checkout.tebex.io/api*
  - [Basket](./Models/Basket.md)
  - [BasketItem](./Models/BasketItem.md)
  - [BasketLinks](./Models/BasketLinks.md)
+ - [BasketRow](./Models/BasketRow.md)
+ - [BasketRow_meta](./Models/BasketRow_meta.md)
+ - [BasketRow_meta_limits](./Models/BasketRow_meta_limits.md)
+ - [BasketRow_meta_limits_user](./Models/BasketRow_meta_limits_user.md)
  - [CheckoutItem](./Models/CheckoutItem.md)
  - [ErrorResponse](./Models/ErrorResponse.md)
  - [Package](./Models/Package.md)
@@ -55,6 +59,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
  - [createBasket_request](./Models/createBasket_request.md)
  - [updateRecurringPayment_request](./Models/updateRecurringPayment_request.md)
  - [updateSubscription_request](./Models/updateSubscription_request.md)
+ - [updateSubscription_request_items_inner](./Models/updateSubscription_request_items_inner.md)
 
 
 <a name="documentation-for-authorization"></a>

@@ -43,8 +43,12 @@ namespace TebexCheckout.Model
         /// <param name="balance">balance.</param>
         /// <param name="sales">sales.</param>
         /// <param name="giftcards">giftcards.</param>
+        /// <param name="recurring">Contains recurring amount. Limited to 1 subscription package in the basket at a time..</param>
+        /// <param name="recurringPeriod">recurringPeriod.</param>
+        /// <param name="recurringNextPaymentDate">recurringNextPaymentDate.</param>
+        /// <param name="username">username.</param>
         /// <param name="roundUp">roundUp.</param>
-        public PriceDetails(decimal fullPrice = default(decimal), decimal subTotal = default(decimal), List<Object> discounts = default(List<Object>), decimal total = default(decimal), decimal tax = default(decimal), decimal balance = default(decimal), List<Sale> sales = default(List<Sale>), List<Object> giftcards = default(List<Object>), decimal? roundUp = default(decimal?))
+        public PriceDetails(float fullPrice = default(float), float subTotal = default(float), List<Object> discounts = default(List<Object>), float total = default(float), float tax = default(float), float balance = default(float), List<Sale> sales = default(List<Sale>), List<Object> giftcards = default(List<Object>), bool recurring = default(bool), Object recurringPeriod = default(Object), Object recurringNextPaymentDate = default(Object), string username = default(string), decimal? roundUp = default(decimal?))
         {
             this.FullPrice = fullPrice;
             this.SubTotal = subTotal;
@@ -54,6 +58,10 @@ namespace TebexCheckout.Model
             this.Balance = balance;
             this.Sales = sales;
             this.Giftcards = giftcards;
+            this.Recurring = recurring;
+            this.RecurringPeriod = recurringPeriod;
+            this.RecurringNextPaymentDate = recurringNextPaymentDate;
+            this.Username = username;
             this.RoundUp = roundUp;
         }
 
@@ -61,13 +69,13 @@ namespace TebexCheckout.Model
         /// Gets or Sets FullPrice
         /// </summary>
         [DataMember(Name = "fullPrice", EmitDefaultValue = false)]
-        public decimal FullPrice { get; set; }
+        public float FullPrice { get; set; }
 
         /// <summary>
         /// Gets or Sets SubTotal
         /// </summary>
         [DataMember(Name = "subTotal", EmitDefaultValue = false)]
-        public decimal SubTotal { get; set; }
+        public float SubTotal { get; set; }
 
         /// <summary>
         /// Gets or Sets Discounts
@@ -79,19 +87,19 @@ namespace TebexCheckout.Model
         /// Gets or Sets Total
         /// </summary>
         [DataMember(Name = "total", EmitDefaultValue = false)]
-        public decimal Total { get; set; }
+        public float Total { get; set; }
 
         /// <summary>
         /// Gets or Sets Tax
         /// </summary>
         [DataMember(Name = "tax", EmitDefaultValue = false)]
-        public decimal Tax { get; set; }
+        public float Tax { get; set; }
 
         /// <summary>
         /// Gets or Sets Balance
         /// </summary>
         [DataMember(Name = "balance", EmitDefaultValue = false)]
-        public decimal Balance { get; set; }
+        public float Balance { get; set; }
 
         /// <summary>
         /// Gets or Sets Sales
@@ -104,6 +112,31 @@ namespace TebexCheckout.Model
         /// </summary>
         [DataMember(Name = "giftcards", EmitDefaultValue = false)]
         public List<Object> Giftcards { get; set; }
+
+        /// <summary>
+        /// Contains recurring amount. Limited to 1 subscription package in the basket at a time.
+        /// </summary>
+        /// <value>Contains recurring amount. Limited to 1 subscription package in the basket at a time.</value>
+        [DataMember(Name = "recurring", EmitDefaultValue = true)]
+        public bool Recurring { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RecurringPeriod
+        /// </summary>
+        [DataMember(Name = "recurringPeriod", EmitDefaultValue = false)]
+        public Object RecurringPeriod { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RecurringNextPaymentDate
+        /// </summary>
+        [DataMember(Name = "recurringNextPaymentDate", EmitDefaultValue = true)]
+        public Object RecurringNextPaymentDate { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Username
+        /// </summary>
+        [DataMember(Name = "username", EmitDefaultValue = false)]
+        public string Username { get; set; }
 
         /// <summary>
         /// Gets or Sets RoundUp
@@ -127,6 +160,10 @@ namespace TebexCheckout.Model
             sb.Append("  Balance: ").Append(Balance).Append("\n");
             sb.Append("  Sales: ").Append(Sales).Append("\n");
             sb.Append("  Giftcards: ").Append(Giftcards).Append("\n");
+            sb.Append("  Recurring: ").Append(Recurring).Append("\n");
+            sb.Append("  RecurringPeriod: ").Append(RecurringPeriod).Append("\n");
+            sb.Append("  RecurringNextPaymentDate: ").Append(RecurringNextPaymentDate).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
             sb.Append("  RoundUp: ").Append(RoundUp).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

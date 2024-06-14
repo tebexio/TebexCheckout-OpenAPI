@@ -74,7 +74,7 @@ class Package implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'name' => null,
-        'price' => null,
+        'price' => 'float',
         'expiry_period' => null,
         'expiry_length' => null,
         'meta_data' => null

@@ -11,6 +11,10 @@ docs/Address.md
 docs/Basket.md
 docs/BasketItem.md
 docs/BasketLinks.md
+docs/BasketRow.md
+docs/BasketRowMeta.md
+docs/BasketRowMetaLimits.md
+docs/BasketRowMetaLimitsUser.md
 docs/BasketsApi.md
 docs/CheckoutApi.md
 docs/CheckoutItem.md
@@ -41,6 +45,7 @@ docs/RevenueShare.md
 docs/Sale.md
 docs/UpdateRecurringPaymentRequest.md
 docs/UpdateSubscriptionRequest.md
+docs/UpdateSubscriptionRequestItemsInner.md
 git_push.sh
 gradle.properties
 gradle/wrapper/gradle-wrapper.jar
@@ -77,6 +82,10 @@ src/main/java/org/openapitools/client/model/Address.java
 src/main/java/org/openapitools/client/model/Basket.java
 src/main/java/org/openapitools/client/model/BasketItem.java
 src/main/java/org/openapitools/client/model/BasketLinks.java
+src/main/java/org/openapitools/client/model/BasketRow.java
+src/main/java/org/openapitools/client/model/BasketRowMeta.java
+src/main/java/org/openapitools/client/model/BasketRowMetaLimits.java
+src/main/java/org/openapitools/client/model/BasketRowMetaLimitsUser.java
 src/main/java/org/openapitools/client/model/CheckoutItem.java
 src/main/java/org/openapitools/client/model/CheckoutRequest.java
 src/main/java/org/openapitools/client/model/CheckoutRequestBasket.java
@@ -103,6 +112,7 @@ src/main/java/org/openapitools/client/model/RevenueShare.java
 src/main/java/org/openapitools/client/model/Sale.java
 src/main/java/org/openapitools/client/model/UpdateRecurringPaymentRequest.java
 src/main/java/org/openapitools/client/model/UpdateSubscriptionRequest.java
+src/main/java/org/openapitools/client/model/UpdateSubscriptionRequestItemsInner.java
 src/test/java/TebexCheckout/BasketsApiTest.java
 src/test/java/TebexCheckout/CheckoutApiTest.java
 src/test/java/TebexCheckout/PaymentsApiTest.java
@@ -111,6 +121,10 @@ src/test/java/org/openapitools/client/model/AddPackageRequestTest.java
 src/test/java/org/openapitools/client/model/AddressTest.java
 src/test/java/org/openapitools/client/model/BasketItemTest.java
 src/test/java/org/openapitools/client/model/BasketLinksTest.java
+src/test/java/org/openapitools/client/model/BasketRowMetaLimitsTest.java
+src/test/java/org/openapitools/client/model/BasketRowMetaLimitsUserTest.java
+src/test/java/org/openapitools/client/model/BasketRowMetaTest.java
+src/test/java/org/openapitools/client/model/BasketRowTest.java
 src/test/java/org/openapitools/client/model/BasketTest.java
 src/test/java/org/openapitools/client/model/CheckoutItemTest.java
 src/test/java/org/openapitools/client/model/CheckoutRequestBasketTest.java
@@ -137,4 +151,5 @@ src/test/java/org/openapitools/client/model/RecurringPaymentTest.java
 src/test/java/org/openapitools/client/model/RevenueShareTest.java
 src/test/java/org/openapitools/client/model/SaleTest.java
 src/test/java/org/openapitools/client/model/UpdateRecurringPaymentRequestTest.java
+src/test/java/org/openapitools/client/model/UpdateSubscriptionRequestItemsInnerTest.java
 src/test/java/org/openapitools/client/model/UpdateSubscriptionRequestTest.java

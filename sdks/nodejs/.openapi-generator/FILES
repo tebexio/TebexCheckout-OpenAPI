@@ -8,6 +8,10 @@ docs/Address.md
 docs/Basket.md
 docs/BasketItem.md
 docs/BasketLinks.md
+docs/BasketRow.md
+docs/BasketRowMeta.md
+docs/BasketRowMetaLimits.md
+docs/BasketRowMetaLimitsUser.md
 docs/BasketsApi.md
 docs/CheckoutApi.md
 docs/CheckoutItem.md
@@ -38,6 +42,7 @@ docs/RevenueShare.md
 docs/Sale.md
 docs/UpdateRecurringPaymentRequest.md
 docs/UpdateSubscriptionRequest.md
+docs/UpdateSubscriptionRequestItemsInner.md
 git_push.sh
 mocha.opts
 package.json
@@ -52,6 +57,10 @@ src/TebexCheckout/model/Address.js
 src/TebexCheckout/model/Basket.js
 src/TebexCheckout/model/BasketItem.js
 src/TebexCheckout/model/BasketLinks.js
+src/TebexCheckout/model/BasketRow.js
+src/TebexCheckout/model/BasketRowMeta.js
+src/TebexCheckout/model/BasketRowMetaLimits.js
+src/TebexCheckout/model/BasketRowMetaLimitsUser.js
 src/TebexCheckout/model/CheckoutItem.js
 src/TebexCheckout/model/CheckoutRequest.js
 src/TebexCheckout/model/CheckoutRequestBasket.js
@@ -78,6 +87,7 @@ src/TebexCheckout/model/RevenueShare.js
 src/TebexCheckout/model/Sale.js
 src/TebexCheckout/model/UpdateRecurringPaymentRequest.js
 src/TebexCheckout/model/UpdateSubscriptionRequest.js
+src/TebexCheckout/model/UpdateSubscriptionRequestItemsInner.js
 test/TebexCheckout/api/BasketsApi.spec.js
 test/TebexCheckout/api/CheckoutApi.spec.js
 test/TebexCheckout/api/PaymentsApi.spec.js
@@ -87,6 +97,10 @@ test/TebexCheckout/model/Address.spec.js
 test/TebexCheckout/model/Basket.spec.js
 test/TebexCheckout/model/BasketItem.spec.js
 test/TebexCheckout/model/BasketLinks.spec.js
+test/TebexCheckout/model/BasketRow.spec.js
+test/TebexCheckout/model/BasketRowMeta.spec.js
+test/TebexCheckout/model/BasketRowMetaLimits.spec.js
+test/TebexCheckout/model/BasketRowMetaLimitsUser.spec.js
 test/TebexCheckout/model/CheckoutItem.spec.js
 test/TebexCheckout/model/CheckoutRequest.spec.js
 test/TebexCheckout/model/CheckoutRequestBasket.spec.js
@@ -113,3 +127,4 @@ test/TebexCheckout/model/RevenueShare.spec.js
 test/TebexCheckout/model/Sale.spec.js
 test/TebexCheckout/model/UpdateRecurringPaymentRequest.spec.js
 test/TebexCheckout/model/UpdateSubscriptionRequest.spec.js
+test/TebexCheckout/model/UpdateSubscriptionRequestItemsInner.spec.js

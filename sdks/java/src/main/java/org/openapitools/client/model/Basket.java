@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.openapitools.client.model.Address;
-import org.openapitools.client.model.BasketItem;
 import org.openapitools.client.model.BasketLinks;
+import org.openapitools.client.model.BasketRow;
 import org.openapitools.client.model.PriceDetails;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -57,7 +57,7 @@ import TebexCheckout.JSON;
 /**
  * Basket
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-14T12:22:39.312899-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class Basket {
   public static final String SERIALIZED_NAME_IDENT = "ident";
   @SerializedName(SERIALIZED_NAME_IDENT)
@@ -69,7 +69,7 @@ public class Basket {
 
   public static final String SERIALIZED_NAME_PRICE = "price";
   @SerializedName(SERIALIZED_NAME_PRICE)
-  private BigDecimal price;
+  private Float price;
 
   public static final String SERIALIZED_NAME_PRICE_DETAILS = "priceDetails";
   @SerializedName(SERIALIZED_NAME_PRICE_DETAILS)
@@ -78,10 +78,6 @@ public class Basket {
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
   private String type;
-
-  public static final String SERIALIZED_NAME_RECURRING = "recurring";
-  @SerializedName(SERIALIZED_NAME_RECURRING)
-  private Boolean recurring;
 
   public static final String SERIALIZED_NAME_RECURRING_PERIOD = "recurringPeriod";
   @SerializedName(SERIALIZED_NAME_RECURRING_PERIOD)
@@ -105,7 +101,7 @@ public class Basket {
 
   public static final String SERIALIZED_NAME_TAX = "tax";
   @SerializedName(SERIALIZED_NAME_TAX)
-  private Object tax;
+  private BigDecimal tax;
 
   public static final String SERIALIZED_NAME_USERNAME = "username";
   @SerializedName(SERIALIZED_NAME_USERNAME)
@@ -129,7 +125,7 @@ public class Basket {
 
   public static final String SERIALIZED_NAME_ROWS = "rows";
   @SerializedName(SERIALIZED_NAME_ROWS)
-  private List<BasketItem> rows = new ArrayList<>();
+  private List<BasketRow> rows = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FINGERPRINT = "fingerprint";
   @SerializedName(SERIALIZED_NAME_FINGERPRINT)
@@ -204,7 +200,7 @@ public class Basket {
   }
 
 
-  public Basket price(BigDecimal price) {
+  public Basket price(Float price) {
     this.price = price;
     return this;
   }
@@ -214,11 +210,11 @@ public class Basket {
    * @return price
   **/
   @javax.annotation.Nullable
-  public BigDecimal getPrice() {
+  public Float getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(Float price) {
     this.price = price;
   }
 
@@ -258,25 +254,6 @@ public class Basket {
 
   public void setType(String type) {
     this.type = type;
-  }
-
-
-  public Basket recurring(Boolean recurring) {
-    this.recurring = recurring;
-    return this;
-  }
-
-   /**
-   * Get recurring
-   * @return recurring
-  **/
-  @javax.annotation.Nullable
-  public Boolean getRecurring() {
-    return recurring;
-  }
-
-  public void setRecurring(Boolean recurring) {
-    this.recurring = recurring;
   }
 
 
@@ -375,7 +352,7 @@ public class Basket {
   }
 
 
-  public Basket tax(Object tax) {
+  public Basket tax(BigDecimal tax) {
     this.tax = tax;
     return this;
   }
@@ -385,11 +362,11 @@ public class Basket {
    * @return tax
   **/
   @javax.annotation.Nullable
-  public Object getTax() {
+  public BigDecimal getTax() {
     return tax;
   }
 
-  public void setTax(Object tax) {
+  public void setTax(BigDecimal tax) {
     this.tax = tax;
   }
 
@@ -513,12 +490,12 @@ public class Basket {
   }
 
 
-  public Basket rows(List<BasketItem> rows) {
+  public Basket rows(List<BasketRow> rows) {
     this.rows = rows;
     return this;
   }
 
-  public Basket addRowsItem(BasketItem rowsItem) {
+  public Basket addRowsItem(BasketRow rowsItem) {
     if (this.rows == null) {
       this.rows = new ArrayList<>();
     }
@@ -531,11 +508,11 @@ public class Basket {
    * @return rows
   **/
   @javax.annotation.Nullable
-  public List<BasketItem> getRows() {
+  public List<BasketRow> getRows() {
     return rows;
   }
 
-  public void setRows(List<BasketItem> rows) {
+  public void setRows(List<BasketRow> rows) {
     this.rows = rows;
   }
 
@@ -707,7 +684,6 @@ public class Basket {
         Objects.equals(this.price, basket.price) &&
         Objects.equals(this.priceDetails, basket.priceDetails) &&
         Objects.equals(this.type, basket.type) &&
-        Objects.equals(this.recurring, basket.recurring) &&
         Objects.equals(this.recurringPeriod, basket.recurringPeriod) &&
         Objects.equals(this.recurringNextPaymentDate, basket.recurringNextPaymentDate) &&
         Objects.equals(this.isPaymentMethodUpdate, basket.isPaymentMethodUpdate) &&
@@ -736,7 +712,7 @@ public class Basket {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ident, expire, price, priceDetails, type, recurring, recurringPeriod, recurringNextPaymentDate, isPaymentMethodUpdate, returnUrl, complete, tax, username, discounts, coupons, giftcards, address, rows, fingerprint, creatorCode, roundup, cancelUrl, completeUrl, completeAutoRedirect, custom, links);
+    return Objects.hash(ident, expire, price, priceDetails, type, recurringPeriod, recurringNextPaymentDate, isPaymentMethodUpdate, returnUrl, complete, tax, username, discounts, coupons, giftcards, address, rows, fingerprint, creatorCode, roundup, cancelUrl, completeUrl, completeAutoRedirect, custom, links);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -755,7 +731,6 @@ public class Basket {
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    priceDetails: ").append(toIndentedString(priceDetails)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    recurring: ").append(toIndentedString(recurring)).append("\n");
     sb.append("    recurringPeriod: ").append(toIndentedString(recurringPeriod)).append("\n");
     sb.append("    recurringNextPaymentDate: ").append(toIndentedString(recurringNextPaymentDate)).append("\n");
     sb.append("    isPaymentMethodUpdate: ").append(toIndentedString(isPaymentMethodUpdate)).append("\n");
@@ -803,7 +778,6 @@ public class Basket {
     openapiFields.add("price");
     openapiFields.add("priceDetails");
     openapiFields.add("type");
-    openapiFields.add("recurring");
     openapiFields.add("recurringPeriod");
     openapiFields.add("recurringNextPaymentDate");
     openapiFields.add("isPaymentMethodUpdate");
@@ -898,7 +872,7 @@ public class Basket {
 
           // validate the optional field `rows` (array)
           for (int i = 0; i < jsonArrayrows.size(); i++) {
-            BasketItem.validateJsonElement(jsonArrayrows.get(i));
+            BasketRow.validateJsonElement(jsonArrayrows.get(i));
           };
         }
       }

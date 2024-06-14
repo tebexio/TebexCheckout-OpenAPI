@@ -2,7 +2,7 @@
 
 Tebex Checkout API
 - API version: 1.0.0
-  - Build date: 2024-05-16T10:59:54.383377-05:00[America/Chicago]
+  - Build date: 2024-06-14T12:22:39.312899-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.
@@ -122,7 +122,7 @@ Class | Method | HTTP request | Description
 *BasketsApi* | [**addSaleToBasket**](docs/BasketsApi.md#addSaleToBasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket
 *BasketsApi* | [**createBasket**](docs/BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items
 *BasketsApi* | [**getBasketById**](docs/BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier
-*BasketsApi* | [**removeRowFromBasket**](docs/BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket
+*BasketsApi* | [**removeRowFromBasket**](docs/BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
 *CheckoutApi* | [**checkout**](docs/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request
 *PaymentsApi* | [**getPaymentById**](docs/PaymentsApi.md#getPaymentById) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID
 *PaymentsApi* | [**refundPaymentById**](docs/PaymentsApi.md#refundPaymentById) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID
@@ -139,6 +139,10 @@ Class | Method | HTTP request | Description
  - [Basket](docs/Basket.md)
  - [BasketItem](docs/BasketItem.md)
  - [BasketLinks](docs/BasketLinks.md)
+ - [BasketRow](docs/BasketRow.md)
+ - [BasketRowMeta](docs/BasketRowMeta.md)
+ - [BasketRowMetaLimits](docs/BasketRowMetaLimits.md)
+ - [BasketRowMetaLimitsUser](docs/BasketRowMetaLimitsUser.md)
  - [CheckoutItem](docs/CheckoutItem.md)
  - [CheckoutRequest](docs/CheckoutRequest.md)
  - [CheckoutRequestBasket](docs/CheckoutRequestBasket.md)
@@ -165,6 +169,7 @@ Class | Method | HTTP request | Description
  - [Sale](docs/Sale.md)
  - [UpdateRecurringPaymentRequest](docs/UpdateRecurringPaymentRequest.md)
  - [UpdateSubscriptionRequest](docs/UpdateSubscriptionRequest.md)
+ - [UpdateSubscriptionRequestItemsInner](docs/UpdateSubscriptionRequestItemsInner.md)
 
 
 <a id="documentation-for-authorization"></a>

@@ -53,6 +53,10 @@ class TestPriceDetails(unittest.TestCase):
                 giftcards = [
                     TebexCheckout.models.gift_card.GiftCard()
                     ],
+                recurring = True,
+                recurring_period = None,
+                recurring_next_payment_date = None,
+                username = '',
                 round_up = 1.337
             )
         else:

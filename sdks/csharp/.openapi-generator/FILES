@@ -9,6 +9,10 @@ docs/Address.md
 docs/Basket.md
 docs/BasketItem.md
 docs/BasketLinks.md
+docs/BasketRow.md
+docs/BasketRowMeta.md
+docs/BasketRowMetaLimits.md
+docs/BasketRowMetaLimitsUser.md
 docs/BasketsApi.md
 docs/CheckoutApi.md
 docs/CheckoutItem.md
@@ -39,11 +43,16 @@ docs/RevenueShare.md
 docs/Sale.md
 docs/UpdateRecurringPaymentRequest.md
 docs/UpdateSubscriptionRequest.md
+docs/UpdateSubscriptionRequestItemsInner.md
 git_push.sh
 src/TebexCheckout.Test/Model/AddPackageRequestTests.cs
 src/TebexCheckout.Test/Model/AddressTests.cs
 src/TebexCheckout.Test/Model/BasketItemTests.cs
 src/TebexCheckout.Test/Model/BasketLinksTests.cs
+src/TebexCheckout.Test/Model/BasketRowMetaLimitsTests.cs
+src/TebexCheckout.Test/Model/BasketRowMetaLimitsUserTests.cs
+src/TebexCheckout.Test/Model/BasketRowMetaTests.cs
+src/TebexCheckout.Test/Model/BasketRowTests.cs
 src/TebexCheckout.Test/Model/BasketTests.cs
 src/TebexCheckout.Test/Model/CheckoutItemTests.cs
 src/TebexCheckout.Test/Model/CheckoutRequestBasketTests.cs
@@ -70,6 +79,7 @@ src/TebexCheckout.Test/Model/RecurringPaymentTests.cs
 src/TebexCheckout.Test/Model/RevenueShareTests.cs
 src/TebexCheckout.Test/Model/SaleTests.cs
 src/TebexCheckout.Test/Model/UpdateRecurringPaymentRequestTests.cs
+src/TebexCheckout.Test/Model/UpdateSubscriptionRequestItemsInnerTests.cs
 src/TebexCheckout.Test/Model/UpdateSubscriptionRequestTests.cs
 src/TebexCheckout.Test/TebexCheckout.Test.csproj
 src/TebexCheckout.Test/TebexCheckout/BasketsApiTests.cs
@@ -98,6 +108,10 @@ src/TebexCheckout/Model/Address.cs
 src/TebexCheckout/Model/Basket.cs
 src/TebexCheckout/Model/BasketItem.cs
 src/TebexCheckout/Model/BasketLinks.cs
+src/TebexCheckout/Model/BasketRow.cs
+src/TebexCheckout/Model/BasketRowMeta.cs
+src/TebexCheckout/Model/BasketRowMetaLimits.cs
+src/TebexCheckout/Model/BasketRowMetaLimitsUser.cs
 src/TebexCheckout/Model/CheckoutItem.cs
 src/TebexCheckout/Model/CheckoutRequest.cs
 src/TebexCheckout/Model/CheckoutRequestBasket.cs
@@ -124,6 +138,7 @@ src/TebexCheckout/Model/RevenueShare.cs
 src/TebexCheckout/Model/Sale.cs
 src/TebexCheckout/Model/UpdateRecurringPaymentRequest.cs
 src/TebexCheckout/Model/UpdateSubscriptionRequest.cs
+src/TebexCheckout/Model/UpdateSubscriptionRequestItemsInner.cs
 src/TebexCheckout/TebexCheckout.csproj
 src/TebexCheckout/TebexCheckout/BasketsApi.cs
 src/TebexCheckout/TebexCheckout/CheckoutApi.cs

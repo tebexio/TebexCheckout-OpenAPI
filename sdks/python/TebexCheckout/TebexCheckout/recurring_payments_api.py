@@ -617,7 +617,7 @@ class RecurringPaymentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RecurringPayment",
-            '400': None,
+            '422': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -689,7 +689,7 @@ class RecurringPaymentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RecurringPayment",
-            '400': None,
+            '422': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -761,7 +761,7 @@ class RecurringPaymentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "RecurringPayment",
-            '400': None,
+            '422': None,
             '404': None,
         }
         response_data = self.api_client.call_api(

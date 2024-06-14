@@ -680,7 +680,6 @@ class BasketsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Basket",
-            '400': "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -748,7 +747,6 @@ class BasketsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Basket",
-            '400': "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -816,7 +814,6 @@ class BasketsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Basket",
-            '400': "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1162,7 +1159,7 @@ class BasketsApi:
     def remove_row_from_basket(
         self,
         ident: Annotated[StrictStr, Field(description="The basket identifier.")],
-        row_id: Annotated[StrictInt, Field(description="The `id` of the `basket.rows` row to remove.")],
+        rows_id: Annotated[StrictInt, Field(description="The `id` of the `basket.rows` row to remove.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1178,12 +1175,12 @@ class BasketsApi:
     ) -> None:
         """Remove a row from the basket
 
-        This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+        This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
 
         :param ident: The basket identifier. (required)
         :type ident: str
-        :param row_id: The `id` of the `basket.rows` row to remove. (required)
-        :type row_id: int
+        :param rows_id: The `id` of the `basket.rows` row to remove. (required)
+        :type rows_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1208,7 +1205,7 @@ class BasketsApi:
 
         _param = self._remove_row_from_basket_serialize(
             ident=ident,
-            row_id=row_id,
+            rows_id=rows_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1217,7 +1214,6 @@ class BasketsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '400': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -1235,7 +1231,7 @@ class BasketsApi:
     def remove_row_from_basket_with_http_info(
         self,
         ident: Annotated[StrictStr, Field(description="The basket identifier.")],
-        row_id: Annotated[StrictInt, Field(description="The `id` of the `basket.rows` row to remove.")],
+        rows_id: Annotated[StrictInt, Field(description="The `id` of the `basket.rows` row to remove.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1251,12 +1247,12 @@ class BasketsApi:
     ) -> ApiResponse[None]:
         """Remove a row from the basket
 
-        This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+        This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
 
         :param ident: The basket identifier. (required)
         :type ident: str
-        :param row_id: The `id` of the `basket.rows` row to remove. (required)
-        :type row_id: int
+        :param rows_id: The `id` of the `basket.rows` row to remove. (required)
+        :type rows_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1281,7 +1277,7 @@ class BasketsApi:
 
         _param = self._remove_row_from_basket_serialize(
             ident=ident,
-            row_id=row_id,
+            rows_id=rows_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1290,7 +1286,6 @@ class BasketsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '400': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -1308,7 +1303,7 @@ class BasketsApi:
     def remove_row_from_basket_without_preload_content(
         self,
         ident: Annotated[StrictStr, Field(description="The basket identifier.")],
-        row_id: Annotated[StrictInt, Field(description="The `id` of the `basket.rows` row to remove.")],
+        rows_id: Annotated[StrictInt, Field(description="The `id` of the `basket.rows` row to remove.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1324,12 +1319,12 @@ class BasketsApi:
     ) -> RESTResponseType:
         """Remove a row from the basket
 
-        This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+        This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
 
         :param ident: The basket identifier. (required)
         :type ident: str
-        :param row_id: The `id` of the `basket.rows` row to remove. (required)
-        :type row_id: int
+        :param rows_id: The `id` of the `basket.rows` row to remove. (required)
+        :type rows_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1354,7 +1349,7 @@ class BasketsApi:
 
         _param = self._remove_row_from_basket_serialize(
             ident=ident,
-            row_id=row_id,
+            rows_id=rows_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1363,7 +1358,6 @@ class BasketsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '400': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -1376,7 +1370,7 @@ class BasketsApi:
     def _remove_row_from_basket_serialize(
         self,
         ident,
-        row_id,
+        rows_id,
         _request_auth,
         _content_type,
         _headers,
@@ -1398,8 +1392,8 @@ class BasketsApi:
         # process the path parameters
         if ident is not None:
             _path_params['ident'] = ident
-        if row_id is not None:
-            _path_params['row.id'] = row_id
+        if rows_id is not None:
+            _path_params['rows.id'] = rows_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -1414,7 +1408,7 @@ class BasketsApi:
 
         return self.api_client.param_serialize(
             method='DELETE',
-            resource_path='/baskets/{ident}/packages/{row.id}',
+            resource_path='/baskets/{ident}/packages/{rows.id}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

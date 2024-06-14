@@ -3,6 +3,10 @@ Models/Address.md
 Models/Basket.md
 Models/BasketItem.md
 Models/BasketLinks.md
+Models/BasketRow.md
+Models/BasketRow_meta.md
+Models/BasketRow_meta_limits.md
+Models/BasketRow_meta_limits_user.md
 Models/CheckoutItem.md
 Models/ErrorResponse.md
 Models/Package.md
@@ -30,6 +34,7 @@ Models/checkout_request_basket.md
 Models/createBasket_request.md
 Models/updateRecurringPayment_request.md
 Models/updateSubscription_request.md
+Models/updateSubscription_request_items_inner.md
 README.md
 TebexCheckout/BasketsApi.md
 TebexCheckout/CheckoutApi.md

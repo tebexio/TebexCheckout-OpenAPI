@@ -127,27 +127,27 @@ namespace TebexCheckout.TebexCheckout
         /// Remove a row from the basket
         /// </summary>
         /// <remarks>
-        /// This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </remarks>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        void RemoveRowFromBasket(string ident, int rowId, int operationIndex = 0);
+        void RemoveRowFromBasket(string ident, int rowsId, int operationIndex = 0);
 
         /// <summary>
         /// Remove a row from the basket
         /// </summary>
         /// <remarks>
-        /// This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </remarks>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> RemoveRowFromBasketWithHttpInfo(string ident, int rowId, int operationIndex = 0);
+        ApiResponse<Object> RemoveRowFromBasketWithHttpInfo(string ident, int rowsId, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -265,29 +265,29 @@ namespace TebexCheckout.TebexCheckout
         /// Remove a row from the basket
         /// </summary>
         /// <remarks>
-        /// This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </remarks>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task RemoveRowFromBasketAsync(string ident, int rowId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task RemoveRowFromBasketAsync(string ident, int rowsId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Remove a row from the basket
         /// </summary>
         /// <remarks>
-        /// This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </remarks>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> RemoveRowFromBasketWithHttpInfoAsync(string ident, int rowId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> RemoveRowFromBasketWithHttpInfoAsync(string ident, int rowsId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -991,27 +991,27 @@ namespace TebexCheckout.TebexCheckout
         }
 
         /// <summary>
-        /// Remove a row from the basket This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// Remove a row from the basket This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </summary>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
-        public void RemoveRowFromBasket(string ident, int rowId, int operationIndex = 0)
+        public void RemoveRowFromBasket(string ident, int rowsId, int operationIndex = 0)
         {
-            RemoveRowFromBasketWithHttpInfo(ident, rowId);
+            RemoveRowFromBasketWithHttpInfo(ident, rowsId);
         }
 
         /// <summary>
-        /// Remove a row from the basket This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// Remove a row from the basket This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </summary>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public TebexCheckout.Client.ApiResponse<Object> RemoveRowFromBasketWithHttpInfo(string ident, int rowId, int operationIndex = 0)
+        public TebexCheckout.Client.ApiResponse<Object> RemoveRowFromBasketWithHttpInfo(string ident, int rowsId, int operationIndex = 0)
         {
             // verify the required parameter 'ident' is set
             if (ident == null)
@@ -1041,14 +1041,14 @@ namespace TebexCheckout.TebexCheckout
             }
 
             localVarRequestOptions.PathParameters.Add("ident", TebexCheckout.Client.ClientUtils.ParameterToString(ident)); // path parameter
-            localVarRequestOptions.PathParameters.Add("row.id", TebexCheckout.Client.ClientUtils.ParameterToString(rowId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("rows.id", TebexCheckout.Client.ClientUtils.ParameterToString(rowsId)); // path parameter
 
             localVarRequestOptions.Operation = "BasketsApi.RemoveRowFromBasket";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Delete<Object>("/baskets/{ident}/packages/{row.id}", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Delete<Object>("/baskets/{ident}/packages/{rows.id}", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("RemoveRowFromBasket", localVarResponse);
@@ -1062,29 +1062,29 @@ namespace TebexCheckout.TebexCheckout
         }
 
         /// <summary>
-        /// Remove a row from the basket This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// Remove a row from the basket This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </summary>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task RemoveRowFromBasketAsync(string ident, int rowId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task RemoveRowFromBasketAsync(string ident, int rowsId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            await RemoveRowFromBasketWithHttpInfoAsync(ident, rowId, operationIndex, cancellationToken).ConfigureAwait(false);
+            await RemoveRowFromBasketWithHttpInfoAsync(ident, rowsId, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Remove a row from the basket This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+        /// Remove a row from the basket This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
         /// </summary>
         /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="ident">The basket identifier.</param>
-        /// <param name="rowId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
+        /// <param name="rowsId">The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<TebexCheckout.Client.ApiResponse<Object>> RemoveRowFromBasketWithHttpInfoAsync(string ident, int rowId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<TebexCheckout.Client.ApiResponse<Object>> RemoveRowFromBasketWithHttpInfoAsync(string ident, int rowsId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'ident' is set
             if (ident == null)
@@ -1115,14 +1115,14 @@ namespace TebexCheckout.TebexCheckout
             }
 
             localVarRequestOptions.PathParameters.Add("ident", TebexCheckout.Client.ClientUtils.ParameterToString(ident)); // path parameter
-            localVarRequestOptions.PathParameters.Add("row.id", TebexCheckout.Client.ClientUtils.ParameterToString(rowId)); // path parameter
+            localVarRequestOptions.PathParameters.Add("rows.id", TebexCheckout.Client.ClientUtils.ParameterToString(rowsId)); // path parameter
 
             localVarRequestOptions.Operation = "BasketsApi.RemoveRowFromBasket";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/baskets/{ident}/packages/{row.id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/baskets/{ident}/packages/{rows.id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

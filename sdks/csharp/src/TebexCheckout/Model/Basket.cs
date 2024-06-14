@@ -40,7 +40,6 @@ namespace TebexCheckout.Model
         /// <param name="price">price.</param>
         /// <param name="priceDetails">priceDetails.</param>
         /// <param name="type">type.</param>
-        /// <param name="recurring">recurring.</param>
         /// <param name="recurringPeriod">recurringPeriod.</param>
         /// <param name="recurringNextPaymentDate">recurringNextPaymentDate.</param>
         /// <param name="isPaymentMethodUpdate">isPaymentMethodUpdate.</param>
@@ -61,14 +60,13 @@ namespace TebexCheckout.Model
         /// <param name="completeAutoRedirect">completeAutoRedirect.</param>
         /// <param name="custom">custom.</param>
         /// <param name="links">links.</param>
-        public Basket(string ident = default(string), string expire = default(string), decimal price = default(decimal), PriceDetails priceDetails = default(PriceDetails), string type = default(string), bool recurring = default(bool), Object recurringPeriod = default(Object), string recurringNextPaymentDate = default(string), bool isPaymentMethodUpdate = default(bool), string returnUrl = default(string), bool complete = default(bool), Object tax = default(Object), string username = default(string), List<Object> discounts = default(List<Object>), List<Object> coupons = default(List<Object>), List<Object> giftcards = default(List<Object>), Address address = default(Address), List<BasketItem> rows = default(List<BasketItem>), string fingerprint = default(string), string creatorCode = default(string), bool? roundup = default(bool?), string cancelUrl = default(string), string completeUrl = default(string), bool completeAutoRedirect = default(bool), Object custom = default(Object), BasketLinks links = default(BasketLinks))
+        public Basket(string ident = default(string), string expire = default(string), float price = default(float), PriceDetails priceDetails = default(PriceDetails), string type = default(string), Object recurringPeriod = default(Object), string recurringNextPaymentDate = default(string), bool isPaymentMethodUpdate = default(bool), string returnUrl = default(string), bool complete = default(bool), decimal tax = default(decimal), string username = default(string), List<Object> discounts = default(List<Object>), List<Object> coupons = default(List<Object>), List<Object> giftcards = default(List<Object>), Address address = default(Address), List<BasketRow> rows = default(List<BasketRow>), string fingerprint = default(string), string creatorCode = default(string), bool? roundup = default(bool?), string cancelUrl = default(string), string completeUrl = default(string), bool completeAutoRedirect = default(bool), Object custom = default(Object), BasketLinks links = default(BasketLinks))
         {
             this.Ident = ident;
             this.Expire = expire;
             this.Price = price;
             this.PriceDetails = priceDetails;
             this.Type = type;
-            this.Recurring = recurring;
             this.RecurringPeriod = recurringPeriod;
             this.RecurringNextPaymentDate = recurringNextPaymentDate;
             this.IsPaymentMethodUpdate = isPaymentMethodUpdate;
@@ -110,7 +108,7 @@ namespace TebexCheckout.Model
         /// </summary>
         /// <example>1.27</example>
         [DataMember(Name = "price", EmitDefaultValue = false)]
-        public decimal Price { get; set; }
+        public float Price { get; set; }
 
         /// <summary>
         /// Gets or Sets PriceDetails
@@ -124,13 +122,6 @@ namespace TebexCheckout.Model
         /// <example>single</example>
         [DataMember(Name = "type", EmitDefaultValue = false)]
         public string Type { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Recurring
-        /// </summary>
-        /// <example>false</example>
-        [DataMember(Name = "recurring", EmitDefaultValue = true)]
-        public bool Recurring { get; set; }
 
         /// <summary>
         /// Gets or Sets RecurringPeriod
@@ -168,7 +159,7 @@ namespace TebexCheckout.Model
         /// Gets or Sets Tax
         /// </summary>
         [DataMember(Name = "tax", EmitDefaultValue = false)]
-        public Object Tax { get; set; }
+        public decimal Tax { get; set; }
 
         /// <summary>
         /// Gets or Sets Username
@@ -204,7 +195,7 @@ namespace TebexCheckout.Model
         /// Gets or Sets Rows
         /// </summary>
         [DataMember(Name = "rows", EmitDefaultValue = false)]
-        public List<BasketItem> Rows { get; set; }
+        public List<BasketRow> Rows { get; set; }
 
         /// <summary>
         /// Browser fingerprint to identify the user
@@ -273,7 +264,6 @@ namespace TebexCheckout.Model
             sb.Append("  Price: ").Append(Price).Append("\n");
             sb.Append("  PriceDetails: ").Append(PriceDetails).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Recurring: ").Append(Recurring).Append("\n");
             sb.Append("  RecurringPeriod: ").Append(RecurringPeriod).Append("\n");
             sb.Append("  RecurringNextPaymentDate: ").Append(RecurringNextPaymentDate).Append("\n");
             sb.Append("  IsPaymentMethodUpdate: ").Append(IsPaymentMethodUpdate).Append("\n");

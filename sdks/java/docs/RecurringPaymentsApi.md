@@ -195,7 +195,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successfully paused or reactivated a payment. The &#x60;RecurringPayment&#x60; is returned. |  -  |
-| **400** | Bad Request. See ErrorResponse. |  -  |
+| **422** | Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse. |  -  |
 | **404** | Recurring payment not found. |  -  |
 
 <a id="updateSubscription"></a>

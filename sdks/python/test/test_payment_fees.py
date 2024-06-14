@@ -37,7 +37,7 @@ class TestPaymentFees(unittest.TestCase):
         if include_optional:
             return PaymentFees(
                 tax = TebexCheckout.models.payment_fees_tax.Payment_fees_tax(
-                    amount = 0, 
+                    amount = 0.0, 
                     currency = 'USD', ),
                 gateway = TebexCheckout.models.payment_fees_gateway.Payment_fees_gateway(
                     amount = 0.45, 

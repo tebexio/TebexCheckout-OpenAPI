@@ -153,6 +153,42 @@ class PriceDetailsTest extends TestCase
     }
 
     /**
+     * Test attribute "recurring"
+     */
+    public function testPropertyRecurring()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "recurring_period"
+     */
+    public function testPropertyRecurringPeriod()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "recurring_next_payment_date"
+     */
+    public function testPropertyRecurringNextPaymentDate()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "username"
+     */
+    public function testPropertyUsername()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "round_up"
      */
     public function testPropertyRoundUp()

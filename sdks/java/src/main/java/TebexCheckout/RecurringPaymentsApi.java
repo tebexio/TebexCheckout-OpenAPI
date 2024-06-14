@@ -339,7 +339,7 @@ public class RecurringPaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successfully paused or reactivated a payment. The &#x60;RecurringPayment&#x60; is returned. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Recurring payment not found. </td><td>  -  </td></tr>
      </table>
      */
@@ -411,7 +411,7 @@ public class RecurringPaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successfully paused or reactivated a payment. The &#x60;RecurringPayment&#x60; is returned. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Recurring payment not found. </td><td>  -  </td></tr>
      </table>
      */
@@ -431,7 +431,7 @@ public class RecurringPaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successfully paused or reactivated a payment. The &#x60;RecurringPayment&#x60; is returned. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Recurring payment not found. </td><td>  -  </td></tr>
      </table>
      */
@@ -453,7 +453,7 @@ public class RecurringPaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successfully paused or reactivated a payment. The &#x60;RecurringPayment&#x60; is returned. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Recurring payment not found. </td><td>  -  </td></tr>
      </table>
      */

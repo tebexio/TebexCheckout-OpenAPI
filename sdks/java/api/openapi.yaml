@@ -101,9 +101,9 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /baskets/{ident}/packages/{row.id}:
+  /baskets/{ident}/packages/{rows.id}:
     delete:
-      description: "This will remove the given `{row.id}` from the basket `{ident}`.\
+      description: "This will remove the given `{rows.id}` from the basket `{ident}`.\
         \ The basket must be re-fetched after running to receive updated totals."
       operationId: removeRowFromBasket
       parameters:
@@ -119,7 +119,7 @@ paths:
       - description: The `id` of the `basket.rows` row to remove.
         explode: false
         in: path
-        name: row.id
+        name: rows.id
         required: true
         schema:
           example: 1
@@ -128,8 +128,6 @@ paths:
       responses:
         "204":
           description: Successfully deleted a row from the basket.
-        "400":
-          description: Bad Request. See ErrorResponse.
         "404":
           description: Row or basket not found.
       summary: Remove a row from the basket
@@ -259,6 +257,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Payment'
           description: Payment refunded successfully. The payment details are returned.
+        "422":
+          description: The payment cannot be refunded. Payments can only be refunded
+            when a payment's `status` is Completed.
         "404":
           description: Payment not found.
       summary: Refund a payment by its transaction ID
@@ -387,8 +388,9 @@ paths:
                 $ref: '#/components/schemas/RecurringPayment'
           description: Successfully paused or reactivated a payment. The `RecurringPayment`
             is returned.
-        "400":
-          description: Bad Request. See ErrorResponse.
+        "422":
+          description: Unprocessible Entity. An invalid status was provided or the
+            recurring payment cannot be processed. See ErrorResponse.
         "404":
           description: Recurring payment not found.
       summary: Pause or reactivate a recurring payment
@@ -416,12 +418,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Basket'
           description: Basket created successfully
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Invalid basket information provided.
       summary: Create a basket that can be used to pay for items
       tags:
       - Baskets
@@ -438,12 +434,6 @@ components:
       description: A basket with items to be purchased
   schemas:
     ErrorResponse:
-      example:
-        instance: /path/to/ref
-        detail: Parameter 'first_name' is required.
-        type: ""
-        title: Bad Request
-        status: 400
       properties:
         type:
           description: "A URI reference [RFC3986] that identifies the problem type.\
@@ -483,8 +473,6 @@ components:
       type: object
     RecurringPeriod:
       type: object
-    Tax:
-      type: object
     Discount:
       type: object
     Coupon:
@@ -520,31 +508,100 @@ components:
           country: UK
           postal_code: NW6 3QT
         recurringPeriod: "{}"
-        recurring: false
         custom:
           foo: bar
           ref: 1234
         recurringNextPaymentDate: recurringNextPaymentDate
-        tax: "{}"
+        tax: 0.8008281904610115
         rows:
-        - qty: 2
-          revenue_share:
-          - amount: 0.5
-            wallet_ref: some_wallet_reference
-            gateway_fee_percent: 50.0
-          - amount: 0.5
-            wallet_ref: some_wallet_reference
-            gateway_fee_percent: 50.0
-          type: single
-        - qty: 2
-          revenue_share:
-          - amount: 0.5
-            wallet_ref: some_wallet_reference
-            gateway_fee_percent: 50.0
-          - amount: 0.5
-            wallet_ref: some_wallet_reference
-            gateway_fee_percent: 50.0
-          type: single
+        - basket: 725572301
+          server: 1
+          package: 6
+          quantity: 2
+          recurring_next_payment_date: 2000-01-23T04:56:07.000+00:00
+          recurring: false
+          image_url: image_url
+          custom: "{}"
+          recurring_price: 5.637377
+          recurring_period: recurring_period
+          gift_username_id: 5
+          price: 1.27
+          meta:
+            hasSellerProtection: true
+            image: image
+            itemType: itemType
+            initialprice: 1.27
+            hasDeliverables: false
+            rowprice: 2.54
+            deliverableTypes: []
+            revenue_share: []
+            servers: []
+            requiresAny: false
+            downloadLink: ""
+            isCumulative: false
+            name: 1000 Gold
+            producesGiftCard: false
+            allowsGiftCards: true
+            category: false
+            realprice: 1.27
+            requiredPackages: []
+            limits:
+              packageExpiryTime: 0
+              global:
+                limit: false
+                enabled: false
+                timestamp: 0
+              user:
+                limit: false
+                enabled: false
+                timestamp: 0
+          options: "{}"
+          id: 173125385
+          override: 0
+        - basket: 725572301
+          server: 1
+          package: 6
+          quantity: 2
+          recurring_next_payment_date: 2000-01-23T04:56:07.000+00:00
+          recurring: false
+          image_url: image_url
+          custom: "{}"
+          recurring_price: 5.637377
+          recurring_period: recurring_period
+          gift_username_id: 5
+          price: 1.27
+          meta:
+            hasSellerProtection: true
+            image: image
+            itemType: itemType
+            initialprice: 1.27
+            hasDeliverables: false
+            rowprice: 2.54
+            deliverableTypes: []
+            revenue_share: []
+            servers: []
+            requiresAny: false
+            downloadLink: ""
+            isCumulative: false
+            name: 1000 Gold
+            producesGiftCard: false
+            allowsGiftCards: true
+            category: false
+            realprice: 1.27
+            requiredPackages: []
+            limits:
+              packageExpiryTime: 0
+              global:
+                limit: false
+                enabled: false
+                timestamp: 0
+              user:
+                limit: false
+                enabled: false
+                timestamp: 0
+          options: "{}"
+          id: 173125385
+          override: 0
         isPaymentMethodUpdate: false
         expire: 2022-10-25 15:15:40
         priceDetails:
@@ -572,15 +629,13 @@ components:
           type: string
         price:
           example: 1.27
+          format: float
           type: number
         priceDetails:
           $ref: '#/components/schemas/PriceDetails'
         type:
           example: single
           type: string
-        recurring:
-          example: false
-          type: boolean
         recurringPeriod:
           type: object
         recurringNextPaymentDate:
@@ -597,7 +652,8 @@ components:
           example: false
           type: boolean
         tax:
-          type: object
+          format: int32
+          type: number
         username:
           nullable: true
           type: string
@@ -618,7 +674,7 @@ components:
           $ref: '#/components/schemas/Address'
         rows:
           items:
-            $ref: '#/components/schemas/BasketItem'
+            $ref: '#/components/schemas/BasketRow'
           type: array
         fingerprint:
           description: Browser fingerprint to identify the user
@@ -663,6 +719,7 @@ components:
           description: A float (decimal describing the price of the package in your
             account currency)
           example: 1.27
+          format: float
           type: number
         expiry_period:
           description: The renewal period of this item
@@ -680,18 +737,118 @@ components:
         metaData:
           $ref: '#/components/schemas/Package_metaData'
       type: object
+    BasketRow:
+      example:
+        basket: 725572301
+        server: 1
+        package: 6
+        quantity: 2
+        recurring_next_payment_date: 2000-01-23T04:56:07.000+00:00
+        recurring: false
+        image_url: image_url
+        custom: "{}"
+        recurring_price: 5.637377
+        recurring_period: recurring_period
+        gift_username_id: 5
+        price: 1.27
+        meta:
+          hasSellerProtection: true
+          image: image
+          itemType: itemType
+          initialprice: 1.27
+          hasDeliverables: false
+          rowprice: 2.54
+          deliverableTypes: []
+          revenue_share: []
+          servers: []
+          requiresAny: false
+          downloadLink: ""
+          isCumulative: false
+          name: 1000 Gold
+          producesGiftCard: false
+          allowsGiftCards: true
+          category: false
+          realprice: 1.27
+          requiredPackages: []
+          limits:
+            packageExpiryTime: 0
+            global:
+              limit: false
+              enabled: false
+              timestamp: 0
+            user:
+              limit: false
+              enabled: false
+              timestamp: 0
+        options: "{}"
+        id: 173125385
+        override: 0
+      properties:
+        id:
+          example: 173125385
+          type: integer
+        basket:
+          description: Numeric basket ID
+          example: 725572301
+          type: integer
+        package:
+          description: Package ID associated with this item
+          nullable: true
+          type: integer
+          example: null
+        override:
+          description: Package ID associated with this item
+          example: 0
+          type: integer
+        quantity:
+          example: 2
+          type: integer
+        server:
+          nullable: true
+          type: integer
+          example: null
+        price:
+          example: 1.27
+          format: float
+          type: number
+        gift_username_id:
+          nullable: true
+          type: integer
+          example: null
+        options:
+          nullable: true
+          type: object
+          example: null
+        recurring:
+          example: false
+          type: boolean
+        recurring_period:
+          nullable: true
+          type: string
+          example: null
+        recurring_next_payment_date:
+          format: date-time
+          nullable: true
+          type: string
+          example: null
+        meta:
+          $ref: '#/components/schemas/BasketRow_meta'
+        custom:
+          nullable: true
+          type: object
+          example: null
+        image_url:
+          nullable: true
+          type: string
+          example: null
+        recurring_price:
+          format: float
+          nullable: true
+          type: number
+          example: null
+      type: object
     BasketItem:
       description: A package within an existing basket.
-      example:
-        qty: 2
-        revenue_share:
-        - amount: 0.5
-          wallet_ref: some_wallet_reference
-          gateway_fee_percent: 50.0
-        - amount: 0.5
-          wallet_ref: some_wallet_reference
-          gateway_fee_percent: 50.0
-        type: single
       properties:
         qty:
           description: The quantity of `package` in this basket. This is not the total
@@ -715,24 +872,23 @@ components:
           type: array
       type: object
     RevenueShare:
-      example:
-        amount: 0.5
-        wallet_ref: some_wallet_reference
-        gateway_fee_percent: 50.0
+      nullable: true
       properties:
         wallet_ref:
-          example: some_wallet_reference
+          example: centralised_404244_127
           type: string
         amount:
           description: A float (decimal) value representing the amount of this payment
             in your account currency that is credited to the `wallet_ref`
           example: 0.5
+          format: float
           type: number
         gateway_fee_percent:
           description: A float (decimal) value representing the percentage of the
             gateway fee that should be dedicated from this wallet’s revenue share.
             This optional value can be anywhere between 0 - 100.
           example: 50.0
+          format: float
           type: number
       type: object
     BasketLinks:
@@ -766,18 +922,23 @@ components:
         roundUp: null
       properties:
         fullPrice:
+          format: float
           type: number
         subTotal:
+          format: float
           type: number
         discounts:
           items:
             type: object
           type: array
         total:
+          format: float
           type: number
         tax:
+          format: float
           type: number
         balance:
+          format: float
           type: number
         sales:
           items:
@@ -787,6 +948,17 @@ components:
           items:
             $ref: '#/components/schemas/GiftCard'
           type: array
+        recurring:
+          description: Contains recurring amount. Limited to 1 subscription package
+            in the basket at a time.
+          type: boolean
+        recurringPeriod:
+          type: object
+        recurringNextPaymentDate:
+          nullable: true
+          type: object
+        username:
+          type: string
         roundUp:
           nullable: true
           type: number
@@ -850,18 +1022,18 @@ components:
         payment_sequence: oneoff
         fees:
           tax:
-            amount: 0
+            amount: 0.0
             currency: USD
           gateway:
             amount: 0.45
             currency: USD
         gift_cards:
-        - gift_cards
-        - gift_cards
+        - "[]"
+        - "[]"
         recurring_payment_reference: recurring_payment_reference
         coupons:
-        - coupons
-        - coupons
+        - "[]"
+        - "[]"
         price:
           amount: 5.35
           currency: USD
@@ -912,6 +1084,7 @@ components:
             currency: currency
           id: id
           username: username
+      nullable: true
       properties:
         transaction_id:
           example: tbx-26929122a56954-0e15be
@@ -937,10 +1110,12 @@ components:
           type: array
         coupons:
           items:
+            example: "[]"
             type: string
           type: array
         gift_cards:
           items:
+            example: "[]"
             type: string
           type: array
         recurring_payment_reference:
@@ -1092,14 +1267,37 @@ components:
       required:
       - basket
       - items
+    updateSubscription_request_items_inner:
+      properties:
+        type:
+          description: "The type of payment, either `single` for one-time payments\
+            \ or `subscription`."
+          enum:
+          - single
+          - subscription
+          example: subscription
+          type: string
+        qty:
+          example: 1
+          type: number
+        revenue_share:
+          example: []
+          items:
+            type: object
+          nullable: true
+          type: array
+        package:
+          $ref: '#/components/schemas/Package'
+      type: object
     updateSubscription_request:
       properties:
         items:
-          description: An array containing the item to be added to the recurring payment.
-            **Only 1 item is supported at this time.**
+          description: An array containing the items to be added to the recurring
+            payment. **Only 1 item is supported at this time.**
           items:
-            $ref: '#/components/schemas/Package'
+            $ref: '#/components/schemas/updateSubscription_request_items_inner'
           type: array
+      type: object
     updateRecurringPayment_request:
       properties:
         status:
@@ -1109,12 +1307,12 @@ components:
           enum:
           - Paused
           - Active
-          example: Active
+          example: Paused
           type: string
         paused_until:
           description: "To pause a payment, provide a ISO8601 formatted date on which\
             \ the payment should be reactivated."
-          example: 2023-01-18T16:43:53.000000Z
+          example: 2025-01-27T16:43:53.000000Z
           type: string
       required:
       - status
@@ -1176,6 +1374,144 @@ components:
           example: Foo
           type: string
       type: object
+    BasketRow_meta_limits_user:
+      example:
+        limit: false
+        enabled: false
+        timestamp: 0
+      properties:
+        enabled:
+          example: false
+          type: boolean
+        timestamp:
+          example: 0
+          type: integer
+        limit:
+          example: false
+          type: boolean
+      type: object
+    BasketRow_meta_limits:
+      example:
+        packageExpiryTime: 0
+        global:
+          limit: false
+          enabled: false
+          timestamp: 0
+        user:
+          limit: false
+          enabled: false
+          timestamp: 0
+      properties:
+        user:
+          $ref: '#/components/schemas/BasketRow_meta_limits_user'
+        global:
+          $ref: '#/components/schemas/BasketRow_meta_limits_user'
+        packageExpiryTime:
+          example: 0
+          type: integer
+      type: object
+    BasketRow_meta:
+      example:
+        hasSellerProtection: true
+        image: image
+        itemType: itemType
+        initialprice: 1.27
+        hasDeliverables: false
+        rowprice: 2.54
+        deliverableTypes: []
+        revenue_share: []
+        servers: []
+        requiresAny: false
+        downloadLink: ""
+        isCumulative: false
+        name: 1000 Gold
+        producesGiftCard: false
+        allowsGiftCards: true
+        category: false
+        realprice: 1.27
+        requiredPackages: []
+        limits:
+          packageExpiryTime: 0
+          global:
+            limit: false
+            enabled: false
+            timestamp: 0
+          user:
+            limit: false
+            enabled: false
+            timestamp: 0
+      properties:
+        name:
+          example: 1000 Gold
+          type: string
+        rowprice:
+          example: 2.54
+          format: float
+          type: number
+        initialprice:
+          example: 1.27
+          format: float
+          type: number
+        isCumulative:
+          example: false
+          type: boolean
+        requiredPackages:
+          example: []
+          items:
+            type: integer
+          type: array
+        requiresAny:
+          example: false
+          type: boolean
+        category:
+          example: false
+          type: boolean
+        producesGiftCard:
+          example: false
+          type: boolean
+        allowsGiftCards:
+          example: true
+          type: boolean
+        servers:
+          example: []
+          items:
+            type: integer
+          type: array
+        limits:
+          $ref: '#/components/schemas/BasketRow_meta_limits'
+        hasDeliverables:
+          example: false
+          type: boolean
+        deliverableTypes:
+          example: []
+          items:
+            type: string
+          type: array
+        downloadLink:
+          example: ""
+          type: string
+        hasSellerProtection:
+          example: true
+          type: boolean
+        itemType:
+          nullable: true
+          type: string
+          example: null
+        revenue_share:
+          example: []
+          items:
+            format: float
+            type: number
+          type: array
+        image:
+          nullable: true
+          type: string
+          example: null
+        realprice:
+          example: 1.27
+          format: float
+          type: number
+      type: object
     Payment_status:
       example:
         description: Complete
@@ -1203,11 +1539,11 @@ components:
       type: object
     Payment_fees_tax:
       example:
-        amount: 0
+        amount: 0.0
         currency: USD
       properties:
         amount:
-          example: 0
+          example: 0.0
           format: float
           type: number
         currency:
@@ -1230,7 +1566,7 @@ components:
     Payment_fees:
       example:
         tax:
-          amount: 0
+          amount: 0.0
           currency: USD
         gateway:
           amount: 0.45

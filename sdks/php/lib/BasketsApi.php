@@ -785,7 +785,7 @@ class BasketsApi
      *
      * @throws \TebexCheckout\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \TebexCheckout\Model\Basket|\TebexCheckout\Model\ErrorResponse
+     * @return \TebexCheckout\Model\Basket
      */
     public function createBasket($create_basket_request = null, string $contentType = self::contentTypes['createBasket'][0])
     {
@@ -803,7 +803,7 @@ class BasketsApi
      *
      * @throws \TebexCheckout\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \TebexCheckout\Model\Basket|\TebexCheckout\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \TebexCheckout\Model\Basket, HTTP status code, HTTP response headers (array of strings)
      */
     public function createBasketWithHttpInfo($create_basket_request = null, string $contentType = self::contentTypes['createBasket'][0])
     {
@@ -872,33 +872,6 @@ class BasketsApi
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
-                case 400:
-                    if ('\TebexCheckout\Model\ErrorResponse' === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ('\TebexCheckout\Model\ErrorResponse' !== 'string') {
-                            try {
-                                $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
-                            } catch (\JsonException $exception) {
-                                throw new ApiException(
-                                    sprintf(
-                                        'Error JSON decoding server response (%s)',
-                                        $request->getUri()
-                                    ),
-                                    $statusCode,
-                                    $response->getHeaders(),
-                                    $content
-                                );
-                            }
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, '\TebexCheckout\Model\ErrorResponse', []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
             }
 
             $returnType = '\TebexCheckout\Model\Basket';
@@ -935,14 +908,6 @@ class BasketsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\TebexCheckout\Model\Basket',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\TebexCheckout\Model\ErrorResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1423,16 +1388,16 @@ class BasketsApi
      * Remove a row from the basket
      *
      * @param  string $ident The basket identifier. (required)
-     * @param  int $row_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param  int $rows_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removeRowFromBasket'] to see the possible values for this operation
      *
      * @throws \TebexCheckout\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function removeRowFromBasket($ident, $row_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
+    public function removeRowFromBasket($ident, $rows_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
     {
-        $this->removeRowFromBasketWithHttpInfo($ident, $row_id, $contentType);
+        $this->removeRowFromBasketWithHttpInfo($ident, $rows_id, $contentType);
     }
 
     /**
@@ -1441,16 +1406,16 @@ class BasketsApi
      * Remove a row from the basket
      *
      * @param  string $ident The basket identifier. (required)
-     * @param  int $row_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param  int $rows_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removeRowFromBasket'] to see the possible values for this operation
      *
      * @throws \TebexCheckout\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function removeRowFromBasketWithHttpInfo($ident, $row_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
+    public function removeRowFromBasketWithHttpInfo($ident, $rows_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
     {
-        $request = $this->removeRowFromBasketRequest($ident, $row_id, $contentType);
+        $request = $this->removeRowFromBasketRequest($ident, $rows_id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1502,15 +1467,15 @@ class BasketsApi
      * Remove a row from the basket
      *
      * @param  string $ident The basket identifier. (required)
-     * @param  int $row_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param  int $rows_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removeRowFromBasket'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function removeRowFromBasketAsync($ident, $row_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
+    public function removeRowFromBasketAsync($ident, $rows_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
     {
-        return $this->removeRowFromBasketAsyncWithHttpInfo($ident, $row_id, $contentType)
+        return $this->removeRowFromBasketAsyncWithHttpInfo($ident, $rows_id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1524,16 +1489,16 @@ class BasketsApi
      * Remove a row from the basket
      *
      * @param  string $ident The basket identifier. (required)
-     * @param  int $row_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param  int $rows_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removeRowFromBasket'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function removeRowFromBasketAsyncWithHttpInfo($ident, $row_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
+    public function removeRowFromBasketAsyncWithHttpInfo($ident, $rows_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
     {
         $returnType = '';
-        $request = $this->removeRowFromBasketRequest($ident, $row_id, $contentType);
+        $request = $this->removeRowFromBasketRequest($ident, $rows_id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1562,13 +1527,13 @@ class BasketsApi
      * Create request for operation 'removeRowFromBasket'
      *
      * @param  string $ident The basket identifier. (required)
-     * @param  int $row_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param  int $rows_id The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['removeRowFromBasket'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function removeRowFromBasketRequest($ident, $row_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
+    public function removeRowFromBasketRequest($ident, $rows_id, string $contentType = self::contentTypes['removeRowFromBasket'][0])
     {
 
         // verify the required parameter 'ident' is set
@@ -1578,15 +1543,15 @@ class BasketsApi
             );
         }
 
-        // verify the required parameter 'row_id' is set
-        if ($row_id === null || (is_array($row_id) && count($row_id) === 0)) {
+        // verify the required parameter 'rows_id' is set
+        if ($rows_id === null || (is_array($rows_id) && count($rows_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $row_id when calling removeRowFromBasket'
+                'Missing the required parameter $rows_id when calling removeRowFromBasket'
             );
         }
 
 
-        $resourcePath = '/baskets/{ident}/packages/{row.id}';
+        $resourcePath = '/baskets/{ident}/packages/{rows.id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1604,10 +1569,10 @@ class BasketsApi
             );
         }
         // path params
-        if ($row_id !== null) {
+        if ($rows_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'row.id' . '}',
-                ObjectSerializer::toPathValue($row_id),
+                '{' . 'rows.id' . '}',
+                ObjectSerializer::toPathValue($rows_id),
                 $resourcePath
             );
         }

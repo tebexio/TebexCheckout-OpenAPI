@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import org.openapitools.client.model.PackageMetaData;
 
@@ -51,7 +50,7 @@ import TebexCheckout.JSON;
 /**
  * ModelPackage
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-14T12:22:39.312899-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class ModelPackage {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -59,7 +58,7 @@ public class ModelPackage {
 
   public static final String SERIALIZED_NAME_PRICE = "price";
   @SerializedName(SERIALIZED_NAME_PRICE)
-  private BigDecimal price;
+  private Float price;
 
   /**
    * The renewal period of this item
@@ -149,7 +148,7 @@ public class ModelPackage {
   }
 
 
-  public ModelPackage price(BigDecimal price) {
+  public ModelPackage price(Float price) {
     this.price = price;
     return this;
   }
@@ -159,11 +158,11 @@ public class ModelPackage {
    * @return price
   **/
   @javax.annotation.Nullable
-  public BigDecimal getPrice() {
+  public Float getPrice() {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
+  public void setPrice(Float price) {
     this.price = price;
   }
 

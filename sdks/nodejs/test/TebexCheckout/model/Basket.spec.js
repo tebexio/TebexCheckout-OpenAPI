@@ -84,12 +84,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property recurring (base name: "recurring")', function() {
-      // uncomment below and update the code to test the property recurring
-      //var instance = new TebexCheckoutApi.Basket();
-      //expect(instance).to.be();
-    });
-
     it('should have the property recurringPeriod (base name: "recurringPeriod")', function() {
       // uncomment below and update the code to test the property recurringPeriod
       //var instance = new TebexCheckoutApi.Basket();

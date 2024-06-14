@@ -209,6 +209,7 @@ public class PaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Payment refunded successfully. The payment details are returned. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> The payment cannot be refunded. Payments can only be refunded when a payment&#39;s &#x60;status&#x60; is Completed. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Payment not found. </td><td>  -  </td></tr>
      </table>
      */
@@ -278,6 +279,7 @@ public class PaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Payment refunded successfully. The payment details are returned. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> The payment cannot be refunded. Payments can only be refunded when a payment&#39;s &#x60;status&#x60; is Completed. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Payment not found. </td><td>  -  </td></tr>
      </table>
      */
@@ -296,6 +298,7 @@ public class PaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Payment refunded successfully. The payment details are returned. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> The payment cannot be refunded. Payments can only be refunded when a payment&#39;s &#x60;status&#x60; is Completed. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Payment not found. </td><td>  -  </td></tr>
      </table>
      */
@@ -316,6 +319,7 @@ public class PaymentsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Payment refunded successfully. The payment details are returned. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> The payment cannot be refunded. Payments can only be refunded when a payment&#39;s &#x60;status&#x60; is Completed. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Payment not found. </td><td>  -  </td></tr>
      </table>
      */

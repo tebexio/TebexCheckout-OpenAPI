@@ -38,7 +38,7 @@ namespace TebexCheckout.Model
         /// <param name="walletRef">walletRef.</param>
         /// <param name="amount">A float (decimal) value representing the amount of this payment in your account currency that is credited to the &#x60;wallet_ref&#x60;.</param>
         /// <param name="gatewayFeePercent">A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100..</param>
-        public RevenueShare(string walletRef = default(string), decimal amount = default(decimal), decimal gatewayFeePercent = default(decimal))
+        public RevenueShare(string walletRef = default(string), float amount = default(float), float gatewayFeePercent = default(float))
         {
             this.WalletRef = walletRef;
             this.Amount = amount;
@@ -48,7 +48,7 @@ namespace TebexCheckout.Model
         /// <summary>
         /// Gets or Sets WalletRef
         /// </summary>
-        /// <example>some_wallet_reference</example>
+        /// <example>centralised_404244_127</example>
         [DataMember(Name = "wallet_ref", EmitDefaultValue = false)]
         public string WalletRef { get; set; }
 
@@ -58,7 +58,7 @@ namespace TebexCheckout.Model
         /// <value>A float (decimal) value representing the amount of this payment in your account currency that is credited to the &#x60;wallet_ref&#x60;</value>
         /// <example>0.5</example>
         [DataMember(Name = "amount", EmitDefaultValue = false)]
-        public decimal Amount { get; set; }
+        public float Amount { get; set; }
 
         /// <summary>
         /// A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.
@@ -66,7 +66,7 @@ namespace TebexCheckout.Model
         /// <value>A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.</value>
         /// <example>50.0</example>
         [DataMember(Name = "gateway_fee_percent", EmitDefaultValue = false)]
-        public decimal GatewayFeePercent { get; set; }
+        public float GatewayFeePercent { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

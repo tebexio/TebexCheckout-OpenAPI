@@ -8,7 +8,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**addSaleToBasket**](BasketsApi.md#addSaleToBasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket |
 | [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
-| [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket |
+| [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
 
 
 <a id="addPackage"></a>
@@ -204,7 +204,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Basket created successfully |  -  |
-| **400** | Invalid basket information provided. |  -  |
 
 <a id="getBasketById"></a>
 # **getBasketById**
@@ -271,11 +270,11 @@ No authorization required
 
 <a id="removeRowFromBasket"></a>
 # **removeRowFromBasket**
-> removeRowFromBasket(ident, rowId)
+> removeRowFromBasket(ident, rowsId)
 
 Remove a row from the basket
 
-This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
 
 ### Example
 ```java
@@ -293,9 +292,9 @@ public class Example {
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
     String ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
-    Integer rowId = 1; // Integer | The `id` of the `basket.rows` row to remove.
+    Integer rowsId = 1; // Integer | The `id` of the `basket.rows` row to remove.
     try {
-      apiInstance.removeRowFromBasket(ident, rowId);
+      apiInstance.removeRowFromBasket(ident, rowsId);
     } catch (ApiException e) {
       System.err.println("Exception when calling BasketsApi#removeRowFromBasket");
       System.err.println("Status code: " + e.getCode());
@@ -312,7 +311,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **ident** | **String**| The basket identifier. | |
-| **rowId** | **Integer**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | |
+| **rowsId** | **Integer**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | |
 
 ### Return type
 
@@ -331,6 +330,5 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | Successfully deleted a row from the basket. |  -  |
-| **400** | Bad Request. See ErrorResponse. |  -  |
 | **404** | Row or basket not found. |  -  |
 

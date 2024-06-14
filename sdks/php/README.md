@@ -79,7 +79,7 @@ Class | Method | HTTP request | Description
 *BasketsApi* | [**addSaleToBasket**](docs/Api/BasketsApi.md#addsaletobasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket
 *BasketsApi* | [**createBasket**](docs/Api/BasketsApi.md#createbasket) | **POST** /baskets | Create a basket that can be used to pay for items
 *BasketsApi* | [**getBasketById**](docs/Api/BasketsApi.md#getbasketbyid) | **GET** /baskets/{ident} | Fetch a basket by its identifier
-*BasketsApi* | [**removeRowFromBasket**](docs/Api/BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket
+*BasketsApi* | [**removeRowFromBasket**](docs/Api/BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
 *CheckoutApi* | [**checkout**](docs/Api/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request
 *PaymentsApi* | [**getPaymentById**](docs/Api/PaymentsApi.md#getpaymentbyid) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID
 *PaymentsApi* | [**refundPaymentById**](docs/Api/PaymentsApi.md#refundpaymentbyid) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID
@@ -95,6 +95,10 @@ Class | Method | HTTP request | Description
 - [Basket](docs/Model/Basket.md)
 - [BasketItem](docs/Model/BasketItem.md)
 - [BasketLinks](docs/Model/BasketLinks.md)
+- [BasketRow](docs/Model/BasketRow.md)
+- [BasketRowMeta](docs/Model/BasketRowMeta.md)
+- [BasketRowMetaLimits](docs/Model/BasketRowMetaLimits.md)
+- [BasketRowMetaLimitsUser](docs/Model/BasketRowMetaLimitsUser.md)
 - [CheckoutItem](docs/Model/CheckoutItem.md)
 - [CheckoutRequest](docs/Model/CheckoutRequest.md)
 - [CheckoutRequestBasket](docs/Model/CheckoutRequestBasket.md)
@@ -121,6 +125,7 @@ Class | Method | HTTP request | Description
 - [Sale](docs/Model/Sale.md)
 - [UpdateRecurringPaymentRequest](docs/Model/UpdateRecurringPaymentRequest.md)
 - [UpdateSubscriptionRequest](docs/Model/UpdateSubscriptionRequest.md)
+- [UpdateSubscriptionRequestItemsInner](docs/Model/UpdateSubscriptionRequestItemsInner.md)
 
 ## Authorization
 

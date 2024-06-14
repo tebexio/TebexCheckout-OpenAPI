@@ -30,7 +30,7 @@ class BasketItem(BaseModel):
     """ # noqa: E501
     qty: Optional[StrictInt] = Field(default=None, description="The quantity of `package` in this basket. This is not the total quantity of overall items in the basket.")
     type: Optional[StrictStr] = Field(default=None, description="The type of payment, either `single` for one-time payments or `subscription`.")
-    revenue_share: Optional[List[RevenueShare]] = Field(default=None, description="An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**")
+    revenue_share: Optional[List[Optional[RevenueShare]]] = Field(default=None, description="An array of payment destination objects describing how the purchase should be split between multiple wallets. **Only available with pre-agreement from Tebex.**")
     __properties: ClassVar[List[str]] = ["qty", "type", "revenue_share"]
 
     @field_validator('type')

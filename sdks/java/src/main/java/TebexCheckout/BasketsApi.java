@@ -30,7 +30,6 @@ import java.io.IOException;
 import org.openapitools.client.model.AddPackageRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.CreateBasketRequest;
-import org.openapitools.client.model.ErrorResponse;
 import org.openapitools.client.model.Sale;
 
 import java.lang.reflect.Type;
@@ -358,7 +357,6 @@ public class BasketsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Basket created successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Invalid basket information provided. </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call createBasketCall(CreateBasketRequest createBasketRequest, final ApiCallback _callback) throws ApiException {
@@ -422,7 +420,6 @@ public class BasketsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Basket created successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Invalid basket information provided. </td><td>  -  </td></tr>
      </table>
      */
     public Basket createBasket(CreateBasketRequest createBasketRequest) throws ApiException {
@@ -440,7 +437,6 @@ public class BasketsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Basket created successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Invalid basket information provided. </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<Basket> createBasketWithHttpInfo(CreateBasketRequest createBasketRequest) throws ApiException {
@@ -460,7 +456,6 @@ public class BasketsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Basket created successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Invalid basket information provided. </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call createBasketAsync(CreateBasketRequest createBasketRequest, final ApiCallback<Basket> _callback) throws ApiException {
@@ -600,7 +595,7 @@ public class BasketsApi {
     /**
      * Build call for removeRowFromBasket
      * @param ident The basket identifier. (required)
-     * @param rowId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param rowsId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -608,11 +603,10 @@ public class BasketsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Successfully deleted a row from the basket. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Row or basket not found. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call removeRowFromBasketCall(String ident, Integer rowId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call removeRowFromBasketCall(String ident, Integer rowsId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -629,9 +623,9 @@ public class BasketsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/baskets/{ident}/packages/{row.id}"
+        String localVarPath = "/baskets/{ident}/packages/{rows.id}"
             .replace("{" + "ident" + "}", localVarApiClient.escapeString(ident.toString()))
-            .replace("{" + "row.id" + "}", localVarApiClient.escapeString(rowId.toString()));
+            .replace("{" + "rows.id" + "}", localVarApiClient.escapeString(rowsId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -658,64 +652,62 @@ public class BasketsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call removeRowFromBasketValidateBeforeCall(String ident, Integer rowId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call removeRowFromBasketValidateBeforeCall(String ident, Integer rowsId, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'ident' is set
         if (ident == null) {
             throw new ApiException("Missing the required parameter 'ident' when calling removeRowFromBasket(Async)");
         }
 
-        // verify the required parameter 'rowId' is set
-        if (rowId == null) {
-            throw new ApiException("Missing the required parameter 'rowId' when calling removeRowFromBasket(Async)");
+        // verify the required parameter 'rowsId' is set
+        if (rowsId == null) {
+            throw new ApiException("Missing the required parameter 'rowsId' when calling removeRowFromBasket(Async)");
         }
 
-        return removeRowFromBasketCall(ident, rowId, _callback);
+        return removeRowFromBasketCall(ident, rowsId, _callback);
 
     }
 
     /**
      * Remove a row from the basket
-     * This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+     * This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
      * @param ident The basket identifier. (required)
-     * @param rowId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param rowsId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Successfully deleted a row from the basket. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Row or basket not found. </td><td>  -  </td></tr>
      </table>
      */
-    public void removeRowFromBasket(String ident, Integer rowId) throws ApiException {
-        removeRowFromBasketWithHttpInfo(ident, rowId);
+    public void removeRowFromBasket(String ident, Integer rowsId) throws ApiException {
+        removeRowFromBasketWithHttpInfo(ident, rowsId);
     }
 
     /**
      * Remove a row from the basket
-     * This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+     * This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
      * @param ident The basket identifier. (required)
-     * @param rowId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param rowsId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Successfully deleted a row from the basket. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Row or basket not found. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> removeRowFromBasketWithHttpInfo(String ident, Integer rowId) throws ApiException {
-        okhttp3.Call localVarCall = removeRowFromBasketValidateBeforeCall(ident, rowId, null);
+    public ApiResponse<Void> removeRowFromBasketWithHttpInfo(String ident, Integer rowsId) throws ApiException {
+        okhttp3.Call localVarCall = removeRowFromBasketValidateBeforeCall(ident, rowsId, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      * Remove a row from the basket (asynchronously)
-     * This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+     * This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
      * @param ident The basket identifier. (required)
-     * @param rowId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
+     * @param rowsId The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -723,13 +715,12 @@ public class BasketsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Successfully deleted a row from the basket. </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request. See ErrorResponse. </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Row or basket not found. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call removeRowFromBasketAsync(String ident, Integer rowId, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call removeRowFromBasketAsync(String ident, Integer rowsId, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = removeRowFromBasketValidateBeforeCall(ident, rowId, _callback);
+        okhttp3.Call localVarCall = removeRowFromBasketValidateBeforeCall(ident, rowsId, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

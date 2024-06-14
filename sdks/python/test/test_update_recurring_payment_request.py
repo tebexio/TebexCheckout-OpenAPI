@@ -36,12 +36,12 @@ class TestUpdateRecurringPaymentRequest(unittest.TestCase):
         model = UpdateRecurringPaymentRequest()
         if include_optional:
             return UpdateRecurringPaymentRequest(
-                status = 'Active',
-                paused_until = '2023-01-18T16:43:53.000000Z'
+                status = 'Paused',
+                paused_until = '2025-01-27T16:43:53.000000Z'
             )
         else:
             return UpdateRecurringPaymentRequest(
-                status = 'Active',
+                status = 'Paused',
         )
         """
 

@@ -112,9 +112,9 @@
         "tags" : [ "Baskets" ]
       }
     },
-    "/baskets/{ident}/packages/{row.id}" : {
+    "/baskets/{ident}/packages/{rows.id}" : {
       "delete" : {
-        "description" : "This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.",
+        "description" : "This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.",
         "operationId" : "removeRowFromBasket",
         "parameters" : [ {
           "description" : "The basket identifier.",
@@ -131,7 +131,7 @@
           "description" : "The `id` of the `basket.rows` row to remove.",
           "explode" : false,
           "in" : "path",
-          "name" : "row.id",
+          "name" : "rows.id",
           "required" : true,
           "schema" : {
             "example" : 1,
@@ -142,9 +142,6 @@
         "responses" : {
           "204" : {
             "description" : "Successfully deleted a row from the basket."
-          },
-          "400" : {
-            "description" : "Bad Request. See ErrorResponse."
           },
           "404" : {
             "description" : "Row or basket not found."
@@ -296,6 +293,9 @@
               }
             },
             "description" : "Payment refunded successfully. The payment details are returned."
+          },
+          "422" : {
+            "description" : "The payment cannot be refunded. Payments can only be refunded when a payment's `status` is Completed."
           },
           "404" : {
             "description" : "Payment not found."
@@ -452,8 +452,8 @@
             },
             "description" : "Successfully paused or reactivated a payment. The `RecurringPayment` is returned."
           },
-          "400" : {
-            "description" : "Bad Request. See ErrorResponse."
+          "422" : {
+            "description" : "Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse."
           },
           "404" : {
             "description" : "Recurring payment not found."
@@ -487,16 +487,6 @@
               }
             },
             "description" : "Basket created successfully"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description" : "Invalid basket information provided."
           }
         },
         "summary" : "Create a basket that can be used to pay for items",
@@ -561,9 +551,6 @@
       "RecurringPeriod" : {
         "type" : "object"
       },
-      "Tax" : {
-        "type" : "object"
-      },
       "Discount" : {
         "type" : "object"
       },
@@ -582,6 +569,7 @@
           },
           "price" : {
             "example" : 1.27,
+            "format" : "float",
             "type" : "number"
           },
           "priceDetails" : {
@@ -590,10 +578,6 @@
           "type" : {
             "example" : "single",
             "type" : "string"
-          },
-          "recurring" : {
-            "example" : false,
-            "type" : "boolean"
           },
           "recurringPeriod" : {
             "$ref" : "#/components/schemas/RecurringPeriod"
@@ -616,7 +600,8 @@
             "type" : "boolean"
           },
           "tax" : {
-            "$ref" : "#/components/schemas/Tax"
+            "format" : "int32",
+            "type" : "number"
           },
           "username" : {
             "nullable" : true,
@@ -646,7 +631,7 @@
           },
           "rows" : {
             "items" : {
-              "$ref" : "#/components/schemas/BasketItem"
+              "$ref" : "#/components/schemas/BasketRow"
             },
             "type" : "array"
           },
@@ -702,6 +687,7 @@
           "price" : {
             "description" : "A float (decimal describing the price of the package in your account currency)",
             "example" : 1.27,
+            "format" : "float",
             "type" : "number"
           },
           "expiry_period" : {
@@ -717,6 +703,89 @@
           },
           "metaData" : {
             "$ref" : "#/components/schemas/Package_metaData"
+          }
+        },
+        "type" : "object"
+      },
+      "BasketRow" : {
+        "properties" : {
+          "id" : {
+            "example" : 173125385,
+            "type" : "integer"
+          },
+          "basket" : {
+            "description" : "Numeric basket ID",
+            "example" : 725572301,
+            "type" : "integer"
+          },
+          "package" : {
+            "description" : "Package ID associated with this item",
+            "nullable" : true,
+            "type" : "integer",
+            "example" : null
+          },
+          "override" : {
+            "description" : "Package ID associated with this item",
+            "example" : 0,
+            "type" : "integer"
+          },
+          "quantity" : {
+            "example" : 2,
+            "type" : "integer"
+          },
+          "server" : {
+            "nullable" : true,
+            "type" : "integer",
+            "example" : null
+          },
+          "price" : {
+            "example" : 1.27,
+            "format" : "float",
+            "type" : "number"
+          },
+          "gift_username_id" : {
+            "nullable" : true,
+            "type" : "integer",
+            "example" : null
+          },
+          "options" : {
+            "nullable" : true,
+            "type" : "object",
+            "example" : null
+          },
+          "recurring" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "recurring_period" : {
+            "nullable" : true,
+            "type" : "string",
+            "example" : null
+          },
+          "recurring_next_payment_date" : {
+            "format" : "date-time",
+            "nullable" : true,
+            "type" : "string",
+            "example" : null
+          },
+          "meta" : {
+            "$ref" : "#/components/schemas/BasketRow_meta"
+          },
+          "custom" : {
+            "nullable" : true,
+            "type" : "object",
+            "example" : null
+          },
+          "image_url" : {
+            "nullable" : true,
+            "type" : "string",
+            "example" : null
+          },
+          "recurring_price" : {
+            "format" : "float",
+            "nullable" : true,
+            "type" : "number",
+            "example" : null
           }
         },
         "type" : "object"
@@ -746,19 +815,22 @@
         "type" : "object"
       },
       "RevenueShare" : {
+        "nullable" : true,
         "properties" : {
           "wallet_ref" : {
-            "example" : "some_wallet_reference",
+            "example" : "centralised_404244_127",
             "type" : "string"
           },
           "amount" : {
             "description" : "A float (decimal) value representing the amount of this payment in your account currency that is credited to the `wallet_ref`",
             "example" : 0.5,
+            "format" : "float",
             "type" : "number"
           },
           "gateway_fee_percent" : {
             "description" : "A float (decimal) value representing the percentage of the gateway fee that should be dedicated from this wallet’s revenue share. This optional value can be anywhere between 0 - 100.",
             "example" : 50.0,
+            "format" : "float",
             "type" : "number"
           }
         },
@@ -794,9 +866,11 @@
         },
         "properties" : {
           "fullPrice" : {
+            "format" : "float",
             "type" : "number"
           },
           "subTotal" : {
+            "format" : "float",
             "type" : "number"
           },
           "discounts" : {
@@ -806,12 +880,15 @@
             "type" : "array"
           },
           "total" : {
+            "format" : "float",
             "type" : "number"
           },
           "tax" : {
+            "format" : "float",
             "type" : "number"
           },
           "balance" : {
+            "format" : "float",
             "type" : "number"
           },
           "sales" : {
@@ -825,6 +902,20 @@
               "$ref" : "#/components/schemas/GiftCard"
             },
             "type" : "array"
+          },
+          "recurring" : {
+            "description" : "Contains recurring amount. Limited to 1 subscription package in the basket at a time.",
+            "type" : "boolean"
+          },
+          "recurringPeriod" : {
+            "$ref" : "#/components/schemas/RecurringPeriod"
+          },
+          "recurringNextPaymentDate" : {
+            "nullable" : true,
+            "type" : "object"
+          },
+          "username" : {
+            "type" : "string"
           },
           "roundUp" : {
             "nullable" : true,
@@ -895,6 +986,7 @@
         "type" : "object"
       },
       "Payment" : {
+        "nullable" : true,
         "properties" : {
           "transaction_id" : {
             "example" : "tbx-26929122a56954-0e15be",
@@ -929,12 +1021,14 @@
           },
           "coupons" : {
             "items" : {
+              "example" : "[]",
               "type" : "string"
             },
             "type" : "array"
           },
           "gift_cards" : {
             "items" : {
+              "example" : "[]",
               "type" : "string"
             },
             "type" : "array"
@@ -1092,28 +1186,55 @@
         },
         "required" : [ "basket", "items" ]
       },
+      "updateSubscription_request_items_inner" : {
+        "properties" : {
+          "type" : {
+            "description" : "The type of payment, either `single` for one-time payments or `subscription`.",
+            "enum" : [ "single", "subscription" ],
+            "example" : "subscription",
+            "type" : "string"
+          },
+          "qty" : {
+            "example" : 1,
+            "type" : "number"
+          },
+          "revenue_share" : {
+            "example" : [ ],
+            "items" : {
+              "type" : "object"
+            },
+            "nullable" : true,
+            "type" : "array"
+          },
+          "package" : {
+            "$ref" : "#/components/schemas/Package"
+          }
+        },
+        "type" : "object"
+      },
       "updateSubscription_request" : {
         "properties" : {
           "items" : {
-            "description" : "An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**",
+            "description" : "An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**",
             "items" : {
-              "$ref" : "#/components/schemas/Package"
+              "$ref" : "#/components/schemas/updateSubscription_request_items_inner"
             },
             "type" : "array"
           }
-        }
+        },
+        "type" : "object"
       },
       "updateRecurringPayment_request" : {
         "properties" : {
           "status" : {
             "description" : "Your desired state of the recurring payment. Provide `Paused` with `paused_until` to pause a recurring payment. Otherwise, provide `Active` to resume a recurring payment.",
             "enum" : [ "Paused", "Active" ],
-            "example" : "Active",
+            "example" : "Paused",
             "type" : "string"
           },
           "paused_until" : {
             "description" : "To pause a payment, provide a ISO8601 formatted date on which the payment should be reactivated.",
-            "example" : "2023-01-18T16:43:53.000000Z",
+            "example" : "2025-01-27T16:43:53.000000Z",
             "type" : "string"
           }
         },
@@ -1189,6 +1310,136 @@
         },
         "type" : "object"
       },
+      "BasketRow_meta_limits_user" : {
+        "properties" : {
+          "enabled" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "timestamp" : {
+            "example" : 0,
+            "type" : "integer"
+          },
+          "limit" : {
+            "example" : false,
+            "type" : "boolean"
+          }
+        },
+        "type" : "object"
+      },
+      "BasketRow_meta_limits" : {
+        "properties" : {
+          "user" : {
+            "$ref" : "#/components/schemas/BasketRow_meta_limits_user"
+          },
+          "global" : {
+            "$ref" : "#/components/schemas/BasketRow_meta_limits_user"
+          },
+          "packageExpiryTime" : {
+            "example" : 0,
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "BasketRow_meta" : {
+        "properties" : {
+          "name" : {
+            "example" : "1000 Gold",
+            "type" : "string"
+          },
+          "rowprice" : {
+            "example" : 2.54,
+            "format" : "float",
+            "type" : "number"
+          },
+          "initialprice" : {
+            "example" : 1.27,
+            "format" : "float",
+            "type" : "number"
+          },
+          "isCumulative" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "requiredPackages" : {
+            "example" : [ ],
+            "items" : {
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "requiresAny" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "category" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "producesGiftCard" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "allowsGiftCards" : {
+            "example" : true,
+            "type" : "boolean"
+          },
+          "servers" : {
+            "example" : [ ],
+            "items" : {
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "limits" : {
+            "$ref" : "#/components/schemas/BasketRow_meta_limits"
+          },
+          "hasDeliverables" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "deliverableTypes" : {
+            "example" : [ ],
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "downloadLink" : {
+            "example" : "",
+            "type" : "string"
+          },
+          "hasSellerProtection" : {
+            "example" : true,
+            "type" : "boolean"
+          },
+          "itemType" : {
+            "nullable" : true,
+            "type" : "string",
+            "example" : null
+          },
+          "revenue_share" : {
+            "example" : [ ],
+            "items" : {
+              "format" : "float",
+              "type" : "number"
+            },
+            "type" : "array"
+          },
+          "image" : {
+            "nullable" : true,
+            "type" : "string",
+            "example" : null
+          },
+          "realprice" : {
+            "example" : 1.27,
+            "format" : "float",
+            "type" : "number"
+          }
+        },
+        "type" : "object"
+      },
       "Payment_status" : {
         "properties" : {
           "id" : {
@@ -1219,7 +1470,7 @@
       "Payment_fees_tax" : {
         "properties" : {
           "amount" : {
-            "example" : 0,
+            "example" : 0.0,
             "format" : "float",
             "type" : "number"
           },

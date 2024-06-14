@@ -13,6 +13,10 @@ Name | Type | Description | Notes
 **balance** | **float** |  | [optional] 
 **sales** | [**List[Sale]**](Sale.md) |  | [optional] 
 **giftcards** | **List[object]** |  | [optional] 
+**recurring** | **bool** | Contains recurring amount. Limited to 1 subscription package in the basket at a time. | [optional] 
+**recurring_period** | **object** |  | [optional] 
+**recurring_next_payment_date** | **object** |  | [optional] 
+**username** | **str** |  | [optional] 
 **round_up** | **float** |  | [optional] 
 
 ## Example

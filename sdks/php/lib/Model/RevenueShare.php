@@ -72,8 +72,8 @@ class RevenueShare implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'wallet_ref' => null,
-        'amount' => null,
-        'gateway_fee_percent' => null
+        'amount' => 'float',
+        'gateway_fee_percent' => 'float'
     ];
 
     /**

@@ -12,7 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
-import Package from './Package';
+import UpdateSubscriptionRequestItemsInner from './UpdateSubscriptionRequestItemsInner';
 
 /**
  * The UpdateSubscriptionRequest model module.
@@ -49,7 +49,7 @@ class UpdateSubscriptionRequest {
             obj = obj || new UpdateSubscriptionRequest();
 
             if (data.hasOwnProperty('items')) {
-                obj['items'] = ApiClient.convertToType(data['items'], [Package]);
+                obj['items'] = ApiClient.convertToType(data['items'], [UpdateSubscriptionRequestItemsInner]);
             }
         }
         return obj;
@@ -68,7 +68,7 @@ class UpdateSubscriptionRequest {
             }
             // validate the optional field `items` (array)
             for (const item of data['items']) {
-                Package.validateJSON(item);
+                UpdateSubscriptionRequestItemsInner.validateJSON(item);
             };
         }
 
@@ -81,8 +81,8 @@ class UpdateSubscriptionRequest {
 
 
 /**
- * An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**
- * @member {Array.<module:TebexCheckout/model/Package>} items
+ * An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**
+ * @member {Array.<module:TebexCheckout/model/UpdateSubscriptionRequestItemsInner>} items
  */
 UpdateSubscriptionRequest.prototype['items'] = undefined;
 

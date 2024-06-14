@@ -107,6 +107,38 @@ public class PriceDetailsTest {
     }
 
     /**
+     * Test the property 'recurring'
+     */
+    @Test
+    public void recurringTest() {
+        // TODO: test recurring
+    }
+
+    /**
+     * Test the property 'recurringPeriod'
+     */
+    @Test
+    public void recurringPeriodTest() {
+        // TODO: test recurringPeriod
+    }
+
+    /**
+     * Test the property 'recurringNextPaymentDate'
+     */
+    @Test
+    public void recurringNextPaymentDateTest() {
+        // TODO: test recurringNextPaymentDate
+    }
+
+    /**
+     * Test the property 'username'
+     */
+    @Test
+    public void usernameTest() {
+        // TODO: test username
+    }
+
+    /**
      * Test the property 'roundUp'
      */
     @Test

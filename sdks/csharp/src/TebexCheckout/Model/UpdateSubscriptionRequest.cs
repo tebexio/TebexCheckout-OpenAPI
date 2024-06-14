@@ -35,18 +35,18 @@ namespace TebexCheckout.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateSubscriptionRequest" /> class.
         /// </summary>
-        /// <param name="items">An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**.</param>
-        public UpdateSubscriptionRequest(List<Package> items = default(List<Package>))
+        /// <param name="items">An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**.</param>
+        public UpdateSubscriptionRequest(List<UpdateSubscriptionRequestItemsInner> items = default(List<UpdateSubscriptionRequestItemsInner>))
         {
             this.Items = items;
         }
 
         /// <summary>
-        /// An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**
+        /// An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**
         /// </summary>
-        /// <value>An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**</value>
+        /// <value>An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**</value>
         [DataMember(Name = "items", EmitDefaultValue = false)]
-        public List<Package> Items { get; set; }
+        public List<UpdateSubscriptionRequestItemsInner> Items { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

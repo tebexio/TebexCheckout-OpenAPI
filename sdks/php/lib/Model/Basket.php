@@ -63,19 +63,18 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'price' => 'float',
         'price_details' => '\TebexCheckout\Model\PriceDetails',
         'type' => 'string',
-        'recurring' => 'bool',
         'recurring_period' => 'object',
         'recurring_next_payment_date' => 'string',
         'is_payment_method_update' => 'bool',
         'return_url' => 'string',
         'complete' => 'bool',
-        'tax' => 'object',
+        'tax' => 'float',
         'username' => 'string',
         'discounts' => 'object[]',
         'coupons' => 'object[]',
         'giftcards' => 'object[]',
         'address' => '\TebexCheckout\Model\Address',
-        'rows' => '\TebexCheckout\Model\BasketItem[]',
+        'rows' => '\TebexCheckout\Model\BasketRow[]',
         'fingerprint' => 'string',
         'creator_code' => 'string',
         'roundup' => 'bool',
@@ -96,16 +95,15 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'ident' => null,
         'expire' => null,
-        'price' => null,
+        'price' => 'float',
         'price_details' => null,
         'type' => null,
-        'recurring' => null,
         'recurring_period' => null,
         'recurring_next_payment_date' => null,
         'is_payment_method_update' => null,
         'return_url' => null,
         'complete' => null,
-        'tax' => null,
+        'tax' => 'int32',
         'username' => null,
         'discounts' => null,
         'coupons' => null,
@@ -133,7 +131,6 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'price' => false,
         'price_details' => false,
         'type' => false,
-        'recurring' => false,
         'recurring_period' => false,
         'recurring_next_payment_date' => true,
         'is_payment_method_update' => false,
@@ -247,7 +244,6 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'price' => 'price',
         'price_details' => 'priceDetails',
         'type' => 'type',
-        'recurring' => 'recurring',
         'recurring_period' => 'recurringPeriod',
         'recurring_next_payment_date' => 'recurringNextPaymentDate',
         'is_payment_method_update' => 'isPaymentMethodUpdate',
@@ -281,7 +277,6 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'price' => 'setPrice',
         'price_details' => 'setPriceDetails',
         'type' => 'setType',
-        'recurring' => 'setRecurring',
         'recurring_period' => 'setRecurringPeriod',
         'recurring_next_payment_date' => 'setRecurringNextPaymentDate',
         'is_payment_method_update' => 'setIsPaymentMethodUpdate',
@@ -315,7 +310,6 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'price' => 'getPrice',
         'price_details' => 'getPriceDetails',
         'type' => 'getType',
-        'recurring' => 'getRecurring',
         'recurring_period' => 'getRecurringPeriod',
         'recurring_next_payment_date' => 'getRecurringNextPaymentDate',
         'is_payment_method_update' => 'getIsPaymentMethodUpdate',
@@ -400,7 +394,6 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('price', $data ?? [], null);
         $this->setIfExists('price_details', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
-        $this->setIfExists('recurring', $data ?? [], null);
         $this->setIfExists('recurring_period', $data ?? [], null);
         $this->setIfExists('recurring_next_payment_date', $data ?? [], null);
         $this->setIfExists('is_payment_method_update', $data ?? [], null);
@@ -601,33 +594,6 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets recurring
-     *
-     * @return bool|null
-     */
-    public function getRecurring()
-    {
-        return $this->container['recurring'];
-    }
-
-    /**
-     * Sets recurring
-     *
-     * @param bool|null $recurring recurring
-     *
-     * @return self
-     */
-    public function setRecurring($recurring)
-    {
-        if (is_null($recurring)) {
-            throw new \InvalidArgumentException('non-nullable recurring cannot be null');
-        }
-        $this->container['recurring'] = $recurring;
-
-        return $this;
-    }
-
-    /**
      * Gets recurring_period
      *
      * @return object|null
@@ -779,7 +745,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets tax
      *
-     * @return object|null
+     * @return float|null
      */
     public function getTax()
     {
@@ -789,7 +755,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tax
      *
-     * @param object|null $tax tax
+     * @param float|null $tax tax
      *
      * @return self
      */
@@ -948,7 +914,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets rows
      *
-     * @return \TebexCheckout\Model\BasketItem[]|null
+     * @return \TebexCheckout\Model\BasketRow[]|null
      */
     public function getRows()
     {
@@ -958,7 +924,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets rows
      *
-     * @param \TebexCheckout\Model\BasketItem[]|null $rows rows
+     * @param \TebexCheckout\Model\BasketRow[]|null $rows rows
      *
      * @return self
      */

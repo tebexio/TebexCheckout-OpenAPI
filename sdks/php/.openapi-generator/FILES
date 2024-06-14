@@ -13,6 +13,10 @@ docs/Model/Address.md
 docs/Model/Basket.md
 docs/Model/BasketItem.md
 docs/Model/BasketLinks.md
+docs/Model/BasketRow.md
+docs/Model/BasketRowMeta.md
+docs/Model/BasketRowMetaLimits.md
+docs/Model/BasketRowMetaLimitsUser.md
 docs/Model/CheckoutItem.md
 docs/Model/CheckoutRequest.md
 docs/Model/CheckoutRequestBasket.md
@@ -39,6 +43,7 @@ docs/Model/RevenueShare.md
 docs/Model/Sale.md
 docs/Model/UpdateRecurringPaymentRequest.md
 docs/Model/UpdateSubscriptionRequest.md
+docs/Model/UpdateSubscriptionRequestItemsInner.md
 git_push.sh
 lib/ApiException.php
 lib/BasketsApi.php
@@ -50,6 +55,10 @@ lib/Model/Address.php
 lib/Model/Basket.php
 lib/Model/BasketItem.php
 lib/Model/BasketLinks.php
+lib/Model/BasketRow.php
+lib/Model/BasketRowMeta.php
+lib/Model/BasketRowMetaLimits.php
+lib/Model/BasketRowMetaLimitsUser.php
 lib/Model/CheckoutItem.php
 lib/Model/CheckoutRequest.php
 lib/Model/CheckoutRequestBasket.php
@@ -77,6 +86,7 @@ lib/Model/RevenueShare.php
 lib/Model/Sale.php
 lib/Model/UpdateRecurringPaymentRequest.php
 lib/Model/UpdateSubscriptionRequest.php
+lib/Model/UpdateSubscriptionRequestItemsInner.php
 lib/ObjectSerializer.php
 lib/PaymentsApi.php
 lib/RecurringPaymentsApi.php
@@ -89,6 +99,10 @@ test/Model/AddPackageRequestTest.php
 test/Model/AddressTest.php
 test/Model/BasketItemTest.php
 test/Model/BasketLinksTest.php
+test/Model/BasketRowMetaLimitsTest.php
+test/Model/BasketRowMetaLimitsUserTest.php
+test/Model/BasketRowMetaTest.php
+test/Model/BasketRowTest.php
 test/Model/BasketTest.php
 test/Model/CheckoutItemTest.php
 test/Model/CheckoutRequestBasketTest.php
@@ -115,4 +129,5 @@ test/Model/RecurringPaymentTest.php
 test/Model/RevenueShareTest.php
 test/Model/SaleTest.php
 test/Model/UpdateRecurringPaymentRequestTest.php
+test/Model/UpdateSubscriptionRequestItemsInnerTest.php
 test/Model/UpdateSubscriptionRequestTest.php

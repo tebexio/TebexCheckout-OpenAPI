@@ -21,8 +21,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from TebexCheckout.models.address import Address
-from TebexCheckout.models.basket_item import BasketItem
 from TebexCheckout.models.basket_links import BasketLinks
+from TebexCheckout.models.basket_row import BasketRow
 from TebexCheckout.models.price_details import PriceDetails
 from typing import Optional, Set
 from typing_extensions import Self
@@ -36,19 +36,18 @@ class Basket(BaseModel):
     price: Optional[Union[StrictFloat, StrictInt]] = None
     price_details: Optional[PriceDetails] = Field(default=None, alias="priceDetails")
     type: Optional[StrictStr] = None
-    recurring: Optional[StrictBool] = None
     recurring_period: Optional[Dict[str, Any]] = Field(default=None, alias="recurringPeriod")
     recurring_next_payment_date: Optional[StrictStr] = Field(default=None, alias="recurringNextPaymentDate")
     is_payment_method_update: Optional[StrictBool] = Field(default=None, alias="isPaymentMethodUpdate")
     return_url: Optional[StrictStr] = Field(default=None, alias="returnUrl")
     complete: Optional[StrictBool] = None
-    tax: Optional[Dict[str, Any]] = None
+    tax: Optional[Union[StrictFloat, StrictInt]] = None
     username: Optional[StrictStr] = None
     discounts: Optional[List[Dict[str, Any]]] = None
     coupons: Optional[List[Dict[str, Any]]] = None
     giftcards: Optional[List[Dict[str, Any]]] = None
     address: Optional[Address] = None
-    rows: Optional[List[BasketItem]] = None
+    rows: Optional[List[BasketRow]] = None
     fingerprint: Optional[StrictStr] = Field(default=None, description="Browser fingerprint to identify the user")
     creator_code: Optional[StrictStr] = Field(default=None, description="The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes")
     roundup: Optional[StrictBool] = None
@@ -57,7 +56,7 @@ class Basket(BaseModel):
     complete_auto_redirect: Optional[StrictBool] = None
     custom: Optional[Dict[str, Any]] = None
     links: Optional[BasketLinks] = None
-    __properties: ClassVar[List[str]] = ["ident", "expire", "price", "priceDetails", "type", "recurring", "recurringPeriod", "recurringNextPaymentDate", "isPaymentMethodUpdate", "returnUrl", "complete", "tax", "username", "discounts", "coupons", "giftcards", "address", "rows", "fingerprint", "creator_code", "roundup", "cancel_url", "complete_url", "complete_auto_redirect", "custom", "links"]
+    __properties: ClassVar[List[str]] = ["ident", "expire", "price", "priceDetails", "type", "recurringPeriod", "recurringNextPaymentDate", "isPaymentMethodUpdate", "returnUrl", "complete", "tax", "username", "discounts", "coupons", "giftcards", "address", "rows", "fingerprint", "creator_code", "roundup", "cancel_url", "complete_url", "complete_auto_redirect", "custom", "links"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -166,7 +165,6 @@ class Basket(BaseModel):
             "price": obj.get("price"),
             "priceDetails": PriceDetails.from_dict(obj["priceDetails"]) if obj.get("priceDetails") is not None else None,
             "type": obj.get("type"),
-            "recurring": obj.get("recurring"),
             "recurringPeriod": obj.get("recurringPeriod"),
             "recurringNextPaymentDate": obj.get("recurringNextPaymentDate"),
             "isPaymentMethodUpdate": obj.get("isPaymentMethodUpdate"),
@@ -178,7 +176,7 @@ class Basket(BaseModel):
             "coupons": obj.get("coupons"),
             "giftcards": obj.get("giftcards"),
             "address": Address.from_dict(obj["address"]) if obj.get("address") is not None else None,
-            "rows": [BasketItem.from_dict(_item) for _item in obj["rows"]] if obj.get("rows") is not None else None,
+            "rows": [BasketRow.from_dict(_item) for _item in obj["rows"]] if obj.get("rows") is not None else None,
             "fingerprint": obj.get("fingerprint"),
             "creator_code": obj.get("creator_code"),
             "roundup": obj.get("roundup"),

@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from TebexCheckout.models.sale import Sale
 from typing import Optional, Set
@@ -36,8 +36,12 @@ class PriceDetails(BaseModel):
     balance: Optional[Union[StrictFloat, StrictInt]] = None
     sales: Optional[List[Sale]] = None
     giftcards: Optional[List[Dict[str, Any]]] = None
+    recurring: Optional[StrictBool] = Field(default=None, description="Contains recurring amount. Limited to 1 subscription package in the basket at a time.")
+    recurring_period: Optional[Dict[str, Any]] = Field(default=None, alias="recurringPeriod")
+    recurring_next_payment_date: Optional[Dict[str, Any]] = Field(default=None, alias="recurringNextPaymentDate")
+    username: Optional[StrictStr] = None
     round_up: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="roundUp")
-    __properties: ClassVar[List[str]] = ["fullPrice", "subTotal", "discounts", "total", "tax", "balance", "sales", "giftcards", "roundUp"]
+    __properties: ClassVar[List[str]] = ["fullPrice", "subTotal", "discounts", "total", "tax", "balance", "sales", "giftcards", "recurring", "recurringPeriod", "recurringNextPaymentDate", "username", "roundUp"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,6 +89,11 @@ class PriceDetails(BaseModel):
                 if _item:
                     _items.append(_item.to_dict())
             _dict['sales'] = _items
+        # set to None if recurring_next_payment_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.recurring_next_payment_date is None and "recurring_next_payment_date" in self.model_fields_set:
+            _dict['recurringNextPaymentDate'] = None
+
         # set to None if round_up (nullable) is None
         # and model_fields_set contains the field
         if self.round_up is None and "round_up" in self.model_fields_set:
@@ -110,6 +119,10 @@ class PriceDetails(BaseModel):
             "balance": obj.get("balance"),
             "sales": [Sale.from_dict(_item) for _item in obj["sales"]] if obj.get("sales") is not None else None,
             "giftcards": obj.get("giftcards"),
+            "recurring": obj.get("recurring"),
+            "recurringPeriod": obj.get("recurringPeriod"),
+            "recurringNextPaymentDate": obj.get("recurringNextPaymentDate"),
+            "username": obj.get("username"),
             "roundUp": obj.get("roundUp")
         })
         return _obj

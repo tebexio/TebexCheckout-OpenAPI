@@ -132,5 +132,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Payment refunded successfully. The payment details are returned. |  -  |
+| **422** | The payment cannot be refunded. Payments can only be refunded when a payment&#39;s &#x60;status&#x60; is Completed. |  -  |
 | **404** | Payment not found. |  -  |
 

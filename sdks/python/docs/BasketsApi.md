@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**add_sale_to_basket**](BasketsApi.md#add_sale_to_basket) | **POST** /baskets/{ident}/sales | Add a sale to the basket
 [**create_basket**](BasketsApi.md#create_basket) | **POST** /baskets | Create a basket that can be used to pay for items
 [**get_basket_by_id**](BasketsApi.md#get_basket_by_id) | **GET** /baskets/{ident} | Fetch a basket by its identifier
-[**remove_row_from_basket**](BasketsApi.md#remove_row_from_basket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket
+[**remove_row_from_basket**](BasketsApi.md#remove_row_from_basket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
 
 
 # **add_package**
@@ -223,7 +223,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Basket created successfully |  -  |
-**400** | Invalid basket information provided. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -297,11 +296,11 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_row_from_basket**
-> remove_row_from_basket(ident, row_id)
+> remove_row_from_basket(ident, rows_id)
 
 Remove a row from the basket
 
-This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
 
 ### Example
 
@@ -323,11 +322,11 @@ with TebexCheckout.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexCheckout.BasketsApi(api_client)
     ident = '1a-55fff4107740a1f40d844ff89607557f45bfafb3' # str | The basket identifier.
-    row_id = 1 # int | The `id` of the `basket.rows` row to remove.
+    rows_id = 1 # int | The `id` of the `basket.rows` row to remove.
 
     try:
         # Remove a row from the basket
-        api_instance.remove_row_from_basket(ident, row_id)
+        api_instance.remove_row_from_basket(ident, rows_id)
     except Exception as e:
         print("Exception when calling BasketsApi->remove_row_from_basket: %s\n" % e)
 ```
@@ -340,7 +339,7 @@ with TebexCheckout.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ident** | **str**| The basket identifier. | 
- **row_id** | **int**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | 
+ **rows_id** | **int**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | 
 
 ### Return type
 
@@ -360,7 +359,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successfully deleted a row from the basket. |  -  |
-**400** | Bad Request. See ErrorResponse. |  -  |
 **404** | Row or basket not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

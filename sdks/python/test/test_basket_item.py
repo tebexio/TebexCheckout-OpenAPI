@@ -40,7 +40,7 @@ class TestBasketItem(unittest.TestCase):
                 type = 'single',
                 revenue_share = [
                     TebexCheckout.models.revenue_share.RevenueShare(
-                        wallet_ref = 'some_wallet_reference', 
+                        wallet_ref = 'centralised_404244_127', 
                         amount = 0.5, 
                         gateway_fee_percent = 50.0, )
                     ]

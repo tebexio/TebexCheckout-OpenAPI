@@ -128,6 +128,42 @@ namespace TebexCheckout.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'Recurring'
+        /// </summary>
+        [Fact]
+        public void RecurringTest()
+        {
+            // TODO unit test for the property 'Recurring'
+        }
+
+        /// <summary>
+        /// Test the property 'RecurringPeriod'
+        /// </summary>
+        [Fact]
+        public void RecurringPeriodTest()
+        {
+            // TODO unit test for the property 'RecurringPeriod'
+        }
+
+        /// <summary>
+        /// Test the property 'RecurringNextPaymentDate'
+        /// </summary>
+        [Fact]
+        public void RecurringNextPaymentDateTest()
+        {
+            // TODO unit test for the property 'RecurringNextPaymentDate'
+        }
+
+        /// <summary>
+        /// Test the property 'Username'
+        /// </summary>
+        [Fact]
+        public void UsernameTest()
+        {
+            // TODO unit test for the property 'Username'
+        }
+
+        /// <summary>
         /// Test the property 'RoundUp'
         /// </summary>
         [Fact]

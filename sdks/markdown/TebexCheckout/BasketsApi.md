@@ -8,7 +8,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**addSaleToBasket**](BasketsApi.md#addSaleToBasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket |
 | [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
-| [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket |
+| [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
 
 
 <a name="addPackage"></a>
@@ -123,18 +123,18 @@ No authorization required
 
 <a name="removeRowFromBasket"></a>
 # **removeRowFromBasket**
-> removeRowFromBasket(ident, row.id)
+> removeRowFromBasket(ident, rows.id)
 
 Remove a row from the basket
 
-    This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+    This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
 
 ### Parameters
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **ident** | **String**| The basket identifier. | [default to null] |
-| **row.id** | **Integer**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | [default to null] |
+| **rows.id** | **Integer**| The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. | [default to null] |
 
 ### Return type
 

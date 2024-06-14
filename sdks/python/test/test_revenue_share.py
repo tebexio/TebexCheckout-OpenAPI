@@ -36,7 +36,7 @@ class TestRevenueShare(unittest.TestCase):
         model = RevenueShare()
         if include_optional:
             return RevenueShare(
-                wallet_ref = 'some_wallet_reference',
+                wallet_ref = 'centralised_404244_127',
                 amount = 0.5,
                 gateway_fee_percent = 50.0
             )

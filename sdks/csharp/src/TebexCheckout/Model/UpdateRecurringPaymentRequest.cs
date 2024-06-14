@@ -57,7 +57,7 @@ namespace TebexCheckout.Model
         /// Your desired state of the recurring payment. Provide &#x60;Paused&#x60; with &#x60;paused_until&#x60; to pause a recurring payment. Otherwise, provide &#x60;Active&#x60; to resume a recurring payment.
         /// </summary>
         /// <value>Your desired state of the recurring payment. Provide &#x60;Paused&#x60; with &#x60;paused_until&#x60; to pause a recurring payment. Otherwise, provide &#x60;Active&#x60; to resume a recurring payment.</value>
-        /// <example>Active</example>
+        /// <example>Paused</example>
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
         public StatusEnum Status { get; set; }
         /// <summary>
@@ -80,7 +80,7 @@ namespace TebexCheckout.Model
         /// To pause a payment, provide a ISO8601 formatted date on which the payment should be reactivated.
         /// </summary>
         /// <value>To pause a payment, provide a ISO8601 formatted date on which the payment should be reactivated.</value>
-        /// <example>2023-01-18T16:43:53.000000Z</example>
+        /// <example>2025-01-27T16:43:53.000000Z</example>
         [DataMember(Name = "paused_until", EmitDefaultValue = false)]
         public string PausedUntil { get; set; }
 

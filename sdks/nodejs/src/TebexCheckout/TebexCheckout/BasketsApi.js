@@ -16,7 +16,6 @@ import ApiClient from "../ApiClient";
 import AddPackageRequest from '../model/AddPackageRequest';
 import Basket from '../model/Basket';
 import CreateBasketRequest from '../model/CreateBasketRequest';
-import ErrorResponse from '../model/ErrorResponse';
 import Sale from '../model/Sale';
 
 /**
@@ -223,25 +222,25 @@ export default class BasketsApi {
 
     /**
      * Remove a row from the basket
-     * This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+     * This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
      * @param {String} ident The basket identifier.
-     * @param {Number} rowId The `id` of the `basket.rows` row to remove.
+     * @param {Number} rowsId The `id` of the `basket.rows` row to remove.
      * @param {module:TebexCheckout/TebexCheckout/BasketsApi~removeRowFromBasketCallback} callback The callback function, accepting three arguments: error, data, response
      */
-    removeRowFromBasket(ident, rowId, callback) {
+    removeRowFromBasket(ident, rowsId, callback) {
       let postBody = null;
       // verify the required parameter 'ident' is set
       if (ident === undefined || ident === null) {
         throw new Error("Missing the required parameter 'ident' when calling removeRowFromBasket");
       }
-      // verify the required parameter 'rowId' is set
-      if (rowId === undefined || rowId === null) {
-        throw new Error("Missing the required parameter 'rowId' when calling removeRowFromBasket");
+      // verify the required parameter 'rowsId' is set
+      if (rowsId === undefined || rowsId === null) {
+        throw new Error("Missing the required parameter 'rowsId' when calling removeRowFromBasket");
       }
 
       let pathParams = {
         'ident': ident,
-        'row.id': rowId
+        'rows.id': rowsId
       };
       let queryParams = {
       };
@@ -255,7 +254,7 @@ export default class BasketsApi {
       let accepts = [];
       let returnType = null;
       return this.apiClient.callApi(
-        '/baskets/{ident}/packages/{row.id}', 'DELETE',
+        '/baskets/{ident}/packages/{rows.id}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

@@ -102,6 +102,30 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property recurring (base name: "recurring")', function() {
+      // uncomment below and update the code to test the property recurring
+      //var instance = new TebexCheckoutApi.PriceDetails();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property recurringPeriod (base name: "recurringPeriod")', function() {
+      // uncomment below and update the code to test the property recurringPeriod
+      //var instance = new TebexCheckoutApi.PriceDetails();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property recurringNextPaymentDate (base name: "recurringNextPaymentDate")', function() {
+      // uncomment below and update the code to test the property recurringNextPaymentDate
+      //var instance = new TebexCheckoutApi.PriceDetails();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property username (base name: "username")', function() {
+      // uncomment below and update the code to test the property username
+      //var instance = new TebexCheckoutApi.PriceDetails();
+      //expect(instance).to.be();
+    });
+
     it('should have the property roundUp (base name: "roundUp")', function() {
       // uncomment below and update the code to test the property roundUp
       //var instance = new TebexCheckoutApi.PriceDetails();

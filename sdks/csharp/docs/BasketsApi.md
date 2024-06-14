@@ -8,7 +8,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**AddSaleToBasket**](BasketsApi.md#addsaletobasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket |
 | [**CreateBasket**](BasketsApi.md#createbasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**GetBasketById**](BasketsApi.md#getbasketbyid) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
-| [**RemoveRowFromBasket**](BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket |
+| [**RemoveRowFromBasket**](BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
 
 <a id="addpackage"></a>
 # **AddPackage**
@@ -288,7 +288,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Basket created successfully |  -  |
-| **400** | Invalid basket information provided. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -386,11 +385,11 @@ No authorization required
 
 <a id="removerowfrombasket"></a>
 # **RemoveRowFromBasket**
-> void RemoveRowFromBasket (string ident, int rowId)
+> void RemoveRowFromBasket (string ident, int rowsId)
 
 Remove a row from the basket
 
-This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
+This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.
 
 ### Example
 ```csharp
@@ -410,12 +409,12 @@ namespace Example
             config.BasePath = "https://checkout.tebex.io/api";
             var apiInstance = new BasketsApi(config);
             var ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The basket identifier.
-            var rowId = 1;  // int | The `id` of the `basket.rows` row to remove.
+            var rowsId = 1;  // int | The `id` of the `basket.rows` row to remove.
 
             try
             {
                 // Remove a row from the basket
-                apiInstance.RemoveRowFromBasket(ident, rowId);
+                apiInstance.RemoveRowFromBasket(ident, rowsId);
             }
             catch (ApiException  e)
             {
@@ -435,7 +434,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Remove a row from the basket
-    apiInstance.RemoveRowFromBasketWithHttpInfo(ident, rowId);
+    apiInstance.RemoveRowFromBasketWithHttpInfo(ident, rowsId);
 }
 catch (ApiException e)
 {
@@ -450,7 +449,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **ident** | **string** | The basket identifier. |  |
-| **rowId** | **int** | The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. |  |
+| **rowsId** | **int** | The &#x60;id&#x60; of the &#x60;basket.rows&#x60; row to remove. |  |
 
 ### Return type
 
@@ -470,7 +469,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | Successfully deleted a row from the basket. |  -  |
-| **400** | Bad Request. See ErrorResponse. |  -  |
 | **404** | Row or basket not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

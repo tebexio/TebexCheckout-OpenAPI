@@ -20,7 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from TebexCheckout.models.package import Package
+from TebexCheckout.models.update_subscription_request_items_inner import UpdateSubscriptionRequestItemsInner
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +28,7 @@ class UpdateSubscriptionRequest(BaseModel):
     """
     UpdateSubscriptionRequest
     """ # noqa: E501
-    items: Optional[List[Package]] = Field(default=None, description="An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**")
+    items: Optional[List[UpdateSubscriptionRequestItemsInner]] = Field(default=None, description="An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**")
     __properties: ClassVar[List[str]] = ["items"]
 
     model_config = ConfigDict(
@@ -89,7 +89,7 @@ class UpdateSubscriptionRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "items": [Package.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
+            "items": [UpdateSubscriptionRequestItemsInner.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
         })
         return _obj
 

@@ -40,6 +40,10 @@ from TebexCheckout.models.address import Address
 from TebexCheckout.models.basket import Basket
 from TebexCheckout.models.basket_item import BasketItem
 from TebexCheckout.models.basket_links import BasketLinks
+from TebexCheckout.models.basket_row import BasketRow
+from TebexCheckout.models.basket_row_meta import BasketRowMeta
+from TebexCheckout.models.basket_row_meta_limits import BasketRowMetaLimits
+from TebexCheckout.models.basket_row_meta_limits_user import BasketRowMetaLimitsUser
 from TebexCheckout.models.checkout_item import CheckoutItem
 from TebexCheckout.models.checkout_request import CheckoutRequest
 from TebexCheckout.models.checkout_request_basket import CheckoutRequestBasket
@@ -66,3 +70,4 @@ from TebexCheckout.models.revenue_share import RevenueShare
 from TebexCheckout.models.sale import Sale
 from TebexCheckout.models.update_recurring_payment_request import UpdateRecurringPaymentRequest
 from TebexCheckout.models.update_subscription_request import UpdateSubscriptionRequest
+from TebexCheckout.models.update_subscription_request_items_inner import UpdateSubscriptionRequestItemsInner

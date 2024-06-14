@@ -54,15 +54,15 @@ import TebexCheckout.JSON;
 /**
  * PriceDetails
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-14T12:22:39.312899-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class PriceDetails {
   public static final String SERIALIZED_NAME_FULL_PRICE = "fullPrice";
   @SerializedName(SERIALIZED_NAME_FULL_PRICE)
-  private BigDecimal fullPrice;
+  private Float fullPrice;
 
   public static final String SERIALIZED_NAME_SUB_TOTAL = "subTotal";
   @SerializedName(SERIALIZED_NAME_SUB_TOTAL)
-  private BigDecimal subTotal;
+  private Float subTotal;
 
   public static final String SERIALIZED_NAME_DISCOUNTS = "discounts";
   @SerializedName(SERIALIZED_NAME_DISCOUNTS)
@@ -70,15 +70,15 @@ public class PriceDetails {
 
   public static final String SERIALIZED_NAME_TOTAL = "total";
   @SerializedName(SERIALIZED_NAME_TOTAL)
-  private BigDecimal total;
+  private Float total;
 
   public static final String SERIALIZED_NAME_TAX = "tax";
   @SerializedName(SERIALIZED_NAME_TAX)
-  private BigDecimal tax;
+  private Float tax;
 
   public static final String SERIALIZED_NAME_BALANCE = "balance";
   @SerializedName(SERIALIZED_NAME_BALANCE)
-  private BigDecimal balance;
+  private Float balance;
 
   public static final String SERIALIZED_NAME_SALES = "sales";
   @SerializedName(SERIALIZED_NAME_SALES)
@@ -88,6 +88,22 @@ public class PriceDetails {
   @SerializedName(SERIALIZED_NAME_GIFTCARDS)
   private List<Object> giftcards = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_RECURRING = "recurring";
+  @SerializedName(SERIALIZED_NAME_RECURRING)
+  private Boolean recurring;
+
+  public static final String SERIALIZED_NAME_RECURRING_PERIOD = "recurringPeriod";
+  @SerializedName(SERIALIZED_NAME_RECURRING_PERIOD)
+  private Object recurringPeriod;
+
+  public static final String SERIALIZED_NAME_RECURRING_NEXT_PAYMENT_DATE = "recurringNextPaymentDate";
+  @SerializedName(SERIALIZED_NAME_RECURRING_NEXT_PAYMENT_DATE)
+  private Object recurringNextPaymentDate;
+
+  public static final String SERIALIZED_NAME_USERNAME = "username";
+  @SerializedName(SERIALIZED_NAME_USERNAME)
+  private String username;
+
   public static final String SERIALIZED_NAME_ROUND_UP = "roundUp";
   @SerializedName(SERIALIZED_NAME_ROUND_UP)
   private BigDecimal roundUp;
@@ -95,7 +111,7 @@ public class PriceDetails {
   public PriceDetails() {
   }
 
-  public PriceDetails fullPrice(BigDecimal fullPrice) {
+  public PriceDetails fullPrice(Float fullPrice) {
     this.fullPrice = fullPrice;
     return this;
   }
@@ -105,16 +121,16 @@ public class PriceDetails {
    * @return fullPrice
   **/
   @javax.annotation.Nullable
-  public BigDecimal getFullPrice() {
+  public Float getFullPrice() {
     return fullPrice;
   }
 
-  public void setFullPrice(BigDecimal fullPrice) {
+  public void setFullPrice(Float fullPrice) {
     this.fullPrice = fullPrice;
   }
 
 
-  public PriceDetails subTotal(BigDecimal subTotal) {
+  public PriceDetails subTotal(Float subTotal) {
     this.subTotal = subTotal;
     return this;
   }
@@ -124,11 +140,11 @@ public class PriceDetails {
    * @return subTotal
   **/
   @javax.annotation.Nullable
-  public BigDecimal getSubTotal() {
+  public Float getSubTotal() {
     return subTotal;
   }
 
-  public void setSubTotal(BigDecimal subTotal) {
+  public void setSubTotal(Float subTotal) {
     this.subTotal = subTotal;
   }
 
@@ -160,7 +176,7 @@ public class PriceDetails {
   }
 
 
-  public PriceDetails total(BigDecimal total) {
+  public PriceDetails total(Float total) {
     this.total = total;
     return this;
   }
@@ -170,16 +186,16 @@ public class PriceDetails {
    * @return total
   **/
   @javax.annotation.Nullable
-  public BigDecimal getTotal() {
+  public Float getTotal() {
     return total;
   }
 
-  public void setTotal(BigDecimal total) {
+  public void setTotal(Float total) {
     this.total = total;
   }
 
 
-  public PriceDetails tax(BigDecimal tax) {
+  public PriceDetails tax(Float tax) {
     this.tax = tax;
     return this;
   }
@@ -189,16 +205,16 @@ public class PriceDetails {
    * @return tax
   **/
   @javax.annotation.Nullable
-  public BigDecimal getTax() {
+  public Float getTax() {
     return tax;
   }
 
-  public void setTax(BigDecimal tax) {
+  public void setTax(Float tax) {
     this.tax = tax;
   }
 
 
-  public PriceDetails balance(BigDecimal balance) {
+  public PriceDetails balance(Float balance) {
     this.balance = balance;
     return this;
   }
@@ -208,11 +224,11 @@ public class PriceDetails {
    * @return balance
   **/
   @javax.annotation.Nullable
-  public BigDecimal getBalance() {
+  public Float getBalance() {
     return balance;
   }
 
-  public void setBalance(BigDecimal balance) {
+  public void setBalance(Float balance) {
     this.balance = balance;
   }
 
@@ -271,6 +287,82 @@ public class PriceDetails {
   }
 
 
+  public PriceDetails recurring(Boolean recurring) {
+    this.recurring = recurring;
+    return this;
+  }
+
+   /**
+   * Contains recurring amount. Limited to 1 subscription package in the basket at a time.
+   * @return recurring
+  **/
+  @javax.annotation.Nullable
+  public Boolean getRecurring() {
+    return recurring;
+  }
+
+  public void setRecurring(Boolean recurring) {
+    this.recurring = recurring;
+  }
+
+
+  public PriceDetails recurringPeriod(Object recurringPeriod) {
+    this.recurringPeriod = recurringPeriod;
+    return this;
+  }
+
+   /**
+   * Get recurringPeriod
+   * @return recurringPeriod
+  **/
+  @javax.annotation.Nullable
+  public Object getRecurringPeriod() {
+    return recurringPeriod;
+  }
+
+  public void setRecurringPeriod(Object recurringPeriod) {
+    this.recurringPeriod = recurringPeriod;
+  }
+
+
+  public PriceDetails recurringNextPaymentDate(Object recurringNextPaymentDate) {
+    this.recurringNextPaymentDate = recurringNextPaymentDate;
+    return this;
+  }
+
+   /**
+   * Get recurringNextPaymentDate
+   * @return recurringNextPaymentDate
+  **/
+  @javax.annotation.Nullable
+  public Object getRecurringNextPaymentDate() {
+    return recurringNextPaymentDate;
+  }
+
+  public void setRecurringNextPaymentDate(Object recurringNextPaymentDate) {
+    this.recurringNextPaymentDate = recurringNextPaymentDate;
+  }
+
+
+  public PriceDetails username(String username) {
+    this.username = username;
+    return this;
+  }
+
+   /**
+   * Get username
+   * @return username
+  **/
+  @javax.annotation.Nullable
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+
   public PriceDetails roundUp(BigDecimal roundUp) {
     this.roundUp = roundUp;
     return this;
@@ -308,6 +400,10 @@ public class PriceDetails {
         Objects.equals(this.balance, priceDetails.balance) &&
         Objects.equals(this.sales, priceDetails.sales) &&
         Objects.equals(this.giftcards, priceDetails.giftcards) &&
+        Objects.equals(this.recurring, priceDetails.recurring) &&
+        Objects.equals(this.recurringPeriod, priceDetails.recurringPeriod) &&
+        Objects.equals(this.recurringNextPaymentDate, priceDetails.recurringNextPaymentDate) &&
+        Objects.equals(this.username, priceDetails.username) &&
         Objects.equals(this.roundUp, priceDetails.roundUp);
   }
 
@@ -317,7 +413,7 @@ public class PriceDetails {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullPrice, subTotal, discounts, total, tax, balance, sales, giftcards, roundUp);
+    return Objects.hash(fullPrice, subTotal, discounts, total, tax, balance, sales, giftcards, recurring, recurringPeriod, recurringNextPaymentDate, username, roundUp);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -339,6 +435,10 @@ public class PriceDetails {
     sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
     sb.append("    sales: ").append(toIndentedString(sales)).append("\n");
     sb.append("    giftcards: ").append(toIndentedString(giftcards)).append("\n");
+    sb.append("    recurring: ").append(toIndentedString(recurring)).append("\n");
+    sb.append("    recurringPeriod: ").append(toIndentedString(recurringPeriod)).append("\n");
+    sb.append("    recurringNextPaymentDate: ").append(toIndentedString(recurringNextPaymentDate)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    roundUp: ").append(toIndentedString(roundUp)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -370,6 +470,10 @@ public class PriceDetails {
     openapiFields.add("balance");
     openapiFields.add("sales");
     openapiFields.add("giftcards");
+    openapiFields.add("recurring");
+    openapiFields.add("recurringPeriod");
+    openapiFields.add("recurringNextPaymentDate");
+    openapiFields.add("username");
     openapiFields.add("roundUp");
 
     // a set of required properties/fields (JSON key names)
@@ -418,6 +522,9 @@ public class PriceDetails {
       // ensure the optional json data is an array if present
       if (jsonObj.get("giftcards") != null && !jsonObj.get("giftcards").isJsonNull() && !jsonObj.get("giftcards").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `giftcards` to be an array in the JSON string but got `%s`", jsonObj.get("giftcards").toString()));
+      }
+      if ((jsonObj.get("username") != null && !jsonObj.get("username").isJsonNull()) && !jsonObj.get("username").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `username` to be a primitive type in the JSON string but got `%s`", jsonObj.get("username").toString()));
       }
   }
 

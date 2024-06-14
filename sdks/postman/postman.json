@@ -221,8 +221,8 @@
                             ]
                         },
 	                        {
-    "name": "/baskets/:ident/packages/:row.id",
-                "description": "This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.",
+    "name": "/baskets/:ident/packages/:rows.id",
+                "description": "This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals.",
                  "item": [
                             {
                                 "name": "Remove a row from the basket",
@@ -240,7 +240,7 @@
                                         }
                                     },
                                     "url": {
-                                        "raw": "{{baseUrl}}/baskets/:ident/packages/:row.id",
+                                        "raw": "{{baseUrl}}/baskets/:ident/packages/:rows.id",
                                         "host": [
                                             "{{baseUrl}}"
                                         ],
@@ -248,7 +248,7 @@
                                             "baskets",
                                             ":ident",
                                             "packages",
-                                            ":row.id"
+                                            ":rows.id"
                                         ],
                                         "variable": [
                                             {
@@ -257,7 +257,7 @@
                                                 "description": "The basket identifier."
                                             },
                                             {
-                                                "key": "rowPeriodid",
+                                                "key": "rowsPeriodid",
                                                 "value": "",
                                                 "description": "The `id` of the `basket.rows` row to remove."
                                             }
@@ -265,7 +265,7 @@
                                         "query": [
                                         ]
                                     },
-                                    "description": "This will remove the given `{row.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals."
+                                    "description": "This will remove the given `{rows.id}` from the basket `{ident}`. The basket must be re-fetched after running to receive updated totals."
                                 }
                             }
                             ]

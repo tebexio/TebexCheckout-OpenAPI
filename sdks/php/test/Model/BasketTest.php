@@ -126,15 +126,6 @@ class BasketTest extends TestCase
     }
 
     /**
-     * Test attribute "recurring"
-     */
-    public function testPropertyRecurring()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test attribute "recurring_period"
      */
     public function testPropertyRecurringPeriod()

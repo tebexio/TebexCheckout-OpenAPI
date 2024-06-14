@@ -74,7 +74,7 @@ namespace TebexCheckout.Model
         /// <param name="expiryPeriod">The renewal period of this item.</param>
         /// <param name="expiryLength">An integer representing the number of &#x60;expiry_periods&#x60; that make up the renewal period..</param>
         /// <param name="metaData">metaData.</param>
-        public Package(string name = default(string), decimal price = default(decimal), ExpiryPeriodEnum? expiryPeriod = default(ExpiryPeriodEnum?), int expiryLength = default(int), PackageMetaData metaData = default(PackageMetaData))
+        public Package(string name = default(string), float price = default(float), ExpiryPeriodEnum? expiryPeriod = default(ExpiryPeriodEnum?), int expiryLength = default(int), PackageMetaData metaData = default(PackageMetaData))
         {
             this.Name = name;
             this.Price = price;
@@ -97,7 +97,7 @@ namespace TebexCheckout.Model
         /// <value>A float (decimal describing the price of the package in your account currency)</value>
         /// <example>1.27</example>
         [DataMember(Name = "price", EmitDefaultValue = false)]
-        public decimal Price { get; set; }
+        public float Price { get; set; }
 
         /// <summary>
         /// An integer representing the number of &#x60;expiry_periods&#x60; that make up the renewal period.

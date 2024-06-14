@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.openapitools.client.model.ModelPackage;
+import org.openapitools.client.model.UpdateSubscriptionRequestItemsInner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,21 +52,21 @@ import TebexCheckout.JSON;
 /**
  * UpdateSubscriptionRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-16T10:59:54.383377-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-06-14T12:22:39.312899-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class UpdateSubscriptionRequest {
   public static final String SERIALIZED_NAME_ITEMS = "items";
   @SerializedName(SERIALIZED_NAME_ITEMS)
-  private List<ModelPackage> items = new ArrayList<>();
+  private List<UpdateSubscriptionRequestItemsInner> items = new ArrayList<>();
 
   public UpdateSubscriptionRequest() {
   }
 
-  public UpdateSubscriptionRequest items(List<ModelPackage> items) {
+  public UpdateSubscriptionRequest items(List<UpdateSubscriptionRequestItemsInner> items) {
     this.items = items;
     return this;
   }
 
-  public UpdateSubscriptionRequest addItemsItem(ModelPackage itemsItem) {
+  public UpdateSubscriptionRequest addItemsItem(UpdateSubscriptionRequestItemsInner itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<>();
     }
@@ -75,15 +75,15 @@ public class UpdateSubscriptionRequest {
   }
 
    /**
-   * An array containing the item to be added to the recurring payment. **Only 1 item is supported at this time.**
+   * An array containing the items to be added to the recurring payment. **Only 1 item is supported at this time.**
    * @return items
   **/
   @javax.annotation.Nullable
-  public List<ModelPackage> getItems() {
+  public List<UpdateSubscriptionRequestItemsInner> getItems() {
     return items;
   }
 
-  public void setItems(List<ModelPackage> items) {
+  public void setItems(List<UpdateSubscriptionRequestItemsInner> items) {
     this.items = items;
   }
 
@@ -170,7 +170,7 @@ public class UpdateSubscriptionRequest {
 
           // validate the optional field `items` (array)
           for (int i = 0; i < jsonArrayitems.size(); i++) {
-            ModelPackage.validateJsonElement(jsonArrayitems.get(i));
+            UpdateSubscriptionRequestItemsInner.validateJsonElement(jsonArrayitems.get(i));
           };
         }
       }

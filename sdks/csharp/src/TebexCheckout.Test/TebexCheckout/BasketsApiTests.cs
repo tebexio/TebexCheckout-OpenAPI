@@ -113,8 +113,8 @@ namespace TebexCheckout.Test.Api
         {
             // TODO uncomment below to test the method and replace null with proper value
             //string ident = null;
-            //int rowId = null;
-            //instance.RemoveRowFromBasket(ident, rowId);
+            //int rowsId = null;
+            //instance.RemoveRowFromBasket(ident, rowsId);
         }
     }
 }

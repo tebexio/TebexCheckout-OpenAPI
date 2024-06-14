@@ -46,7 +46,7 @@ namespace TebexCheckout.Model
         /// <summary>
         /// Gets or Sets Amount
         /// </summary>
-        /// <example>0</example>
+        /// <example>0.0</example>
         [DataMember(Name = "amount", EmitDefaultValue = false)]
         public float Amount { get; set; }
 

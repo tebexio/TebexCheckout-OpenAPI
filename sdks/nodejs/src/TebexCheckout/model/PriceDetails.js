@@ -72,6 +72,18 @@ class PriceDetails {
             if (data.hasOwnProperty('giftcards')) {
                 obj['giftcards'] = ApiClient.convertToType(data['giftcards'], [Object]);
             }
+            if (data.hasOwnProperty('recurring')) {
+                obj['recurring'] = ApiClient.convertToType(data['recurring'], 'Boolean');
+            }
+            if (data.hasOwnProperty('recurringPeriod')) {
+                obj['recurringPeriod'] = ApiClient.convertToType(data['recurringPeriod'], Object);
+            }
+            if (data.hasOwnProperty('recurringNextPaymentDate')) {
+                obj['recurringNextPaymentDate'] = ApiClient.convertToType(data['recurringNextPaymentDate'], Object);
+            }
+            if (data.hasOwnProperty('username')) {
+                obj['username'] = ApiClient.convertToType(data['username'], 'String');
+            }
             if (data.hasOwnProperty('roundUp')) {
                 obj['roundUp'] = ApiClient.convertToType(data['roundUp'], 'Number');
             }
@@ -102,6 +114,10 @@ class PriceDetails {
         // ensure the json data is an array
         if (!Array.isArray(data['giftcards'])) {
             throw new Error("Expected the field `giftcards` to be an array in the JSON data but got " + data['giftcards']);
+        }
+        // ensure the json data is a string
+        if (data['username'] && !(typeof data['username'] === 'string' || data['username'] instanceof String)) {
+            throw new Error("Expected the field `username` to be a primitive type in the JSON string but got " + data['username']);
         }
 
         return true;
@@ -151,6 +167,27 @@ PriceDetails.prototype['sales'] = undefined;
  * @member {Array.<Object>} giftcards
  */
 PriceDetails.prototype['giftcards'] = undefined;
+
+/**
+ * Contains recurring amount. Limited to 1 subscription package in the basket at a time.
+ * @member {Boolean} recurring
+ */
+PriceDetails.prototype['recurring'] = undefined;
+
+/**
+ * @member {Object} recurringPeriod
+ */
+PriceDetails.prototype['recurringPeriod'] = undefined;
+
+/**
+ * @member {Object} recurringNextPaymentDate
+ */
+PriceDetails.prototype['recurringNextPaymentDate'] = undefined;
+
+/**
+ * @member {String} username
+ */
+PriceDetails.prototype['username'] = undefined;
 
 /**
  * @member {Number} roundUp

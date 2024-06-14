@@ -17,7 +17,6 @@ import TebexCheckout.ApiException;
 import org.openapitools.client.model.AddPackageRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.CreateBasketRequest;
-import org.openapitools.client.model.ErrorResponse;
 import org.openapitools.client.model.Sale;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -96,15 +95,15 @@ public class BasketsApiTest {
     /**
      * Remove a row from the basket
      *
-     * This will remove the given &#x60;{row.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
+     * This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#x60;. The basket must be re-fetched after running to receive updated totals.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void removeRowFromBasketTest() throws ApiException {
         String ident = null;
-        Integer rowId = null;
-        api.removeRowFromBasket(ident, rowId);
+        Integer rowsId = null;
+        api.removeRowFromBasket(ident, rowsId);
         // TODO: test validations
     }
 

@@ -47,7 +47,7 @@ class TestPayment(unittest.TestCase):
                     currency = 'USD', ),
                 fees = TebexCheckout.models.payment_fees.Payment_fees(
                     tax = TebexCheckout.models.payment_fees_tax.Payment_fees_tax(
-                        amount = 0, 
+                        amount = 0.0, 
                         currency = 'USD', ), 
                     gateway = TebexCheckout.models.payment_fees_gateway.Payment_fees_gateway(
                         amount = 0.45, 
@@ -80,10 +80,10 @@ class TestPayment(unittest.TestCase):
                         username = '', )
                     ],
                 coupons = [
-                    ''
+                    '[]'
                     ],
                 gift_cards = [
-                    ''
+                    '[]'
                     ],
                 recurring_payment_reference = '',
                 custom = TebexCheckout.models.payment_custom.Payment_custom(

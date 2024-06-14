@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.openapitools.client.model.Address;
-import org.openapitools.client.model.BasketItem;
 import org.openapitools.client.model.BasketLinks;
+import org.openapitools.client.model.BasketRow;
 import org.openapitools.client.model.PriceDetails;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.junit.jupiter.api.Disabled;
@@ -83,14 +83,6 @@ public class BasketTest {
     @Test
     public void typeTest() {
         // TODO: test type
-    }
-
-    /**
-     * Test the property 'recurring'
-     */
-    @Test
-    public void recurringTest() {
-        // TODO: test recurring
     }
 
     /**

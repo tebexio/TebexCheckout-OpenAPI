@@ -41,13 +41,12 @@ class TestBasket(unittest.TestCase):
                 price = 1.27,
                 price_details = {"fullPrice":1.4,"subTotal":1.27,"discounts":[],"total":1.4,"surcharges":[],"tax":0.13,"balance":0,"sales":[],"giftcards":[],"roundUp":null},
                 type = 'single',
-                recurring = False,
                 recurring_period = None,
                 recurring_next_payment_date = '',
                 is_payment_method_update = False,
                 return_url = '',
                 complete = False,
-                tax = None,
+                tax = 1.337,
                 username = '',
                 discounts = [
                     TebexCheckout.models.discount.Discount()
@@ -60,15 +59,51 @@ class TestBasket(unittest.TestCase):
                     ],
                 address = {"name":"Ted Tebex","first_name":"Ted","last_name":"Tebex","address":"37 Broadhurst Gardens, London, United Kingdom, NW6 3QT","email":"example@tebex.io","state_id":null,"country":"UK","postal_code":"NW6 3QT"},
                 rows = [
-                    TebexCheckout.models.basket_item.BasketItem(
-                        qty = 2, 
-                        type = 'single', 
-                        revenue_share = [
-                            TebexCheckout.models.revenue_share.RevenueShare(
-                                wallet_ref = 'some_wallet_reference', 
-                                amount = 0.5, 
-                                gateway_fee_percent = 50.0, )
-                            ], )
+                    TebexCheckout.models.basket_row.BasketRow(
+                        id = 173125385, 
+                        basket = 725572301, 
+                        package = 56, 
+                        override = 0, 
+                        quantity = 2, 
+                        server = 56, 
+                        price = 1.27, 
+                        gift_username_id = 56, 
+                        options = TebexCheckout.models.options.options(), 
+                        recurring = False, 
+                        recurring_period = '', 
+                        recurring_next_payment_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        meta = TebexCheckout.models.basket_row_meta.BasketRow_meta(
+                            name = '1000 Gold', 
+                            rowprice = 2.54, 
+                            initialprice = 1.27, 
+                            is_cumulative = False, 
+                            required_packages = [], 
+                            requires_any = False, 
+                            category = False, 
+                            produces_gift_card = False, 
+                            allows_gift_cards = True, 
+                            servers = [], 
+                            limits = TebexCheckout.models.basket_row_meta_limits.BasketRow_meta_limits(
+                                user = TebexCheckout.models.basket_row_meta_limits_user.BasketRow_meta_limits_user(
+                                    enabled = False, 
+                                    timestamp = 0, 
+                                    limit = False, ), 
+                                global = TebexCheckout.models.basket_row_meta_limits_user.BasketRow_meta_limits_user(
+                                    enabled = False, 
+                                    timestamp = 0, 
+                                    limit = False, ), 
+                                package_expiry_time = 0, ), 
+                            has_deliverables = False, 
+                            deliverable_types = [], 
+                            download_link = '', 
+                            has_seller_protection = True, 
+                            item_type = '', 
+                            revenue_share = [], 
+                            image = '', 
+                            realprice = 1.27, ), 
+                        custom = TebexCheckout.models.custom.custom(), 
+                        image_url = '', 
+                        recurring_price = 1.337, )
                     ],
                 fingerprint = '',
                 creator_code = '',

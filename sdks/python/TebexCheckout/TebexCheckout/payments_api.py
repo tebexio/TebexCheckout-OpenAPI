@@ -354,6 +354,7 @@ class PaymentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Payment",
+            '422': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -422,6 +423,7 @@ class PaymentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Payment",
+            '422': None,
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -490,6 +492,7 @@ class PaymentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Payment",
+            '422': None,
             '404': None,
         }
         response_data = self.api_client.call_api(

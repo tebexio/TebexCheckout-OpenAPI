@@ -130,7 +130,7 @@ Class | Method | HTTP request | Description
 *TebexCheckoutApi.BasketsApi* | [**addSaleToBasket**](docs/BasketsApi.md#addSaleToBasket) | **POST** /baskets/{ident}/sales | Add a sale to the basket
 *TebexCheckoutApi.BasketsApi* | [**createBasket**](docs/BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items
 *TebexCheckoutApi.BasketsApi* | [**getBasketById**](docs/BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier
-*TebexCheckoutApi.BasketsApi* | [**removeRowFromBasket**](docs/BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{row.id} | Remove a row from the basket
+*TebexCheckoutApi.BasketsApi* | [**removeRowFromBasket**](docs/BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
 *TebexCheckoutApi.CheckoutApi* | [**checkout**](docs/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request
 *TebexCheckoutApi.PaymentsApi* | [**getPaymentById**](docs/PaymentsApi.md#getPaymentById) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID
 *TebexCheckoutApi.PaymentsApi* | [**refundPaymentById**](docs/PaymentsApi.md#refundPaymentById) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID
@@ -147,6 +147,10 @@ Class | Method | HTTP request | Description
  - [TebexCheckoutApi.Basket](docs/Basket.md)
  - [TebexCheckoutApi.BasketItem](docs/BasketItem.md)
  - [TebexCheckoutApi.BasketLinks](docs/BasketLinks.md)
+ - [TebexCheckoutApi.BasketRow](docs/BasketRow.md)
+ - [TebexCheckoutApi.BasketRowMeta](docs/BasketRowMeta.md)
+ - [TebexCheckoutApi.BasketRowMetaLimits](docs/BasketRowMetaLimits.md)
+ - [TebexCheckoutApi.BasketRowMetaLimitsUser](docs/BasketRowMetaLimitsUser.md)
  - [TebexCheckoutApi.CheckoutItem](docs/CheckoutItem.md)
  - [TebexCheckoutApi.CheckoutRequest](docs/CheckoutRequest.md)
  - [TebexCheckoutApi.CheckoutRequestBasket](docs/CheckoutRequestBasket.md)
@@ -173,6 +177,7 @@ Class | Method | HTTP request | Description
  - [TebexCheckoutApi.Sale](docs/Sale.md)
  - [TebexCheckoutApi.UpdateRecurringPaymentRequest](docs/UpdateRecurringPaymentRequest.md)
  - [TebexCheckoutApi.UpdateSubscriptionRequest](docs/UpdateSubscriptionRequest.md)
+ - [TebexCheckoutApi.UpdateSubscriptionRequestItemsInner](docs/UpdateSubscriptionRequestItemsInner.md)
 
 
 ## Documentation for Authorization

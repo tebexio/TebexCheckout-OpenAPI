@@ -66,6 +66,10 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'balance' => 'float',
         'sales' => '\TebexCheckout\Model\Sale[]',
         'giftcards' => 'object[]',
+        'recurring' => 'bool',
+        'recurring_period' => 'object',
+        'recurring_next_payment_date' => 'object',
+        'username' => 'string',
         'round_up' => 'float'
     ];
 
@@ -77,14 +81,18 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'full_price' => null,
-        'sub_total' => null,
+        'full_price' => 'float',
+        'sub_total' => 'float',
         'discounts' => null,
-        'total' => null,
-        'tax' => null,
-        'balance' => null,
+        'total' => 'float',
+        'tax' => 'float',
+        'balance' => 'float',
         'sales' => null,
         'giftcards' => null,
+        'recurring' => null,
+        'recurring_period' => null,
+        'recurring_next_payment_date' => null,
+        'username' => null,
         'round_up' => null
     ];
 
@@ -102,6 +110,10 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'balance' => false,
         'sales' => false,
         'giftcards' => false,
+        'recurring' => false,
+        'recurring_period' => false,
+        'recurring_next_payment_date' => true,
+        'username' => false,
         'round_up' => true
     ];
 
@@ -199,6 +211,10 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'balance' => 'balance',
         'sales' => 'sales',
         'giftcards' => 'giftcards',
+        'recurring' => 'recurring',
+        'recurring_period' => 'recurringPeriod',
+        'recurring_next_payment_date' => 'recurringNextPaymentDate',
+        'username' => 'username',
         'round_up' => 'roundUp'
     ];
 
@@ -216,6 +232,10 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'balance' => 'setBalance',
         'sales' => 'setSales',
         'giftcards' => 'setGiftcards',
+        'recurring' => 'setRecurring',
+        'recurring_period' => 'setRecurringPeriod',
+        'recurring_next_payment_date' => 'setRecurringNextPaymentDate',
+        'username' => 'setUsername',
         'round_up' => 'setRoundUp'
     ];
 
@@ -233,6 +253,10 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         'balance' => 'getBalance',
         'sales' => 'getSales',
         'giftcards' => 'getGiftcards',
+        'recurring' => 'getRecurring',
+        'recurring_period' => 'getRecurringPeriod',
+        'recurring_next_payment_date' => 'getRecurringNextPaymentDate',
+        'username' => 'getUsername',
         'round_up' => 'getRoundUp'
     ];
 
@@ -301,6 +325,10 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('balance', $data ?? [], null);
         $this->setIfExists('sales', $data ?? [], null);
         $this->setIfExists('giftcards', $data ?? [], null);
+        $this->setIfExists('recurring', $data ?? [], null);
+        $this->setIfExists('recurring_period', $data ?? [], null);
+        $this->setIfExists('recurring_next_payment_date', $data ?? [], null);
+        $this->setIfExists('username', $data ?? [], null);
         $this->setIfExists('round_up', $data ?? [], null);
     }
 
@@ -558,6 +586,121 @@ class PriceDetails implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable giftcards cannot be null');
         }
         $this->container['giftcards'] = $giftcards;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring
+     *
+     * @return bool|null
+     */
+    public function getRecurring()
+    {
+        return $this->container['recurring'];
+    }
+
+    /**
+     * Sets recurring
+     *
+     * @param bool|null $recurring Contains recurring amount. Limited to 1 subscription package in the basket at a time.
+     *
+     * @return self
+     */
+    public function setRecurring($recurring)
+    {
+        if (is_null($recurring)) {
+            throw new \InvalidArgumentException('non-nullable recurring cannot be null');
+        }
+        $this->container['recurring'] = $recurring;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring_period
+     *
+     * @return object|null
+     */
+    public function getRecurringPeriod()
+    {
+        return $this->container['recurring_period'];
+    }
+
+    /**
+     * Sets recurring_period
+     *
+     * @param object|null $recurring_period recurring_period
+     *
+     * @return self
+     */
+    public function setRecurringPeriod($recurring_period)
+    {
+        if (is_null($recurring_period)) {
+            throw new \InvalidArgumentException('non-nullable recurring_period cannot be null');
+        }
+        $this->container['recurring_period'] = $recurring_period;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring_next_payment_date
+     *
+     * @return object|null
+     */
+    public function getRecurringNextPaymentDate()
+    {
+        return $this->container['recurring_next_payment_date'];
+    }
+
+    /**
+     * Sets recurring_next_payment_date
+     *
+     * @param object|null $recurring_next_payment_date recurring_next_payment_date
+     *
+     * @return self
+     */
+    public function setRecurringNextPaymentDate($recurring_next_payment_date)
+    {
+        if (is_null($recurring_next_payment_date)) {
+            array_push($this->openAPINullablesSetToNull, 'recurring_next_payment_date');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('recurring_next_payment_date', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['recurring_next_payment_date'] = $recurring_next_payment_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets username
+     *
+     * @return string|null
+     */
+    public function getUsername()
+    {
+        return $this->container['username'];
+    }
+
+    /**
+     * Sets username
+     *
+     * @param string|null $username username
+     *
+     * @return self
+     */
+    public function setUsername($username)
+    {
+        if (is_null($username)) {
+            throw new \InvalidArgumentException('non-nullable username cannot be null');
+        }
+        $this->container['username'] = $username;
 
         return $this;
     }
