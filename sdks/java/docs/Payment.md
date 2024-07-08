@@ -15,10 +15,10 @@
 |**fees** | [**PaymentFees**](PaymentFees.md) |  |  [optional] |
 |**customer** | [**PaymentCustomer**](PaymentCustomer.md) |  |  [optional] |
 |**products** | [**List&lt;PaymentProductsInner&gt;**](PaymentProductsInner.md) |  |  [optional] |
-|**coupons** | **List&lt;String&gt;** |  |  [optional] |
-|**giftCards** | **List&lt;String&gt;** |  |  [optional] |
+|**coupons** | **List&lt;Object&gt;** |  |  [optional] |
+|**giftCards** | **List&lt;Object&gt;** |  |  [optional] |
 |**recurringPaymentReference** | **String** |  |  [optional] |
-|**custom** | [**PaymentCustom**](PaymentCustom.md) |  |  [optional] |
+|**custom** | **Object** |  |  [optional] |
 
 
 

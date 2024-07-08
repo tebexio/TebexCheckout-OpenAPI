@@ -31,6 +31,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new PaymentsApi(config);
             var txnId = tbx-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The payment reference to fetch.
 
@@ -83,7 +87,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -123,6 +127,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new PaymentsApi(config);
             var txnId = tbx-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The payment reference to refund.
 
@@ -175,7 +183,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

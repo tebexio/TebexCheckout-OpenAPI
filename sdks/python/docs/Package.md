@@ -7,9 +7,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The name of the item being purchased. This should be user-friendly as it is shown to the customer on checkout and receipts. | [optional] 
 **price** | **float** | A float (decimal describing the price of the package in your account currency) | [optional] 
+**type** | **str** |  | [optional] 
+**qty** | **int** |  | [optional] 
 **expiry_period** | **str** | The renewal period of this item | [optional] 
 **expiry_length** | **int** | An integer representing the number of &#x60;expiry_periods&#x60; that make up the renewal period. | [optional] 
-**meta_data** | [**PackageMetaData**](PackageMetaData.md) |  | [optional] 
+**custom** | **object** | A map of data that is passed back to you via the webhook (for example, a tracking ID) | [optional] 
 
 ## Example
 

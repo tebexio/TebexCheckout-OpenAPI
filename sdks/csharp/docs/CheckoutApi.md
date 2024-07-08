@@ -30,6 +30,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new CheckoutApi(config);
             var checkoutRequest = new CheckoutRequest?(); // CheckoutRequest? | Provide a `Basket`, an array of `Packages` to be added to the basket, and an optional `Sale` to complete the full checkout flow in one call. **Only one subscription item may be in the basket at a time.** (optional) 
 
@@ -82,7 +86,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

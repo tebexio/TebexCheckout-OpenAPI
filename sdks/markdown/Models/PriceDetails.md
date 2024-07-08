@@ -12,8 +12,6 @@
 | **sales** | [**List**](Sale.md) |  | [optional] [default to null] |
 | **giftcards** | **List** |  | [optional] [default to null] |
 | **recurring** | **Boolean** | Contains recurring amount. Limited to 1 subscription package in the basket at a time. | [optional] [default to null] |
-| **recurringPeriod** | [**Object**](.md) |  | [optional] [default to null] |
-| **recurringNextPaymentDate** | [**Object**](.md) |  | [optional] [default to null] |
 | **username** | **String** |  | [optional] [default to null] |
 | **roundUp** | **BigDecimal** |  | [optional] [default to null] |
 

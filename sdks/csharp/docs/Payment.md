@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 **Fees** | [**PaymentFees**](PaymentFees.md) |  | [optional] 
 **Customer** | [**PaymentCustomer**](PaymentCustomer.md) |  | [optional] 
 **Products** | [**List&lt;PaymentProductsInner&gt;**](PaymentProductsInner.md) |  | [optional] 
-**Coupons** | **List&lt;string&gt;** |  | [optional] 
-**GiftCards** | **List&lt;string&gt;** |  | [optional] 
+**Coupons** | **List&lt;Object&gt;** |  | [optional] 
+**GiftCards** | **List&lt;Object&gt;** |  | [optional] 
 **RecurringPaymentReference** | **string** |  | [optional] 
-**Custom** | [**PaymentCustom**](PaymentCustom.md) |  | [optional] 
+**Custom** | **Object** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

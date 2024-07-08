@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **quantity** | **int** |  | [optional] 
 **base_price** | [**PaymentProductsInnerBasePrice**](PaymentProductsInnerBasePrice.md) |  | [optional] 
-**paid_price** | [**PaymentProductsInnerBasePrice**](PaymentProductsInnerBasePrice.md) |  | [optional] 
+**paid_price** | [**PaymentProductsInnerPaidPrice**](PaymentProductsInnerPaidPrice.md) |  | [optional] 
 **variables** | **List[str]** |  | [optional] 
 **expires_at** | **datetime** |  | [optional] 
-**custom** | **str** |  | [optional] 
+**custom** | **object** | Any custom data associated with the payment | [optional] 
 **username** | **str** |  | [optional] 
 
 ## Example

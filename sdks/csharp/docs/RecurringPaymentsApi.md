@@ -33,6 +33,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new RecurringPaymentsApi(config);
             var reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The recurring payment reference to cancel.
 
@@ -85,7 +89,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -123,6 +127,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new RecurringPaymentsApi(config);
             var reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The recurring payment reference to fetch.
 
@@ -175,7 +183,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -213,6 +221,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new RecurringPaymentsApi(config);
             var reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The recurring payment reference to update.
             var updateRecurringPaymentRequest = new UpdateRecurringPaymentRequest?(); // UpdateRecurringPaymentRequest? |  (optional) 
@@ -267,7 +279,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -308,6 +320,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new RecurringPaymentsApi(config);
             var reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The recurring payment reference to fetch.
             var updateSubscriptionRequest = new UpdateSubscriptionRequest?(); // UpdateSubscriptionRequest? |  (optional) 
@@ -362,7 +378,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

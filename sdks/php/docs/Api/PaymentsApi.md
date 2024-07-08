@@ -25,11 +25,17 @@ This will fetch the given payment associated with this transaction id. Single pa
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\PaymentsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $txn_id = tbx-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The payment reference to fetch.
 
@@ -53,7 +59,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -81,11 +87,17 @@ This will refund the given payment associated with this transaction id.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\PaymentsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $txn_id = tbx-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The payment reference to refund.
 
@@ -109,7 +121,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

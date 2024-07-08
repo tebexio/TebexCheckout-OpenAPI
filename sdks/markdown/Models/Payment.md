@@ -14,7 +14,7 @@
 | **coupons** | **List** |  | [optional] [default to null] |
 | **gift\_cards** | **List** |  | [optional] [default to null] |
 | **recurring\_payment\_reference** | **String** |  | [optional] [default to null] |
-| **custom** | [**Payment_custom**](Payment_custom.md) |  | [optional] [default to null] |
+| **custom** | [**Object**](.md) |  | [optional] [default to null] |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

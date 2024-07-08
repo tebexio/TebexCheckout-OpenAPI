@@ -11,10 +11,13 @@
     },
     "termsOfService" : "https://tebex.io/terms-creator-agreement",
     "title" : "Tebex Checkout API",
-    "version" : "1.0.0"
+    "version" : "1.1.0"
   },
   "servers" : [ {
     "url" : "https://checkout.tebex.io/api"
+  } ],
+  "security" : [ {
+    "tebex_checkout_auth_basic" : [ ]
   } ],
   "tags" : [ {
     "description" : "A string identifier representing the basket",
@@ -548,9 +551,6 @@
       "GiftCard" : {
         "type" : "object"
       },
-      "RecurringPeriod" : {
-        "type" : "object"
-      },
       "Discount" : {
         "type" : "object"
       },
@@ -574,17 +574,6 @@
           },
           "priceDetails" : {
             "$ref" : "#/components/schemas/PriceDetails"
-          },
-          "type" : {
-            "example" : "single",
-            "type" : "string"
-          },
-          "recurringPeriod" : {
-            "$ref" : "#/components/schemas/RecurringPeriod"
-          },
-          "recurringNextPaymentDate" : {
-            "nullable" : true,
-            "type" : "string"
           },
           "isPaymentMethodUpdate" : {
             "example" : false,
@@ -690,6 +679,15 @@
             "format" : "float",
             "type" : "number"
           },
+          "type" : {
+            "enum" : [ "single", "subscription" ],
+            "example" : "subscription",
+            "type" : "string"
+          },
+          "qty" : {
+            "example" : 1,
+            "type" : "integer"
+          },
           "expiry_period" : {
             "description" : "The renewal period of this item",
             "enum" : [ "day", "month", "year" ],
@@ -701,8 +699,12 @@
             "example" : 3,
             "type" : "integer"
           },
-          "metaData" : {
-            "$ref" : "#/components/schemas/Package_metaData"
+          "custom" : {
+            "description" : "A map of data that is passed back to you via the webhook (for example, a tracking ID)",
+            "example" : {
+              "foo" : "bar"
+            },
+            "type" : "object"
           }
         },
         "type" : "object"
@@ -907,13 +909,6 @@
             "description" : "Contains recurring amount. Limited to 1 subscription package in the basket at a time.",
             "type" : "boolean"
           },
-          "recurringPeriod" : {
-            "$ref" : "#/components/schemas/RecurringPeriod"
-          },
-          "recurringNextPaymentDate" : {
-            "nullable" : true,
-            "type" : "object"
-          },
           "username" : {
             "type" : "string"
           },
@@ -1021,15 +1016,13 @@
           },
           "coupons" : {
             "items" : {
-              "example" : "[]",
-              "type" : "string"
+              "type" : "object"
             },
             "type" : "array"
           },
           "gift_cards" : {
             "items" : {
-              "example" : "[]",
-              "type" : "string"
+              "type" : "object"
             },
             "type" : "array"
           },
@@ -1038,7 +1031,153 @@
             "type" : "string"
           },
           "custom" : {
-            "$ref" : "#/components/schemas/Payment_custom"
+            "type" : "object"
+          }
+        },
+        "type" : "object"
+      },
+      "TebexWebhook" : {
+        "properties" : {
+          "id" : {
+            "example" : "fcf9cfc9-3708-4942-88f2-78d7e5cd8e72",
+            "type" : "string"
+          },
+          "type" : {
+            "example" : "validation.webhook",
+            "type" : "string"
+          },
+          "date" : {
+            "example" : "2024-07-02T19:52:07+00:00",
+            "type" : "string"
+          },
+          "subject" : {
+            "description" : "Depending on the webhook `type`, the `subject` will contain as `PaymentSubject` or `RecurringPaymentSubject`.",
+            "type" : "object"
+          }
+        },
+        "type" : "object"
+      },
+      "PaymentSubject" : {
+        "properties" : {
+          "transaction_id" : {
+            "example" : "tbx-40514024a64636-f9a1ea",
+            "type" : "string"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/Payment_status"
+          },
+          "payment_sequence" : {
+            "example" : "recurring",
+            "type" : "string"
+          },
+          "created_at" : {
+            "example" : "2024-05-20T17:57:16Z",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "price" : {
+            "$ref" : "#/components/schemas/PaymentSubject_price"
+          },
+          "price_paid" : {
+            "$ref" : "#/components/schemas/PaymentSubject_price"
+          },
+          "payment_method" : {
+            "$ref" : "#/components/schemas/PaymentSubject_payment_method"
+          },
+          "fees" : {
+            "$ref" : "#/components/schemas/PaymentSubject_fees"
+          },
+          "customer" : {
+            "$ref" : "#/components/schemas/PaymentSubject_customer"
+          },
+          "products" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PaymentSubject_products_inner"
+            },
+            "type" : "array"
+          },
+          "coupons" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Coupon"
+            },
+            "type" : "array"
+          },
+          "gift_cards" : {
+            "items" : {
+              "$ref" : "#/components/schemas/GiftCard"
+            },
+            "type" : "array"
+          },
+          "recurring_payment_reference" : {
+            "example" : "tbx-r-713419703",
+            "type" : "string"
+          },
+          "custom" : {
+            "type" : "object"
+          },
+          "revenue_share" : {
+            "items" : {
+              "$ref" : "#/components/schemas/RevenueShare"
+            },
+            "type" : "array"
+          },
+          "decline_reason" : {
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "RecurringPaymentSubject" : {
+        "properties" : {
+          "reference" : {
+            "example" : "tbx-r-714093927",
+            "type" : "string"
+          },
+          "created_at" : {
+            "example" : "2023-12-11T19:15:22Z",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "paused_at" : {
+            "format" : "date-time",
+            "nullable" : true,
+            "type" : "string"
+          },
+          "paused_until" : {
+            "format" : "date-time",
+            "nullable" : true,
+            "type" : "string"
+          },
+          "next_payment_at" : {
+            "example" : "2024-01-11T19:15:22Z",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/RecurringPaymentSubject_status"
+          },
+          "initial_payment" : {
+            "$ref" : "#/components/schemas/PaymentSubject"
+          },
+          "last_payment" : {
+            "$ref" : "#/components/schemas/PaymentSubject"
+          },
+          "fail_count" : {
+            "example" : 0,
+            "type" : "integer"
+          },
+          "price" : {
+            "$ref" : "#/components/schemas/RecurringPaymentSubject_price"
+          },
+          "cancelled_at" : {
+            "format" : "date-time",
+            "nullable" : true,
+            "type" : "string"
+          },
+          "cancel_reason" : {
+            "nullable" : true,
+            "type" : "string"
           }
         },
         "type" : "object"
@@ -1297,19 +1436,6 @@
         },
         "type" : "object"
       },
-      "Package_metaData" : {
-        "example" : {
-          "foo" : "bar"
-        },
-        "properties" : {
-          "custom" : {
-            "description" : "A free-text string field that is passed back to you via the webhook (for example, a tracking ID)",
-            "example" : "Foo",
-            "type" : "string"
-          }
-        },
-        "type" : "object"
-      },
       "BasketRow_meta_limits_user" : {
         "properties" : {
           "enabled" : {
@@ -1552,6 +1678,17 @@
           "currency" : {
             "type" : "string"
           }
+        }
+      },
+      "Payment_products_inner_paid_price" : {
+        "properties" : {
+          "amount" : {
+            "format" : "float",
+            "type" : "number"
+          },
+          "currency" : {
+            "type" : "string"
+          }
         },
         "type" : "object"
       },
@@ -1571,7 +1708,7 @@
             "$ref" : "#/components/schemas/Payment_products_inner_base_price"
           },
           "paid_price" : {
-            "$ref" : "#/components/schemas/Payment_products_inner_base_price"
+            "$ref" : "#/components/schemas/Payment_products_inner_paid_price"
           },
           "variables" : {
             "items" : {
@@ -1585,7 +1722,8 @@
             "type" : "string"
           },
           "custom" : {
-            "type" : "string"
+            "description" : "Any custom data associated with the payment",
+            "type" : "object"
           },
           "username" : {
             "nullable" : true,
@@ -1594,14 +1732,147 @@
         },
         "type" : "object"
       },
-      "Payment_custom" : {
+      "PaymentSubject_price" : {
         "properties" : {
-          "user" : {
-            "example" : "test@test.com",
+          "amount" : {
+            "example" : 0,
+            "format" : "float",
+            "type" : "number"
+          },
+          "currency" : {
+            "example" : "USD",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "PaymentSubject_payment_method" : {
+        "properties" : {
+          "name" : {
+            "example" : "Free: No Payment Required",
             "type" : "string"
           },
-          "ref" : {
-            "example" : "abc-123",
+          "refundable" : {
+            "example" : false,
+            "type" : "boolean"
+          }
+        },
+        "type" : "object"
+      },
+      "PaymentSubject_fees" : {
+        "properties" : {
+          "tax" : {
+            "$ref" : "#/components/schemas/PaymentSubject_price"
+          },
+          "gateway" : {
+            "$ref" : "#/components/schemas/PaymentSubject_price"
+          }
+        },
+        "type" : "object"
+      },
+      "PaymentSubject_customer" : {
+        "properties" : {
+          "first_name" : {
+            "example" : "Ted",
+            "type" : "string"
+          },
+          "last_name" : {
+            "example" : "Tebex",
+            "type" : "string"
+          },
+          "email" : {
+            "example" : "tebex-integrations@overwolf.com",
+            "format" : "email",
+            "type" : "string"
+          },
+          "ip" : {
+            "example" : "127.0.0.1",
+            "format" : "ipv4",
+            "type" : "string"
+          },
+          "username" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "marketing_consent" : {
+            "example" : false,
+            "type" : "boolean"
+          },
+          "country" : {
+            "example" : "US",
+            "type" : "string"
+          },
+          "postal_code" : {
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "PaymentSubject_products_inner" : {
+        "properties" : {
+          "id" : {
+            "example" : 127,
+            "type" : "integer"
+          },
+          "name" : {
+            "example" : "100 Gold",
+            "type" : "string"
+          },
+          "quantity" : {
+            "example" : 1,
+            "type" : "integer"
+          },
+          "base_price" : {
+            "$ref" : "#/components/schemas/PaymentSubject_price"
+          },
+          "paid_price" : {
+            "$ref" : "#/components/schemas/Payment_fees_tax"
+          },
+          "variables" : {
+            "items" : {
+              "type" : "object"
+            },
+            "type" : "array"
+          },
+          "expires_at" : {
+            "format" : "date-time",
+            "nullable" : true,
+            "type" : "string"
+          },
+          "custom" : {
+            "nullable" : true,
+            "type" : "object"
+          },
+          "username" : {
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "RecurringPaymentSubject_status" : {
+        "properties" : {
+          "id" : {
+            "example" : 2,
+            "type" : "integer"
+          },
+          "description" : {
+            "example" : "Active",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "RecurringPaymentSubject_price" : {
+        "properties" : {
+          "amount" : {
+            "example" : 22,
+            "format" : "float",
+            "type" : "number"
+          },
+          "currency" : {
+            "example" : "USD",
             "type" : "string"
           }
         },

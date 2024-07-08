@@ -12,9 +12,9 @@ Name | Type | Description | Notes
 **fees** | [**PaymentFees**](PaymentFees.md) |  | [optional] 
 **customer** | [**PaymentCustomer**](PaymentCustomer.md) |  | [optional] 
 **products** | [**[PaymentProductsInner]**](PaymentProductsInner.md) |  | [optional] 
-**coupons** | **[String]** |  | [optional] 
-**giftCards** | **[String]** |  | [optional] 
+**coupons** | **[Object]** |  | [optional] 
+**giftCards** | **[Object]** |  | [optional] 
 **recurringPaymentReference** | **String** |  | [optional] 
-**custom** | [**PaymentCustom**](PaymentCustom.md) |  | [optional] 
+**custom** | **Object** |  | [optional] 
 
 

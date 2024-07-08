@@ -27,11 +27,17 @@ This cancels the recurring payment for the reference provided. Recurring payment
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\RecurringPaymentsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The recurring payment reference to cancel.
 
@@ -55,7 +61,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -81,11 +87,17 @@ Fetch a recurring payment (subscription) by its reference
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\RecurringPaymentsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The recurring payment reference to fetch.
 
@@ -109,7 +121,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -135,11 +147,17 @@ Pause or reactivate a recurring payment
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\RecurringPaymentsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The recurring payment reference to update.
 $update_recurring_payment_request = new \TebexCheckout\Model\UpdateRecurringPaymentRequest(); // \TebexCheckout\Model\UpdateRecurringPaymentRequest
@@ -165,7 +183,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -193,11 +211,17 @@ If the new subscription amount is higher than the existing amount, a pro-rata ch
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\RecurringPaymentsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $reference = tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The recurring payment reference to fetch.
 $update_subscription_request = new \TebexCheckout\Model\UpdateSubscriptionRequest(); // \TebexCheckout\Model\UpdateSubscriptionRequest
@@ -223,7 +247,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

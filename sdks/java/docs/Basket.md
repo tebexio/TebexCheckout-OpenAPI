@@ -11,9 +11,6 @@
 |**expire** | **String** |  |  [optional] |
 |**price** | **Float** |  |  [optional] |
 |**priceDetails** | [**PriceDetails**](PriceDetails.md) |  |  [optional] |
-|**type** | **String** |  |  [optional] |
-|**recurringPeriod** | **Object** |  |  [optional] |
-|**recurringNextPaymentDate** | **String** |  |  [optional] |
 |**isPaymentMethodUpdate** | **Boolean** |  |  [optional] |
 |**returnUrl** | **String** |  |  [optional] |
 |**complete** | **Boolean** |  |  [optional] |

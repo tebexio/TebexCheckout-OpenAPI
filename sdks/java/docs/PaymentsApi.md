@@ -22,6 +22,7 @@ This will fetch the given payment associated with this transaction id. Single pa
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.PaymentsApi;
 
@@ -29,6 +30,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     PaymentsApi apiInstance = new PaymentsApi(defaultClient);
     String txnId = "tbx-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The payment reference to fetch.
@@ -58,7 +64,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -85,6 +91,7 @@ This will refund the given payment associated with this transaction id.
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.PaymentsApi;
 
@@ -92,6 +99,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     PaymentsApi apiInstance = new PaymentsApi(defaultClient);
     String txnId = "tbx-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The payment reference to refund.
@@ -121,7 +133,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

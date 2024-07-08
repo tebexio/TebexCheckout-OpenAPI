@@ -12,9 +12,9 @@ Name | Type | Description | Notes
 **fees** | [**\TebexCheckout\Model\PaymentFees**](PaymentFees.md) |  | [optional]
 **customer** | [**\TebexCheckout\Model\PaymentCustomer**](PaymentCustomer.md) |  | [optional]
 **products** | [**\TebexCheckout\Model\PaymentProductsInner[]**](PaymentProductsInner.md) |  | [optional]
-**coupons** | **string[]** |  | [optional]
-**gift_cards** | **string[]** |  | [optional]
+**coupons** | **object[]** |  | [optional]
+**gift_cards** | **object[]** |  | [optional]
 **recurring_payment_reference** | **string** |  | [optional]
-**custom** | [**\TebexCheckout\Model\PaymentCustom**](PaymentCustom.md) |  | [optional]
+**custom** | **object** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

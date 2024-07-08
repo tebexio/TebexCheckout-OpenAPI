@@ -28,7 +28,7 @@ Fetch a payment by its transaction ID
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -55,7 +55,7 @@ Refund a payment by its transaction ID
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

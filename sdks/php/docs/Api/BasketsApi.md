@@ -28,11 +28,17 @@ This adds a package (an object describing the product) to the basket `{ident}`. 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\BasketsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The basket identifier.
 $add_package_request = new \TebexCheckout\Model\AddPackageRequest(); // \TebexCheckout\Model\AddPackageRequest
@@ -58,7 +64,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -86,11 +92,17 @@ Adds a `Sale` to the basket with `{ident}`. **Sales cannot be applied to baskets
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\BasketsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The basket identifier.
 $sale = new \TebexCheckout\Model\Sale(); // \TebexCheckout\Model\Sale | Provide a `Sale` as an object to apply it to the basket.
@@ -116,7 +128,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -144,11 +156,17 @@ This will create and return a `Basket` that can be paid for by redirecting the u
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\BasketsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $create_basket_request = new \TebexCheckout\Model\CreateBasketRequest(); // \TebexCheckout\Model\CreateBasketRequest | Create a basket, returning the full basket object and payment link.
 
@@ -172,7 +190,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -200,11 +218,17 @@ Gets the basket associated with the provided identifier.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\BasketsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The basket identifier.
 
@@ -228,7 +252,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -256,11 +280,17 @@ This will remove the given `{rows.id}` from the basket `{ident}`. The basket mus
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\BasketsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The basket identifier.
 $rows_id = 1; // int | The `id` of the `basket.rows` row to remove.
@@ -285,7 +315,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

@@ -7,9 +7,6 @@
 | **expire** | **String** |  | [optional] [default to null] |
 | **price** | **Float** |  | [optional] [default to null] |
 | **priceDetails** | [**PriceDetails**](PriceDetails.md) |  | [optional] [default to null] |
-| **type** | **String** |  | [optional] [default to null] |
-| **recurringPeriod** | [**Object**](.md) |  | [optional] [default to null] |
-| **recurringNextPaymentDate** | **String** |  | [optional] [default to null] |
 | **isPaymentMethodUpdate** | **Boolean** |  | [optional] [default to null] |
 | **returnUrl** | **String** |  | [optional] [default to null] |
 | **complete** | **Boolean** |  | [optional] [default to null] |

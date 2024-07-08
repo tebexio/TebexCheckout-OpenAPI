@@ -1,8 +1,8 @@
 # openapi-java-client
 
 Tebex Checkout API
-- API version: 1.0.0
-  - Build date: 2024-06-14T12:22:39.312899-05:00[America/Chicago]
+- API version: 1.1.0
+  - Build date: 2024-07-08T10:31:44.004464-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.
@@ -43,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -59,7 +59,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:1.0.0"
+     implementation "org.openapitools:openapi-java-client:1.1.0"
   }
 ```
 
@@ -73,7 +73,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-1.0.0.jar`
+* `target/openapi-java-client-1.1.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -86,6 +86,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.BasketsApi;
 
@@ -93,6 +94,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
     String ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
@@ -149,9 +155,7 @@ Class | Method | HTTP request | Description
  - [CreateBasketRequest](docs/CreateBasketRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [ModelPackage](docs/ModelPackage.md)
- - [PackageMetaData](docs/PackageMetaData.md)
  - [Payment](docs/Payment.md)
- - [PaymentCustom](docs/PaymentCustom.md)
  - [PaymentCustomer](docs/PaymentCustomer.md)
  - [PaymentFees](docs/PaymentFees.md)
  - [PaymentFeesGateway](docs/PaymentFeesGateway.md)
@@ -159,14 +163,25 @@ Class | Method | HTTP request | Description
  - [PaymentPrice](docs/PaymentPrice.md)
  - [PaymentProductsInner](docs/PaymentProductsInner.md)
  - [PaymentProductsInnerBasePrice](docs/PaymentProductsInnerBasePrice.md)
+ - [PaymentProductsInnerPaidPrice](docs/PaymentProductsInnerPaidPrice.md)
  - [PaymentStatus](docs/PaymentStatus.md)
+ - [PaymentSubject](docs/PaymentSubject.md)
+ - [PaymentSubjectCustomer](docs/PaymentSubjectCustomer.md)
+ - [PaymentSubjectFees](docs/PaymentSubjectFees.md)
+ - [PaymentSubjectPaymentMethod](docs/PaymentSubjectPaymentMethod.md)
+ - [PaymentSubjectPrice](docs/PaymentSubjectPrice.md)
+ - [PaymentSubjectProductsInner](docs/PaymentSubjectProductsInner.md)
  - [PriceDetails](docs/PriceDetails.md)
  - [RecurringPayment](docs/RecurringPayment.md)
  - [RecurringPaymentAmount](docs/RecurringPaymentAmount.md)
  - [RecurringPaymentLinks](docs/RecurringPaymentLinks.md)
  - [RecurringPaymentStatus](docs/RecurringPaymentStatus.md)
+ - [RecurringPaymentSubject](docs/RecurringPaymentSubject.md)
+ - [RecurringPaymentSubjectPrice](docs/RecurringPaymentSubjectPrice.md)
+ - [RecurringPaymentSubjectStatus](docs/RecurringPaymentSubjectStatus.md)
  - [RevenueShare](docs/RevenueShare.md)
  - [Sale](docs/Sale.md)
+ - [TebexWebhook](docs/TebexWebhook.md)
  - [UpdateRecurringPaymentRequest](docs/UpdateRecurringPaymentRequest.md)
  - [UpdateSubscriptionRequest](docs/UpdateSubscriptionRequest.md)
  - [UpdateSubscriptionRequestItemsInner](docs/UpdateSubscriptionRequestItemsInner.md)

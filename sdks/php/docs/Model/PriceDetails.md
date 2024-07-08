@@ -13,8 +13,6 @@ Name | Type | Description | Notes
 **sales** | [**\TebexCheckout\Model\Sale[]**](Sale.md) |  | [optional]
 **giftcards** | **object[]** |  | [optional]
 **recurring** | **bool** | Contains recurring amount. Limited to 1 subscription package in the basket at a time. | [optional]
-**recurring_period** | **object** |  | [optional]
-**recurring_next_payment_date** | **object** |  | [optional]
 **username** | **string** |  | [optional]
 **round_up** | **float** |  | [optional]
 
