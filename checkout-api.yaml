@@ -11,7 +11,7 @@ info:
   license:
     name: MIT
     url: https://opensource.org/license/mit
-  version: 1.0.0
+  version: 1.1.0
 servers:
   - url: https://checkout.tebex.io/api
 tags:
@@ -416,8 +416,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurringPayment'
-        # '400': TODO
-        #   description: Bad Request. Some data is missing or incorrect. See ErrorResponse.
         '422':
           description: Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse.
         '404':
@@ -526,9 +524,6 @@ components:
 
     GiftCard: #TODO
       type: object
-    
-    RecurringPeriod: #TODO
-      type: object
 
     Discount: #TODO
       type: object
@@ -551,18 +546,6 @@ components:
           example: 1.27
         priceDetails:
           $ref: '#/components/schemas/PriceDetails'
-        type:
-          type: string
-          example: single
-        # recurring:
-        #   type: boolean
-        #   example: false
-        recurringPeriod:
-          $ref: '#/components/schemas/RecurringPeriod'
-          nullable: true
-        recurringNextPaymentDate:
-          type: string
-          nullable: true
         isPaymentMethodUpdate:
           type: boolean
           example: false
@@ -924,14 +907,6 @@ components:
         recurring:
           type: boolean
           description: Contains recurring amount. Limited to 1 subscription package in the basket at a time. 
-        recurringPeriod:
-          type: object
-          nullable: true
-          $ref: '#/components/schemas/RecurringPeriod'
-        recurringNextPaymentDate:
-          type: object
-          nullable: true
-          #TODO
         username:
           type: string
         roundUp:
@@ -1017,7 +992,7 @@ components:
           format: date-time
           example: "2022-10-19T15:49:15.000000Z"
         price:
-          type: object # TODO
+          type: object
           properties:
             amount:
               type: number
@@ -1027,10 +1002,10 @@ components:
               type: string
               example: "USD"
         fees:
-          type: object #TODO
+          type: object
           properties:
             tax:
-              type: object #TODO
+              type: object
               properties:
                 amount:
                   type: number
@@ -1040,7 +1015,7 @@ components:
                   type: string
                   example: "USD"
             gateway:
-              type: object #TODO
+              type: object
               properties:
                 amount:
                   type: number
@@ -1050,7 +1025,7 @@ components:
                   type: string
                   example: "USD"
         customer:
-          type: object #TODO
+          type: object
           properties:
             first_name:
               type: string
