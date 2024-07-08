@@ -21,6 +21,7 @@ This API call allows the complete checkout flow (create basket, add items, add s
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.CheckoutApi;
 
@@ -28,6 +29,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     CheckoutApi apiInstance = new CheckoutApi(defaultClient);
     CheckoutRequest checkoutRequest = new CheckoutRequest(); // CheckoutRequest | Provide a `Basket`, an array of `Packages` to be added to the basket, and an optional `Sale` to complete the full checkout flow in one call. **Only one subscription item may be in the basket at a time.**
@@ -57,7 +63,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

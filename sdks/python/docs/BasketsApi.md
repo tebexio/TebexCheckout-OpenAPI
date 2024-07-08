@@ -20,6 +20,7 @@ This adds a package (an object describing the product) to the basket `{ident}`. 
 
 ### Example
 
+* Basic Authentication (tebex_checkout_auth_basic):
 
 ```python
 import TebexCheckout
@@ -34,6 +35,16 @@ configuration = TebexCheckout.Configuration(
     host = "https://checkout.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexCheckout.ApiClient(configuration) as api_client:
@@ -67,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -93,6 +104,7 @@ Adds a `Sale` to the basket with `{ident}`. **Sales cannot be applied to baskets
 
 ### Example
 
+* Basic Authentication (tebex_checkout_auth_basic):
 
 ```python
 import TebexCheckout
@@ -107,6 +119,16 @@ configuration = TebexCheckout.Configuration(
     host = "https://checkout.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexCheckout.ApiClient(configuration) as api_client:
@@ -140,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -166,6 +188,7 @@ This will create and return a `Basket` that can be paid for by redirecting the u
 
 ### Example
 
+* Basic Authentication (tebex_checkout_auth_basic):
 
 ```python
 import TebexCheckout
@@ -180,6 +203,16 @@ configuration = TebexCheckout.Configuration(
     host = "https://checkout.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexCheckout.ApiClient(configuration) as api_client:
@@ -211,7 +244,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -235,6 +268,7 @@ Gets the basket associated with the provided identifier.
 
 ### Example
 
+* Basic Authentication (tebex_checkout_auth_basic):
 
 ```python
 import TebexCheckout
@@ -248,6 +282,16 @@ configuration = TebexCheckout.Configuration(
     host = "https://checkout.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexCheckout.ApiClient(configuration) as api_client:
@@ -279,7 +323,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -304,6 +348,7 @@ This will remove the given `{rows.id}` from the basket `{ident}`. The basket mus
 
 ### Example
 
+* Basic Authentication (tebex_checkout_auth_basic):
 
 ```python
 import TebexCheckout
@@ -316,6 +361,16 @@ configuration = TebexCheckout.Configuration(
     host = "https://checkout.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexCheckout.ApiClient(configuration) as api_client:
@@ -347,7 +402,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

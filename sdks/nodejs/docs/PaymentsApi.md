@@ -21,6 +21,11 @@ This will fetch the given payment associated with this transaction id. Single pa
 
 ```javascript
 import TebexCheckoutApi from 'tebex_checkout_api';
+let defaultClient = TebexCheckoutApi.ApiClient.instance;
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+let tebex_checkout_auth_basic = defaultClient.authentications['tebex_checkout_auth_basic'];
+tebex_checkout_auth_basic.username = 'YOUR USERNAME';
+tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexCheckoutApi.PaymentsApi();
 let txnId = "tbx-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The payment reference to fetch.
@@ -46,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -66,6 +71,11 @@ This will refund the given payment associated with this transaction id.
 
 ```javascript
 import TebexCheckoutApi from 'tebex_checkout_api';
+let defaultClient = TebexCheckoutApi.ApiClient.instance;
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+let tebex_checkout_auth_basic = defaultClient.authentications['tebex_checkout_auth_basic'];
+tebex_checkout_auth_basic.username = 'YOUR USERNAME';
+tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexCheckoutApi.PaymentsApi();
 let txnId = "tbx-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The payment reference to refund.
@@ -91,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

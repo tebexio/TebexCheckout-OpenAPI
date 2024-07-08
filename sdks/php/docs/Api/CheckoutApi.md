@@ -24,11 +24,17 @@ This API call allows the complete checkout flow (create basket, add items, add s
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
 
 $apiInstance = new TebexCheckout\Api\CheckoutApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $checkout_request = new \TebexCheckout\Model\CheckoutRequest(); // \TebexCheckout\Model\CheckoutRequest | Provide a `Basket`, an array of `Packages` to be added to the basket, and an optional `Sale` to complete the full checkout flow in one call. **Only one subscription item may be in the basket at a time.**
 
@@ -52,7 +58,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

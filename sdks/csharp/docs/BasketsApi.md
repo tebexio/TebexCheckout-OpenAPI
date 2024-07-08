@@ -34,6 +34,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new BasketsApi(config);
             var ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The basket identifier.
             var addPackageRequest = new AddPackageRequest?(); // AddPackageRequest? |  (optional) 
@@ -88,7 +92,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -129,6 +133,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new BasketsApi(config);
             var ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The basket identifier.
             var sale = new Sale?(); // Sale? | Provide a `Sale` as an object to apply it to the basket. (optional) 
@@ -183,7 +191,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -224,6 +232,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new BasketsApi(config);
             var createBasketRequest = new CreateBasketRequest?(); // CreateBasketRequest? | Create a basket, returning the full basket object and payment link. (optional) 
 
@@ -276,7 +288,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -315,6 +327,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new BasketsApi(config);
             var ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The basket identifier.
 
@@ -367,7 +383,7 @@ catch (ApiException e)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -407,6 +423,10 @@ namespace Example
         {
             Configuration config = new Configuration();
             config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
             var apiInstance = new BasketsApi(config);
             var ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The basket identifier.
             var rowsId = 1;  // int | The `id` of the `basket.rows` row to remove.
@@ -457,7 +477,7 @@ void (empty response body)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

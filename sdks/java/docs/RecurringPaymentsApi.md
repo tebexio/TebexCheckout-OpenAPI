@@ -24,6 +24,7 @@ This cancels the recurring payment for the reference provided. Recurring payment
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.RecurringPaymentsApi;
 
@@ -31,6 +32,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     RecurringPaymentsApi apiInstance = new RecurringPaymentsApi(defaultClient);
     String reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to cancel.
@@ -60,7 +66,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -85,6 +91,7 @@ Fetch a recurring payment (subscription) by its reference
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.RecurringPaymentsApi;
 
@@ -92,6 +99,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     RecurringPaymentsApi apiInstance = new RecurringPaymentsApi(defaultClient);
     String reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to fetch.
@@ -121,7 +133,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -146,6 +158,7 @@ Pause or reactivate a recurring payment
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.RecurringPaymentsApi;
 
@@ -153,6 +166,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     RecurringPaymentsApi apiInstance = new RecurringPaymentsApi(defaultClient);
     String reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to update.
@@ -184,7 +202,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -212,6 +230,7 @@ If the new subscription amount is higher than the existing amount, a pro-rata ch
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.RecurringPaymentsApi;
 
@@ -219,6 +238,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     RecurringPaymentsApi apiInstance = new RecurringPaymentsApi(defaultClient);
     String reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to fetch.
@@ -250,7 +274,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

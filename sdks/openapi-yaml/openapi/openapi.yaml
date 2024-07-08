@@ -11,9 +11,11 @@ info:
     url: https://opensource.org/license/mit
   termsOfService: https://tebex.io/terms-creator-agreement
   title: Tebex Checkout API
-  version: 1.0.0
+  version: 1.1.0
 servers:
 - url: https://checkout.tebex.io/api
+security:
+- tebex_checkout_auth_basic: []
 tags:
 - description: A string identifier representing the basket
   name: Ident
@@ -441,33 +443,16 @@ components:
       type: object
     GiftCard:
       type: object
-    RecurringPeriod:
-      type: object
     Discount:
       type: object
     Coupon:
       type: object
     Basket:
       example:
+        creator_code: creator_code
         giftcards:
         - null
         - null
-        ident: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
-        type: single
-        complete_auto_redirect: false
-        discounts:
-        - null
-        - null
-        coupons:
-        - null
-        - null
-        price: 1.27
-        fingerprint: ""
-        links:
-          payment: https://checkout.tebex.io/api/payments/tbx-12345
-          checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
-        returnUrl: returnUrl
-        creator_code: creator_code
         address:
           name: Ted Tebex
           first_name: Ted
@@ -477,11 +462,10 @@ components:
           state_id: null
           country: UK
           postal_code: NW6 3QT
-        recurringPeriod: "{}"
+        ident: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
         custom:
           foo: bar
           ref: 1234
-        recurringNextPaymentDate: recurringNextPaymentDate
         tax: 0.8008281904610115
         rows:
         - basket: 725572301
@@ -573,6 +557,14 @@ components:
           id: 173125385
           override: 0
         isPaymentMethodUpdate: false
+        complete_auto_redirect: false
+        discounts:
+        - null
+        - null
+        coupons:
+        - null
+        - null
+        price: 1.27
         expire: 2022-10-25 15:15:40
         priceDetails:
           fullPrice: 1.4
@@ -585,6 +577,11 @@ components:
           sales: []
           giftcards: []
           roundUp: null
+        fingerprint: ""
+        links:
+          payment: https://checkout.tebex.io/api/payments/tbx-12345
+          checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        returnUrl: returnUrl
         complete: false
         roundup: false
         cancel_url: https://tebex.io
@@ -603,14 +600,6 @@ components:
           type: number
         priceDetails:
           $ref: '#/components/schemas/PriceDetails'
-        type:
-          example: single
-          type: string
-        recurringPeriod:
-          type: object
-        recurringNextPaymentDate:
-          nullable: true
-          type: string
         isPaymentMethodUpdate:
           example: false
           type: boolean
@@ -691,6 +680,15 @@ components:
           example: 1.27
           format: float
           type: number
+        type:
+          enum:
+          - single
+          - subscription
+          example: subscription
+          type: string
+        qty:
+          example: 1
+          type: integer
         expiry_period:
           description: The renewal period of this item
           enum:
@@ -704,8 +702,12 @@ components:
             make up the renewal period.
           example: 3
           type: integer
-        metaData:
-          $ref: '#/components/schemas/Package_metaData'
+        custom:
+          description: "A map of data that is passed back to you via the webhook (for\
+            \ example, a tracking ID)"
+          example:
+            foo: bar
+          type: object
       type: object
     BasketRow:
       example:
@@ -922,11 +924,6 @@ components:
           description: Contains recurring amount. Limited to 1 subscription package
             in the basket at a time.
           type: boolean
-        recurringPeriod:
-          type: object
-        recurringNextPaymentDate:
-          nullable: true
-          type: object
         username:
           type: string
         roundUp:
@@ -998,18 +995,16 @@ components:
             amount: 0.45
             currency: USD
         gift_cards:
-        - "[]"
-        - "[]"
+        - "{}"
+        - "{}"
         recurring_payment_reference: recurring_payment_reference
         coupons:
-        - "[]"
-        - "[]"
+        - "{}"
+        - "{}"
         price:
           amount: 5.35
           currency: USD
-        custom:
-          ref: abc-123
-          user: test@test.com
+        custom: "{}"
         created_at: 2022-10-19T15:49:15Z
         status:
           description: Complete
@@ -1025,14 +1020,14 @@ components:
           username: username
         products:
         - paid_price:
-            amount: 6.0274563
+            amount: 1.4658129
             currency: currency
           variables:
           - variables
           - variables
           quantity: 0
           expires_at: 2000-01-23T04:56:07.000+00:00
-          custom: custom
+          custom: "{}"
           name: name
           base_price:
             amount: 6.0274563
@@ -1040,14 +1035,14 @@ components:
           id: id
           username: username
         - paid_price:
-            amount: 6.0274563
+            amount: 1.4658129
             currency: currency
           variables:
           - variables
           - variables
           quantity: 0
           expires_at: 2000-01-23T04:56:07.000+00:00
-          custom: custom
+          custom: "{}"
           name: name
           base_price:
             amount: 6.0274563
@@ -1080,19 +1075,122 @@ components:
           type: array
         coupons:
           items:
-            example: "[]"
-            type: string
+            type: object
           type: array
         gift_cards:
           items:
-            example: "[]"
-            type: string
+            type: object
           type: array
         recurring_payment_reference:
           nullable: true
           type: string
         custom:
-          $ref: '#/components/schemas/Payment_custom'
+          type: object
+      type: object
+    TebexWebhook:
+      properties:
+        id:
+          example: fcf9cfc9-3708-4942-88f2-78d7e5cd8e72
+          type: string
+        type:
+          example: validation.webhook
+          type: string
+        date:
+          example: 2024-07-02T19:52:07+00:00
+          type: string
+        subject:
+          description: "Depending on the webhook `type`, the `subject` will contain\
+            \ as `PaymentSubject` or `RecurringPaymentSubject`."
+          type: object
+      type: object
+    PaymentSubject:
+      properties:
+        transaction_id:
+          example: tbx-40514024a64636-f9a1ea
+          type: string
+        status:
+          $ref: '#/components/schemas/Payment_status'
+        payment_sequence:
+          example: recurring
+          type: string
+        created_at:
+          example: 2024-05-20T17:57:16Z
+          format: date-time
+          type: string
+        price:
+          $ref: '#/components/schemas/PaymentSubject_price'
+        price_paid:
+          $ref: '#/components/schemas/PaymentSubject_price'
+        payment_method:
+          $ref: '#/components/schemas/PaymentSubject_payment_method'
+        fees:
+          $ref: '#/components/schemas/PaymentSubject_fees'
+        customer:
+          $ref: '#/components/schemas/PaymentSubject_customer'
+        products:
+          items:
+            $ref: '#/components/schemas/PaymentSubject_products_inner'
+          type: array
+        coupons:
+          items:
+            $ref: '#/components/schemas/Coupon'
+          type: array
+        gift_cards:
+          items:
+            $ref: '#/components/schemas/GiftCard'
+          type: array
+        recurring_payment_reference:
+          example: tbx-r-713419703
+          type: string
+        custom:
+          type: object
+        revenue_share:
+          items:
+            $ref: '#/components/schemas/RevenueShare'
+          type: array
+        decline_reason:
+          nullable: true
+          type: string
+      type: object
+    RecurringPaymentSubject:
+      properties:
+        reference:
+          example: tbx-r-714093927
+          type: string
+        created_at:
+          example: 2023-12-11T19:15:22Z
+          format: date-time
+          type: string
+        paused_at:
+          format: date-time
+          nullable: true
+          type: string
+        paused_until:
+          format: date-time
+          nullable: true
+          type: string
+        next_payment_at:
+          example: 2024-01-11T19:15:22Z
+          format: date-time
+          type: string
+        status:
+          $ref: '#/components/schemas/RecurringPaymentSubject_status'
+        initial_payment:
+          $ref: '#/components/schemas/PaymentSubject'
+        last_payment:
+          $ref: '#/components/schemas/PaymentSubject'
+        fail_count:
+          example: 0
+          type: integer
+        price:
+          $ref: '#/components/schemas/RecurringPaymentSubject_price'
+        cancelled_at:
+          format: date-time
+          nullable: true
+          type: string
+        cancel_reason:
+          nullable: true
+          type: string
       type: object
     RecurringPayment:
       example:
@@ -1333,16 +1431,6 @@ components:
             with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
           type: string
           example: null
-      type: object
-    Package_metaData:
-      example:
-        foo: bar
-      properties:
-        custom:
-          description: "A free-text string field that is passed back to you via the\
-            \ webhook (for example, a tracking ID)"
-          example: Foo
-          type: string
       type: object
     BasketRow_meta_limits_user:
       example:
@@ -1593,18 +1681,28 @@ components:
           type: number
         currency:
           type: string
+    Payment_products_inner_paid_price:
+      example:
+        amount: 1.4658129
+        currency: currency
+      properties:
+        amount:
+          format: float
+          type: number
+        currency:
+          type: string
       type: object
     Payment_products_inner:
       example:
         paid_price:
-          amount: 6.0274563
+          amount: 1.4658129
           currency: currency
         variables:
         - variables
         - variables
         quantity: 0
         expires_at: 2000-01-23T04:56:07.000+00:00
-        custom: custom
+        custom: "{}"
         name: name
         base_price:
           amount: 6.0274563
@@ -1622,7 +1720,7 @@ components:
         base_price:
           $ref: '#/components/schemas/Payment_products_inner_base_price'
         paid_price:
-          $ref: '#/components/schemas/Payment_products_inner_base_price'
+          $ref: '#/components/schemas/Payment_products_inner_paid_price'
         variables:
           items:
             type: string
@@ -1632,21 +1730,114 @@ components:
           nullable: true
           type: string
         custom:
-          type: string
+          description: Any custom data associated with the payment
+          type: object
         username:
           nullable: true
           type: string
       type: object
-    Payment_custom:
-      example:
-        ref: abc-123
-        user: test@test.com
+    PaymentSubject_price:
       properties:
-        user:
-          example: test@test.com
+        amount:
+          example: 0
+          format: float
+          type: number
+        currency:
+          example: USD
           type: string
-        ref:
-          example: abc-123
+      type: object
+    PaymentSubject_payment_method:
+      properties:
+        name:
+          example: "Free: No Payment Required"
+          type: string
+        refundable:
+          example: false
+          type: boolean
+      type: object
+    PaymentSubject_fees:
+      properties:
+        tax:
+          $ref: '#/components/schemas/PaymentSubject_price'
+        gateway:
+          $ref: '#/components/schemas/PaymentSubject_price'
+      type: object
+    PaymentSubject_customer:
+      properties:
+        first_name:
+          example: Ted
+          type: string
+        last_name:
+          example: Tebex
+          type: string
+        email:
+          example: tebex-integrations@overwolf.com
+          format: email
+          type: string
+        ip:
+          example: 127.0.0.1
+          format: ipv4
+          type: string
+        username:
+          nullable: true
+          type: string
+        marketing_consent:
+          example: false
+          type: boolean
+        country:
+          example: US
+          type: string
+        postal_code:
+          nullable: true
+          type: string
+      type: object
+    PaymentSubject_products_inner:
+      properties:
+        id:
+          example: 127
+          type: integer
+        name:
+          example: 100 Gold
+          type: string
+        quantity:
+          example: 1
+          type: integer
+        base_price:
+          $ref: '#/components/schemas/PaymentSubject_price'
+        paid_price:
+          $ref: '#/components/schemas/Payment_fees_tax'
+        variables:
+          items:
+            type: object
+          type: array
+        expires_at:
+          format: date-time
+          nullable: true
+          type: string
+        custom:
+          nullable: true
+          type: object
+        username:
+          nullable: true
+          type: string
+      type: object
+    RecurringPaymentSubject_status:
+      properties:
+        id:
+          example: 2
+          type: integer
+        description:
+          example: Active
+          type: string
+      type: object
+    RecurringPaymentSubject_price:
+      properties:
+        amount:
+          example: 22
+          format: float
+          type: number
+        currency:
+          example: USD
           type: string
       type: object
     RecurringPayment_status:

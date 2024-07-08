@@ -11,7 +11,7 @@ info:
   license:
     name: MIT
     url: https://opensource.org/license/mit
-  version: 1.0.0
+  version: 1.1.0
 servers:
   - url: https://checkout.tebex.io/api
 tags:
@@ -23,6 +23,8 @@ tags:
     description: Payments with reference IDs like `tbx-r-`. Can be paused, reeactivated, and cancelled provided a valid reference id.
   - name: Payments
     description: Single payments (`tbx-`) can be fetched and refunded with a valid reference id.
+security:
+  - tebex_checkout_auth_basic: []
 paths:
   /baskets/{ident}:
     get:
@@ -414,8 +416,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurringPayment'
-        # '400': TODO
-        #   description: Bad Request. Some data is missing or incorrect. See ErrorResponse.
         '422':
           description: Unprocessible Entity. An invalid status was provided or the recurring payment cannot be processed. See ErrorResponse.
         '404':
@@ -524,9 +524,6 @@ components:
 
     GiftCard: #TODO
       type: object
-    
-    RecurringPeriod: #TODO
-      type: object
 
     Discount: #TODO
       type: object
@@ -549,18 +546,6 @@ components:
           example: 1.27
         priceDetails:
           $ref: '#/components/schemas/PriceDetails'
-        type:
-          type: string
-          example: single
-        # recurring:
-        #   type: boolean
-        #   example: false
-        recurringPeriod:
-          $ref: '#/components/schemas/RecurringPeriod'
-          nullable: true
-        recurringNextPaymentDate:
-          type: string
-          nullable: true
         isPaymentMethodUpdate:
           type: boolean
           example: false
@@ -643,13 +628,8 @@ components:
           example: 
             foo: bar
             ref: 1234
-        
         links:
           $ref: "#/components/schemas/BasketLinks"
-
-        # payment: #TODO internal only?
-        #   $ref: "#/components/schemas/Payment"
-        #   nullable: true
 
     Package:
       type: object
@@ -663,6 +643,13 @@ components:
           format: float
           example: 1.27
           description: A float (decimal describing the price of the package in your account currency)
+        type:
+          type: string
+          enum: [single, subscription]
+          example: subscription
+        qty:
+          type: integer
+          example: 1
         expiry_period:
           type: string
           enum: [day, month, year]
@@ -672,15 +659,11 @@ components:
           type: integer
           description: An integer representing the number of `expiry_periods` that make up the renewal period.
           example: 3
-        metaData:
+        custom:
           type: object
-          properties:
-            custom:
-              type: string
-              description: A free-text string field that is passed back to you via the webhook (for example, a tracking ID)
-              example: Foo
+          description: A map of data that is passed back to you via the webhook (for example, a tracking ID)
           example:
-            foo: bar
+            {foo: 'bar'}
     BasketRow:
       type: object
       properties:
@@ -924,14 +907,6 @@ components:
         recurring:
           type: boolean
           description: Contains recurring amount. Limited to 1 subscription package in the basket at a time. 
-        recurringPeriod:
-          type: object
-          nullable: true
-          $ref: '#/components/schemas/RecurringPeriod'
-        recurringNextPaymentDate:
-          type: object
-          nullable: true
-          #TODO
         username:
           type: string
         roundUp:
@@ -1017,7 +992,7 @@ components:
           format: date-time
           example: "2022-10-19T15:49:15.000000Z"
         price:
-          type: object # TODO
+          type: object
           properties:
             amount:
               type: number
@@ -1027,10 +1002,10 @@ components:
               type: string
               example: "USD"
         fees:
-          type: object #TODO
+          type: object
           properties:
             tax:
-              type: object #TODO
+              type: object
               properties:
                 amount:
                   type: number
@@ -1040,7 +1015,7 @@ components:
                   type: string
                   example: "USD"
             gateway:
-              type: object #TODO
+              type: object
               properties:
                 amount:
                   type: number
@@ -1050,7 +1025,7 @@ components:
                   type: string
                   example: "USD"
         customer:
-          type: object #TODO
+          type: object
           properties:
             first_name:
               type: string
@@ -1089,7 +1064,6 @@ components:
               quantity:
                 type: integer
               base_price:
-                type: object
                 properties:
                   amount:
                     type: number
@@ -1113,32 +1087,265 @@ components:
                 format: date-time
                 nullable: true
               custom:
-                type: string
+                type: object
+                description: Any custom data associated with the payment
               username:
                 type: string
                 nullable: true
         coupons:
           type: array
           items:
-            type: string
-            example: []
+            type: object
         gift_cards:
           type: array
           items:
-            type: string
-            example: []
+            type: object
         recurring_payment_reference:
           type: string
           nullable: true
         custom:
           type: object
+    TebexWebhook:
+      type: object
+      properties:
+        id:
+          type: string
+          example: fcf9cfc9-3708-4942-88f2-78d7e5cd8e72
+        type:
+          type: string
+          example: "validation.webhook"
+        date:
+          type: string
+          example: 2024-07-02T19:52:07+00:00
+        subject:
+          type: object
+          description: Depending on the webhook `type`, the `subject` will contain as `PaymentSubject` or `RecurringPaymentSubject`.
+    PaymentSubject:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          example: "tbx-40514024a64636-f9a1ea"
+        status:
+          type: object
           properties:
-            user:
+            id:
+              type: integer
+              example: 1
+            description:
               type: string
-              example: "test@test.com"
-            ref:
+              example: "Complete"
+        payment_sequence:
+          type: string
+          example: "recurring"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-05-20T17:57:16.000000Z"
+        price:
+          type: object
+          properties:
+            amount:
+              type: number
+              format: float
+              example: 0
+            currency:
               type: string
-              example: "abc-123"
+              example: "USD"
+        price_paid:
+          type: object
+          properties:
+            amount:
+              type: number
+              format: float
+              example: 0
+            currency:
+              type: string
+              example: "USD"
+        payment_method:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Free: No Payment Required"
+            refundable:
+              type: boolean
+              example: false
+        fees:
+          type: object
+          properties:
+            tax:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+                  example: 0
+                currency:
+                  type: string
+                  example: "USD"
+            gateway:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+                  example: 0
+                currency:
+                  type: string
+                  example: "USD"
+        customer:
+          type: object
+          properties:
+            first_name:
+              type: string
+              example: "Ted"
+            last_name:
+              type: string
+              example: "Tebex"
+            email:
+              type: string
+              format: email
+              example: "tebex-integrations@overwolf.com"
+            ip:
+              type: string
+              format: ipv4
+              example: "127.0.0.1"
+            username:
+              type: string
+              nullable: true
+            marketing_consent:
+              type: boolean
+              example: false
+            country:
+              type: string
+              example: "US"
+            postal_code:
+              type: string
+              nullable: true
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 127
+              name:
+                type: string
+                example: "100 Gold"
+              quantity:
+                type: integer
+                example: 1
+              base_price:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    format: float
+                    example: 0
+                  currency:
+                    type: string
+                    example: "USD"
+              paid_price:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    format: float
+                    example: 0.00
+                  currency:
+                    type: string
+                    example: "USD"
+              variables:
+                type: array
+                items:
+                  type: object
+              expires_at:
+                type: string
+                format: date-time
+                nullable: true
+              custom:
+                type: object
+                nullable: true
+              username:
+                type: string
+                nullable: true
+        coupons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coupon'
+        gift_cards:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCard'
+        recurring_payment_reference:
+          type: string
+          example: "tbx-r-713419703"
+        custom:
+          type: object
+        revenue_share:
+          type: array
+          items:
+            $ref: '#/components/schemas/RevenueShare'
+        decline_reason:
+          type: string
+          nullable: true
+    RecurringPaymentSubject:
+      type: object
+      properties:
+        reference:
+          type: string
+          example: "tbx-r-714093927"
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-12-11T19:15:22.000000Z"
+        paused_at:
+          type: string
+          format: date-time
+          nullable: true
+        paused_until:
+          type: string
+          format: date-time
+          nullable: true
+        next_payment_at:
+          type: string
+          format: date-time
+          example: "2024-01-11T19:15:22.000000Z"
+        status:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 2
+            description:
+              type: string
+              example: "Active"
+        initial_payment:
+          $ref: "#/components/schemas/PaymentSubject"
+        last_payment:
+          $ref: "#/components/schemas/PaymentSubject"
+        fail_count:
+          type: integer
+          example: 0
+        price:
+          type: object
+          properties:
+            amount:
+              type: number
+              format: float
+              example: 22
+            currency:
+              type: string
+              example: "USD"
+        cancelled_at:
+          type: string
+          format: date-time
+          nullable: true
+        cancel_reason:
+          type: string
+          nullable: true
     RecurringPayment:
       type: object
       properties:

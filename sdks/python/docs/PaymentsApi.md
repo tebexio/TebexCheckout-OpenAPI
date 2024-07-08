@@ -17,6 +17,7 @@ This will fetch the given payment associated with this transaction id. Single pa
 
 ### Example
 
+* Basic Authentication (tebex_checkout_auth_basic):
 
 ```python
 import TebexCheckout
@@ -30,6 +31,16 @@ configuration = TebexCheckout.Configuration(
     host = "https://checkout.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexCheckout.ApiClient(configuration) as api_client:
@@ -61,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -86,6 +97,7 @@ This will refund the given payment associated with this transaction id.
 
 ### Example
 
+* Basic Authentication (tebex_checkout_auth_basic):
 
 ```python
 import TebexCheckout
@@ -99,6 +111,16 @@ configuration = TebexCheckout.Configuration(
     host = "https://checkout.tebex.io/api"
 )
 
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
 
 # Enter a context with an instance of the API client
 with TebexCheckout.ApiClient(configuration) as api_client:
@@ -130,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

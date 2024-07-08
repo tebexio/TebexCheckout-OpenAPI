@@ -13,8 +13,6 @@ Name | Type | Description | Notes
 **sales** | [**[Sale]**](Sale.md) |  | [optional] 
 **giftcards** | **[Object]** |  | [optional] 
 **recurring** | **Boolean** | Contains recurring amount. Limited to 1 subscription package in the basket at a time. | [optional] 
-**recurringPeriod** | **Object** |  | [optional] 
-**recurringNextPaymentDate** | **Object** |  | [optional] 
 **username** | **String** |  | [optional] 
 **roundUp** | **Number** |  | [optional] 
 

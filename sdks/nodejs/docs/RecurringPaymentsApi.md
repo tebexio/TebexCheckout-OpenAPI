@@ -23,6 +23,11 @@ This cancels the recurring payment for the reference provided. Recurring payment
 
 ```javascript
 import TebexCheckoutApi from 'tebex_checkout_api';
+let defaultClient = TebexCheckoutApi.ApiClient.instance;
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+let tebex_checkout_auth_basic = defaultClient.authentications['tebex_checkout_auth_basic'];
+tebex_checkout_auth_basic.username = 'YOUR USERNAME';
+tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexCheckoutApi.RecurringPaymentsApi();
 let reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to cancel.
@@ -48,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -66,6 +71,11 @@ Fetch a recurring payment (subscription) by its reference
 
 ```javascript
 import TebexCheckoutApi from 'tebex_checkout_api';
+let defaultClient = TebexCheckoutApi.ApiClient.instance;
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+let tebex_checkout_auth_basic = defaultClient.authentications['tebex_checkout_auth_basic'];
+tebex_checkout_auth_basic.username = 'YOUR USERNAME';
+tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexCheckoutApi.RecurringPaymentsApi();
 let reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to fetch.
@@ -91,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -109,6 +119,11 @@ Pause or reactivate a recurring payment
 
 ```javascript
 import TebexCheckoutApi from 'tebex_checkout_api';
+let defaultClient = TebexCheckoutApi.ApiClient.instance;
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+let tebex_checkout_auth_basic = defaultClient.authentications['tebex_checkout_auth_basic'];
+tebex_checkout_auth_basic.username = 'YOUR USERNAME';
+tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexCheckoutApi.RecurringPaymentsApi();
 let reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to update.
@@ -138,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -158,6 +173,11 @@ If the new subscription amount is higher than the existing amount, a pro-rata ch
 
 ```javascript
 import TebexCheckoutApi from 'tebex_checkout_api';
+let defaultClient = TebexCheckoutApi.ApiClient.instance;
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+let tebex_checkout_auth_basic = defaultClient.authentications['tebex_checkout_auth_basic'];
+tebex_checkout_auth_basic.username = 'YOUR USERNAME';
+tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexCheckoutApi.RecurringPaymentsApi();
 let reference = "tbx-r-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The recurring payment reference to fetch.
@@ -187,7 +207,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

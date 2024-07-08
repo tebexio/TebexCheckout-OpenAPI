@@ -25,6 +25,7 @@ This adds a package (an object describing the product) to the basket &#x60;{iden
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.BasketsApi;
 
@@ -32,6 +33,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
     String ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
@@ -63,7 +69,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -91,6 +97,7 @@ Adds a &#x60;Sale&#x60; to the basket with &#x60;{ident}&#x60;. **Sales cannot b
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.BasketsApi;
 
@@ -98,6 +105,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
     String ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
@@ -129,7 +141,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -157,6 +169,7 @@ This will create and return a &#x60;Basket&#x60; that can be paid for by redirec
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.BasketsApi;
 
@@ -164,6 +177,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
     CreateBasketRequest createBasketRequest = new CreateBasketRequest(); // CreateBasketRequest | Create a basket, returning the full basket object and payment link.
@@ -193,7 +211,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -219,6 +237,7 @@ Gets the basket associated with the provided identifier.
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.BasketsApi;
 
@@ -226,6 +245,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
     String ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
@@ -255,7 +279,7 @@ public class Example {
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 
@@ -282,6 +306,7 @@ This will remove the given &#x60;{rows.id}&#x60; from the basket &#x60;{ident}&#
 import TebexCheckout.ApiClient;
 import TebexCheckout.ApiException;
 import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
 import TebexCheckout.models.*;
 import TebexCheckout.BasketsApi;
 
@@ -289,6 +314,11 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
     String ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
@@ -319,7 +349,7 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
 
 ### HTTP request headers
 

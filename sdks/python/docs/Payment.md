@@ -13,10 +13,10 @@ Name | Type | Description | Notes
 **fees** | [**PaymentFees**](PaymentFees.md) |  | [optional] 
 **customer** | [**PaymentCustomer**](PaymentCustomer.md) |  | [optional] 
 **products** | [**List[PaymentProductsInner]**](PaymentProductsInner.md) |  | [optional] 
-**coupons** | **List[str]** |  | [optional] 
-**gift_cards** | **List[str]** |  | [optional] 
+**coupons** | **List[object]** |  | [optional] 
+**gift_cards** | **List[object]** |  | [optional] 
 **recurring_payment_reference** | **str** |  | [optional] 
-**custom** | [**PaymentCustom**](PaymentCustom.md) |  | [optional] 
+**custom** | **object** |  | [optional] 
 
 ## Example
 
