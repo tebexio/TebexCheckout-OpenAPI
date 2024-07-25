@@ -123,6 +123,14 @@ public class RecurringPaymentTest {
     }
 
     /**
+     * Test the property 'cancellationRequestedAt'
+     */
+    @Test
+    public void cancellationRequestedAtTest() {
+        // TODO: test cancellationRequestedAt
+    }
+
+    /**
      * Test the property 'status'
      */
     @Test

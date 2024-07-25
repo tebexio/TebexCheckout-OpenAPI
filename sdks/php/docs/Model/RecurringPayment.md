@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **account_id** | **int** |  | [optional]
 **interval** | **string** |  | [optional]
 **cancelled_at** | **\DateTime** |  | [optional]
+**cancellation_requested_at** | **\DateTime** |  | [optional]
 **status** | [**\TebexCheckout\Model\RecurringPaymentStatus**](RecurringPaymentStatus.md) |  | [optional]
 **amount** | [**\TebexCheckout\Model\RecurringPaymentAmount**](RecurringPaymentAmount.md) |  | [optional]
 **cancel_reason** | **string** |  | [optional]

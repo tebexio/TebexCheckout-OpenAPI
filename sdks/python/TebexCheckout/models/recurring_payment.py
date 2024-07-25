@@ -41,11 +41,12 @@ class RecurringPayment(BaseModel):
     account_id: Optional[StrictInt] = None
     interval: Optional[StrictStr] = None
     cancelled_at: Optional[datetime] = None
+    cancellation_requested_at: Optional[datetime] = None
     status: Optional[RecurringPaymentStatus] = None
     amount: Optional[RecurringPaymentAmount] = None
     cancel_reason: Optional[StrictStr] = None
     links: Optional[RecurringPaymentLinks] = None
-    __properties: ClassVar[List[str]] = ["id", "created_at", "updated_at", "paused_at", "paused_until", "next_payment_date", "reference", "account_id", "interval", "cancelled_at", "status", "amount", "cancel_reason", "links"]
+    __properties: ClassVar[List[str]] = ["id", "created_at", "updated_at", "paused_at", "paused_until", "next_payment_date", "reference", "account_id", "interval", "cancelled_at", "cancellation_requested_at", "status", "amount", "cancel_reason", "links"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -110,6 +111,11 @@ class RecurringPayment(BaseModel):
         if self.cancelled_at is None and "cancelled_at" in self.model_fields_set:
             _dict['cancelled_at'] = None
 
+        # set to None if cancellation_requested_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.cancellation_requested_at is None and "cancellation_requested_at" in self.model_fields_set:
+            _dict['cancellation_requested_at'] = None
+
         # set to None if cancel_reason (nullable) is None
         # and model_fields_set contains the field
         if self.cancel_reason is None and "cancel_reason" in self.model_fields_set:
@@ -137,6 +143,7 @@ class RecurringPayment(BaseModel):
             "account_id": obj.get("account_id"),
             "interval": obj.get("interval"),
             "cancelled_at": obj.get("cancelled_at"),
+            "cancellation_requested_at": obj.get("cancellation_requested_at"),
             "status": RecurringPaymentStatus.from_dict(obj["status"]) if obj.get("status") is not None else None,
             "amount": RecurringPaymentAmount.from_dict(obj["amount"]) if obj.get("amount") is not None else None,
             "cancel_reason": obj.get("cancel_reason"),

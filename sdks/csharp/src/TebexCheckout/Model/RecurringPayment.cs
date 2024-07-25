@@ -45,11 +45,12 @@ namespace TebexCheckout.Model
         /// <param name="accountId">accountId.</param>
         /// <param name="interval">interval.</param>
         /// <param name="cancelledAt">cancelledAt.</param>
+        /// <param name="cancellationRequestedAt">cancellationRequestedAt.</param>
         /// <param name="status">status.</param>
         /// <param name="amount">amount.</param>
         /// <param name="cancelReason">cancelReason.</param>
         /// <param name="links">links.</param>
-        public RecurringPayment(int id = default(int), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime), DateTime? pausedAt = default(DateTime?), DateTime? pausedUntil = default(DateTime?), string nextPaymentDate = default(string), string reference = default(string), int accountId = default(int), string interval = default(string), DateTime? cancelledAt = default(DateTime?), RecurringPaymentStatus status = default(RecurringPaymentStatus), RecurringPaymentAmount amount = default(RecurringPaymentAmount), string cancelReason = default(string), RecurringPaymentLinks links = default(RecurringPaymentLinks))
+        public RecurringPayment(int id = default(int), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime), DateTime? pausedAt = default(DateTime?), DateTime? pausedUntil = default(DateTime?), string nextPaymentDate = default(string), string reference = default(string), int accountId = default(int), string interval = default(string), DateTime? cancelledAt = default(DateTime?), DateTime? cancellationRequestedAt = default(DateTime?), RecurringPaymentStatus status = default(RecurringPaymentStatus), RecurringPaymentAmount amount = default(RecurringPaymentAmount), string cancelReason = default(string), RecurringPaymentLinks links = default(RecurringPaymentLinks))
         {
             this.Id = id;
             this.CreatedAt = createdAt;
@@ -61,6 +62,7 @@ namespace TebexCheckout.Model
             this.AccountId = accountId;
             this.Interval = interval;
             this.CancelledAt = cancelledAt;
+            this.CancellationRequestedAt = cancellationRequestedAt;
             this.Status = status;
             this.Amount = amount;
             this.CancelReason = cancelReason;
@@ -135,6 +137,12 @@ namespace TebexCheckout.Model
         public DateTime? CancelledAt { get; set; }
 
         /// <summary>
+        /// Gets or Sets CancellationRequestedAt
+        /// </summary>
+        [DataMember(Name = "cancellation_requested_at", EmitDefaultValue = true)]
+        public DateTime? CancellationRequestedAt { get; set; }
+
+        /// <summary>
         /// Gets or Sets Status
         /// </summary>
         [DataMember(Name = "status", EmitDefaultValue = false)]
@@ -176,6 +184,7 @@ namespace TebexCheckout.Model
             sb.Append("  AccountId: ").Append(AccountId).Append("\n");
             sb.Append("  Interval: ").Append(Interval).Append("\n");
             sb.Append("  CancelledAt: ").Append(CancelledAt).Append("\n");
+            sb.Append("  CancellationRequestedAt: ").Append(CancellationRequestedAt).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("  CancelReason: ").Append(CancelReason).Append("\n");

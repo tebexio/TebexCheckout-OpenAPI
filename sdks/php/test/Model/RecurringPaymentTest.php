@@ -171,6 +171,15 @@ class RecurringPaymentTest extends TestCase
     }
 
     /**
+     * Test attribute "cancellation_requested_at"
+     */
+    public function testPropertyCancellationRequestedAt()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "status"
      */
     public function testPropertyStatus()

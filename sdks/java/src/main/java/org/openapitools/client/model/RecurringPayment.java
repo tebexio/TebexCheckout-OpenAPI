@@ -54,7 +54,7 @@ import TebexCheckout.JSON;
 /**
  * RecurringPayment
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-08T10:31:44.004464-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-25T11:07:31.251589-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class RecurringPayment {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -95,6 +95,10 @@ public class RecurringPayment {
   public static final String SERIALIZED_NAME_CANCELLED_AT = "cancelled_at";
   @SerializedName(SERIALIZED_NAME_CANCELLED_AT)
   private OffsetDateTime cancelledAt;
+
+  public static final String SERIALIZED_NAME_CANCELLATION_REQUESTED_AT = "cancellation_requested_at";
+  @SerializedName(SERIALIZED_NAME_CANCELLATION_REQUESTED_AT)
+  private OffsetDateTime cancellationRequestedAt;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
@@ -305,6 +309,25 @@ public class RecurringPayment {
   }
 
 
+  public RecurringPayment cancellationRequestedAt(OffsetDateTime cancellationRequestedAt) {
+    this.cancellationRequestedAt = cancellationRequestedAt;
+    return this;
+  }
+
+   /**
+   * Get cancellationRequestedAt
+   * @return cancellationRequestedAt
+  **/
+  @javax.annotation.Nullable
+  public OffsetDateTime getCancellationRequestedAt() {
+    return cancellationRequestedAt;
+  }
+
+  public void setCancellationRequestedAt(OffsetDateTime cancellationRequestedAt) {
+    this.cancellationRequestedAt = cancellationRequestedAt;
+  }
+
+
   public RecurringPayment status(RecurringPaymentStatus status) {
     this.status = status;
     return this;
@@ -401,6 +424,7 @@ public class RecurringPayment {
         Objects.equals(this.accountId, recurringPayment.accountId) &&
         Objects.equals(this.interval, recurringPayment.interval) &&
         Objects.equals(this.cancelledAt, recurringPayment.cancelledAt) &&
+        Objects.equals(this.cancellationRequestedAt, recurringPayment.cancellationRequestedAt) &&
         Objects.equals(this.status, recurringPayment.status) &&
         Objects.equals(this.amount, recurringPayment.amount) &&
         Objects.equals(this.cancelReason, recurringPayment.cancelReason) &&
@@ -413,7 +437,7 @@ public class RecurringPayment {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, createdAt, updatedAt, pausedAt, pausedUntil, nextPaymentDate, reference, accountId, interval, cancelledAt, status, amount, cancelReason, links);
+    return Objects.hash(id, createdAt, updatedAt, pausedAt, pausedUntil, nextPaymentDate, reference, accountId, interval, cancelledAt, cancellationRequestedAt, status, amount, cancelReason, links);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -437,6 +461,7 @@ public class RecurringPayment {
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    interval: ").append(toIndentedString(interval)).append("\n");
     sb.append("    cancelledAt: ").append(toIndentedString(cancelledAt)).append("\n");
+    sb.append("    cancellationRequestedAt: ").append(toIndentedString(cancellationRequestedAt)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    cancelReason: ").append(toIndentedString(cancelReason)).append("\n");
@@ -473,6 +498,7 @@ public class RecurringPayment {
     openapiFields.add("account_id");
     openapiFields.add("interval");
     openapiFields.add("cancelled_at");
+    openapiFields.add("cancellation_requested_at");
     openapiFields.add("status");
     openapiFields.add("amount");
     openapiFields.add("cancel_reason");

@@ -54,7 +54,7 @@ import TebexCheckout.JSON;
 /**
  * UpdateSubscriptionRequestItemsInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-08T10:31:44.004464-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-25T11:07:31.251589-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class UpdateSubscriptionRequestItemsInner {
   /**
    * The type of payment, either &#x60;single&#x60; for one-time payments or &#x60;subscription&#x60;.

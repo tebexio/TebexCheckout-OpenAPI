@@ -146,6 +146,15 @@ namespace TebexCheckout.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'CancellationRequestedAt'
+        /// </summary>
+        [Fact]
+        public void CancellationRequestedAtTest()
+        {
+            // TODO unit test for the property 'CancellationRequestedAt'
+        }
+
+        /// <summary>
         /// Test the property 'Status'
         /// </summary>
         [Fact]

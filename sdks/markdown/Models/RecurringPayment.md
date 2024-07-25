@@ -13,6 +13,7 @@
 | **account\_id** | **Integer** |  | [optional] [default to null] |
 | **interval** | **String** |  | [optional] [default to null] |
 | **cancelled\_at** | **Date** |  | [optional] [default to null] |
+| **cancellation\_requested\_at** | **Date** |  | [optional] [default to null] |
 | **status** | [**RecurringPayment_status**](RecurringPayment_status.md) |  | [optional] [default to null] |
 | **amount** | [**RecurringPayment_amount**](RecurringPayment_amount.md) |  | [optional] [default to null] |
 | **cancel\_reason** | **String** |  | [optional] [default to null] |

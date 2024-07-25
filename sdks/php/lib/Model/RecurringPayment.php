@@ -68,6 +68,7 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
         'account_id' => 'int',
         'interval' => 'string',
         'cancelled_at' => '\DateTime',
+        'cancellation_requested_at' => '\DateTime',
         'status' => '\TebexCheckout\Model\RecurringPaymentStatus',
         'amount' => '\TebexCheckout\Model\RecurringPaymentAmount',
         'cancel_reason' => 'string',
@@ -92,6 +93,7 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
         'account_id' => null,
         'interval' => null,
         'cancelled_at' => 'date-time',
+        'cancellation_requested_at' => 'date-time',
         'status' => null,
         'amount' => null,
         'cancel_reason' => null,
@@ -114,6 +116,7 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
         'account_id' => false,
         'interval' => false,
         'cancelled_at' => true,
+        'cancellation_requested_at' => true,
         'status' => false,
         'amount' => false,
         'cancel_reason' => true,
@@ -216,6 +219,7 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
         'account_id' => 'account_id',
         'interval' => 'interval',
         'cancelled_at' => 'cancelled_at',
+        'cancellation_requested_at' => 'cancellation_requested_at',
         'status' => 'status',
         'amount' => 'amount',
         'cancel_reason' => 'cancel_reason',
@@ -238,6 +242,7 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
         'account_id' => 'setAccountId',
         'interval' => 'setInterval',
         'cancelled_at' => 'setCancelledAt',
+        'cancellation_requested_at' => 'setCancellationRequestedAt',
         'status' => 'setStatus',
         'amount' => 'setAmount',
         'cancel_reason' => 'setCancelReason',
@@ -260,6 +265,7 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
         'account_id' => 'getAccountId',
         'interval' => 'getInterval',
         'cancelled_at' => 'getCancelledAt',
+        'cancellation_requested_at' => 'getCancellationRequestedAt',
         'status' => 'getStatus',
         'amount' => 'getAmount',
         'cancel_reason' => 'getCancelReason',
@@ -333,6 +339,7 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('account_id', $data ?? [], null);
         $this->setIfExists('interval', $data ?? [], null);
         $this->setIfExists('cancelled_at', $data ?? [], null);
+        $this->setIfExists('cancellation_requested_at', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('amount', $data ?? [], null);
         $this->setIfExists('cancel_reason', $data ?? [], null);
@@ -668,6 +675,40 @@ class RecurringPayment implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['cancelled_at'] = $cancelled_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets cancellation_requested_at
+     *
+     * @return \DateTime|null
+     */
+    public function getCancellationRequestedAt()
+    {
+        return $this->container['cancellation_requested_at'];
+    }
+
+    /**
+     * Sets cancellation_requested_at
+     *
+     * @param \DateTime|null $cancellation_requested_at cancellation_requested_at
+     *
+     * @return self
+     */
+    public function setCancellationRequestedAt($cancellation_requested_at)
+    {
+        if (is_null($cancellation_requested_at)) {
+            array_push($this->openAPINullablesSetToNull, 'cancellation_requested_at');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('cancellation_requested_at', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['cancellation_requested_at'] = $cancellation_requested_at;
 
         return $this;
     }

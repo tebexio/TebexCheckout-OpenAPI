@@ -11,7 +11,7 @@ info:
   license:
     name: MIT
     url: https://opensource.org/license/mit
-  version: 1.1.0
+  version: 1.1.1
 servers:
   - url: https://checkout.tebex.io/api
 tags:
@@ -577,28 +577,9 @@ components:
             $ref: '#/components/schemas/GiftCard'
         address:
           $ref: '#/components/schemas/Address'
-#        actions:
-#          type: object
-#          example: null 
-#          description: A set of actions associated with the Basket, to be provided via login webhooks.
-#          nullable: true
-#        game_currency:
-#          type: object
-#          example: null
-#          description: Deprecated
-#          nullable: true
-#        tebex_account_id:
-#          type: string
-#          example: null
-#          description: Deprecated
-#        verified:
-#          type: boolean
-#          example: false 
-#          description: Potentially deprecated
         rows:
           type: array
           items:
-            #$ref: "#/components/schemas/BasketItem"
             $ref: "#/components/schemas/BasketRow"
         fingerprint:
           type: string
@@ -1384,6 +1365,11 @@ components:
           type: string
           format: date-time
           nullable: true
+        cancellation_requested_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-07-25 14:01:03"
         status:
           type: object
           properties:

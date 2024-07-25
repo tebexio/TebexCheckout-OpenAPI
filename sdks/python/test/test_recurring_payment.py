@@ -46,6 +46,7 @@ class TestRecurringPayment(unittest.TestCase):
                 account_id = 1,
                 interval = 'P2W',
                 cancelled_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                cancellation_requested_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 status = TebexCheckout.models.recurring_payment_status.RecurringPayment_status(
                     id = 2, 
                     class = 'success', 

@@ -80,6 +80,9 @@ class RecurringPayment {
             if (data.hasOwnProperty('cancelled_at')) {
                 obj['cancelled_at'] = ApiClient.convertToType(data['cancelled_at'], 'Date');
             }
+            if (data.hasOwnProperty('cancellation_requested_at')) {
+                obj['cancellation_requested_at'] = ApiClient.convertToType(data['cancellation_requested_at'], 'Date');
+            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = RecurringPaymentStatus.constructFromObject(data['status']);
             }
@@ -188,6 +191,11 @@ RecurringPayment.prototype['interval'] = undefined;
  * @member {Date} cancelled_at
  */
 RecurringPayment.prototype['cancelled_at'] = undefined;
+
+/**
+ * @member {Date} cancellation_requested_at
+ */
+RecurringPayment.prototype['cancellation_requested_at'] = undefined;
 
 /**
  * @member {module:TebexCheckout/model/RecurringPaymentStatus} status

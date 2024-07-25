@@ -1229,6 +1229,11 @@
             "nullable" : true,
             "type" : "string"
           },
+          "cancellation_requested_at" : {
+            "format" : "date-time",
+            "nullable" : true,
+            "type" : "string"
+          },
           "status" : {
             "$ref" : "#/components/schemas/RecurringPayment_status"
           },

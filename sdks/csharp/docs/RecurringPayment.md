@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **AccountId** | **int** |  | [optional] 
 **Interval** | **string** |  | [optional] 
 **CancelledAt** | **DateTime?** |  | [optional] 
+**CancellationRequestedAt** | **DateTime?** |  | [optional] 
 **Status** | [**RecurringPaymentStatus**](RecurringPaymentStatus.md) |  | [optional] 
 **Amount** | [**RecurringPaymentAmount**](RecurringPaymentAmount.md) |  | [optional] 
 **CancelReason** | **string** |  | [optional] 

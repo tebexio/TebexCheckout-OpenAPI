@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **account_id** | **int** |  | [optional] 
 **interval** | **str** |  | [optional] 
 **cancelled_at** | **datetime** |  | [optional] 
+**cancellation_requested_at** | **datetime** |  | [optional] 
 **status** | [**RecurringPaymentStatus**](RecurringPaymentStatus.md) |  | [optional] 
 **amount** | [**RecurringPaymentAmount**](RecurringPaymentAmount.md) |  | [optional] 
 **cancel_reason** | **str** |  | [optional] 

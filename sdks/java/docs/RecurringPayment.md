@@ -17,6 +17,7 @@
 |**accountId** | **Integer** |  |  [optional] |
 |**interval** | **String** |  |  [optional] |
 |**cancelledAt** | **OffsetDateTime** |  |  [optional] |
+|**cancellationRequestedAt** | **OffsetDateTime** |  |  [optional] |
 |**status** | [**RecurringPaymentStatus**](RecurringPaymentStatus.md) |  |  [optional] |
 |**amount** | [**RecurringPaymentAmount**](RecurringPaymentAmount.md) |  |  [optional] |
 |**cancelReason** | **String** |  |  [optional] |
