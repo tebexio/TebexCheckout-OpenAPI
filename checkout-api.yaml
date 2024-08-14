@@ -476,6 +476,10 @@ paths:
                   type: string
                   description: The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
                   example: 
+                ip:
+                  type: string
+                  description: The IP address of the customer using this basket. Provide the IP if creating a basket on your server backend.
+                  example: 127.0.0.1
       responses:
         '200':
           description: Basket created successfully
