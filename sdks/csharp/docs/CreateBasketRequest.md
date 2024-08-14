@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **CompleteAutoRedirect** | **bool** | Automatically redirect to the complete_url provided | [optional] 
 **Country** | **string** | An ISO 3166-1 alpha-2 character code representing the customer&#39;s country. | [optional] 
 **CreatorCode** | **string** | The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes | [optional] 
+**Ip** | **string** | The IP address of the customer using this basket. Provide the IP if creating a basket on your server backend. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

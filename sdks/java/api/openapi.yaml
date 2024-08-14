@@ -11,7 +11,7 @@ info:
     url: https://opensource.org/license/mit
   termsOfService: https://tebex.io/terms-creator-agreement
   title: Tebex Checkout API
-  version: 1.1.0
+  version: 1.1.2
 servers:
 - url: https://checkout.tebex.io/api
 security:
@@ -1466,6 +1466,11 @@ components:
             with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes
           type: string
           example: null
+        ip:
+          description: The IP address of the customer using this basket. Provide the
+            IP if creating a basket on your server backend.
+          example: 127.0.0.1
+          type: string
       type: object
     BasketRow_meta_limits_user:
       example:
