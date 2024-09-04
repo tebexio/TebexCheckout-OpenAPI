@@ -489,6 +489,7 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
             keysMissing = []
             keysExtra = []
 
+            # Test our expected keys against the received keys
             for key in expectedResponseJson:
                 if type(testResponse.jsonBody) == list:
                     writeTestFail(f"unexpected list response") #TODO 
@@ -500,7 +501,11 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
                         keysMissing.append(key)
 
                 # Otherwise the object is not wrapped, test the base object for the key
-                elif key not in testResponse.jsonBody:
+                elif key not in testResponse.jsonBody.keys():
+                    keysMissing.append(key)
+
+            for key in testResponse.jsonBody.keys():
+                if key not in expectedResponseJson.keys():
                     keysMissing.append(key)
 
             if "data" in testResponse.jsonBody:
