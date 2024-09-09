@@ -162,6 +162,15 @@ class BasketTest extends TestCase
     }
 
     /**
+     * Test attribute "email_immutable"
+     */
+    public function testPropertyEmailImmutable()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "discounts"
      */
     public function testPropertyDiscounts()
@@ -255,6 +264,24 @@ class BasketTest extends TestCase
      * Test attribute "complete_auto_redirect"
      */
     public function testPropertyCompleteAutoRedirect()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "recurring_items"
+     */
+    public function testPropertyRecurringItems()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "payment"
+     */
+    public function testPropertyPayment()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

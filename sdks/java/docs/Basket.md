@@ -16,6 +16,7 @@
 |**complete** | **Boolean** |  |  [optional] |
 |**tax** | **BigDecimal** |  |  [optional] |
 |**username** | **String** |  |  [optional] |
+|**emailImmutable** | **Boolean** |  |  [optional] |
 |**discounts** | **List&lt;Object&gt;** |  |  [optional] |
 |**coupons** | **List&lt;Object&gt;** |  |  [optional] |
 |**giftcards** | **List&lt;Object&gt;** |  |  [optional] |
@@ -27,6 +28,8 @@
 |**cancelUrl** | **String** |  |  [optional] |
 |**completeUrl** | **String** |  |  [optional] |
 |**completeAutoRedirect** | **Boolean** |  |  [optional] |
+|**recurringItems** | **List&lt;Object&gt;** |  |  [optional] |
+|**payment** | **Payment** |  |  [optional] |
 |**custom** | **Object** |  |  [optional] |
 |**links** | [**BasketLinks**](BasketLinks.md) |  |  [optional] |
 

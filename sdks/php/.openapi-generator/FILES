@@ -28,6 +28,7 @@ docs/Model/PaymentCustomer.md
 docs/Model/PaymentFees.md
 docs/Model/PaymentFeesGateway.md
 docs/Model/PaymentFeesTax.md
+docs/Model/PaymentPaymentMethod.md
 docs/Model/PaymentPrice.md
 docs/Model/PaymentProductsInner.md
 docs/Model/PaymentProductsInnerBasePrice.md
@@ -80,6 +81,7 @@ lib/Model/PaymentCustomer.php
 lib/Model/PaymentFees.php
 lib/Model/PaymentFeesGateway.php
 lib/Model/PaymentFeesTax.php
+lib/Model/PaymentPaymentMethod.php
 lib/Model/PaymentPrice.php
 lib/Model/PaymentProductsInner.php
 lib/Model/PaymentProductsInnerBasePrice.php
@@ -132,6 +134,7 @@ test/Model/PaymentCustomerTest.php
 test/Model/PaymentFeesGatewayTest.php
 test/Model/PaymentFeesTaxTest.php
 test/Model/PaymentFeesTest.php
+test/Model/PaymentPaymentMethodTest.php
 test/Model/PaymentPriceTest.php
 test/Model/PaymentProductsInnerBasePriceTest.php
 test/Model/PaymentProductsInnerPaidPriceTest.php

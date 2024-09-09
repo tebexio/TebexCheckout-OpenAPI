@@ -26,9 +26,11 @@ import java.util.Arrays;
 import java.util.List;
 import org.openapitools.client.model.PaymentCustomer;
 import org.openapitools.client.model.PaymentFees;
+import org.openapitools.client.model.PaymentPaymentMethod;
 import org.openapitools.client.model.PaymentPrice;
 import org.openapitools.client.model.PaymentProductsInner;
 import org.openapitools.client.model.PaymentStatus;
+import org.openapitools.client.model.RevenueShare;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
@@ -58,7 +60,7 @@ import TebexCheckout.JSON;
 /**
  * Payment
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-14T08:33:53.505068-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-09T15:30:05.763865-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class Payment {
   public static final String SERIALIZED_NAME_TRANSACTION_ID = "transaction_id";
   @SerializedName(SERIALIZED_NAME_TRANSACTION_ID)
@@ -79,6 +81,22 @@ public class Payment {
   public static final String SERIALIZED_NAME_PRICE = "price";
   @SerializedName(SERIALIZED_NAME_PRICE)
   private PaymentPrice price;
+
+  public static final String SERIALIZED_NAME_PRICE_PAID = "price_paid";
+  @SerializedName(SERIALIZED_NAME_PRICE_PAID)
+  private PaymentPrice pricePaid;
+
+  public static final String SERIALIZED_NAME_PAYMENT_METHOD = "payment_method";
+  @SerializedName(SERIALIZED_NAME_PAYMENT_METHOD)
+  private PaymentPaymentMethod paymentMethod;
+
+  public static final String SERIALIZED_NAME_REVENUE_SHARE = "revenue_share";
+  @SerializedName(SERIALIZED_NAME_REVENUE_SHARE)
+  private List<RevenueShare> revenueShare = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_DECLINE_REASON = "decline_reason";
+  @SerializedName(SERIALIZED_NAME_DECLINE_REASON)
+  private String declineReason;
 
   public static final String SERIALIZED_NAME_FEES = "fees";
   @SerializedName(SERIALIZED_NAME_FEES)
@@ -203,6 +221,90 @@ public class Payment {
 
   public void setPrice(PaymentPrice price) {
     this.price = price;
+  }
+
+
+  public Payment pricePaid(PaymentPrice pricePaid) {
+    this.pricePaid = pricePaid;
+    return this;
+  }
+
+   /**
+   * Get pricePaid
+   * @return pricePaid
+  **/
+  @javax.annotation.Nullable
+  public PaymentPrice getPricePaid() {
+    return pricePaid;
+  }
+
+  public void setPricePaid(PaymentPrice pricePaid) {
+    this.pricePaid = pricePaid;
+  }
+
+
+  public Payment paymentMethod(PaymentPaymentMethod paymentMethod) {
+    this.paymentMethod = paymentMethod;
+    return this;
+  }
+
+   /**
+   * Get paymentMethod
+   * @return paymentMethod
+  **/
+  @javax.annotation.Nullable
+  public PaymentPaymentMethod getPaymentMethod() {
+    return paymentMethod;
+  }
+
+  public void setPaymentMethod(PaymentPaymentMethod paymentMethod) {
+    this.paymentMethod = paymentMethod;
+  }
+
+
+  public Payment revenueShare(List<RevenueShare> revenueShare) {
+    this.revenueShare = revenueShare;
+    return this;
+  }
+
+  public Payment addRevenueShareItem(RevenueShare revenueShareItem) {
+    if (this.revenueShare == null) {
+      this.revenueShare = new ArrayList<>();
+    }
+    this.revenueShare.add(revenueShareItem);
+    return this;
+  }
+
+   /**
+   * Get revenueShare
+   * @return revenueShare
+  **/
+  @javax.annotation.Nullable
+  public List<RevenueShare> getRevenueShare() {
+    return revenueShare;
+  }
+
+  public void setRevenueShare(List<RevenueShare> revenueShare) {
+    this.revenueShare = revenueShare;
+  }
+
+
+  public Payment declineReason(String declineReason) {
+    this.declineReason = declineReason;
+    return this;
+  }
+
+   /**
+   * Get declineReason
+   * @return declineReason
+  **/
+  @javax.annotation.Nullable
+  public String getDeclineReason() {
+    return declineReason;
+  }
+
+  public void setDeclineReason(String declineReason) {
+    this.declineReason = declineReason;
   }
 
 
@@ -378,6 +480,10 @@ public class Payment {
         Objects.equals(this.paymentSequence, payment.paymentSequence) &&
         Objects.equals(this.createdAt, payment.createdAt) &&
         Objects.equals(this.price, payment.price) &&
+        Objects.equals(this.pricePaid, payment.pricePaid) &&
+        Objects.equals(this.paymentMethod, payment.paymentMethod) &&
+        Objects.equals(this.revenueShare, payment.revenueShare) &&
+        Objects.equals(this.declineReason, payment.declineReason) &&
         Objects.equals(this.fees, payment.fees) &&
         Objects.equals(this.customer, payment.customer) &&
         Objects.equals(this.products, payment.products) &&
@@ -393,7 +499,7 @@ public class Payment {
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, status, paymentSequence, createdAt, price, fees, customer, products, coupons, giftCards, recurringPaymentReference, custom);
+    return Objects.hash(transactionId, status, paymentSequence, createdAt, price, pricePaid, paymentMethod, revenueShare, declineReason, fees, customer, products, coupons, giftCards, recurringPaymentReference, custom);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -412,6 +518,10 @@ public class Payment {
     sb.append("    paymentSequence: ").append(toIndentedString(paymentSequence)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
+    sb.append("    pricePaid: ").append(toIndentedString(pricePaid)).append("\n");
+    sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
+    sb.append("    revenueShare: ").append(toIndentedString(revenueShare)).append("\n");
+    sb.append("    declineReason: ").append(toIndentedString(declineReason)).append("\n");
     sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
     sb.append("    customer: ").append(toIndentedString(customer)).append("\n");
     sb.append("    products: ").append(toIndentedString(products)).append("\n");
@@ -446,6 +556,10 @@ public class Payment {
     openapiFields.add("payment_sequence");
     openapiFields.add("created_at");
     openapiFields.add("price");
+    openapiFields.add("price_paid");
+    openapiFields.add("payment_method");
+    openapiFields.add("revenue_share");
+    openapiFields.add("decline_reason");
     openapiFields.add("fees");
     openapiFields.add("customer");
     openapiFields.add("products");
@@ -492,6 +606,31 @@ public class Payment {
       // validate the optional field `price`
       if (jsonObj.get("price") != null && !jsonObj.get("price").isJsonNull()) {
         PaymentPrice.validateJsonElement(jsonObj.get("price"));
+      }
+      // validate the optional field `price_paid`
+      if (jsonObj.get("price_paid") != null && !jsonObj.get("price_paid").isJsonNull()) {
+        PaymentPrice.validateJsonElement(jsonObj.get("price_paid"));
+      }
+      // validate the optional field `payment_method`
+      if (jsonObj.get("payment_method") != null && !jsonObj.get("payment_method").isJsonNull()) {
+        PaymentPaymentMethod.validateJsonElement(jsonObj.get("payment_method"));
+      }
+      if (jsonObj.get("revenue_share") != null && !jsonObj.get("revenue_share").isJsonNull()) {
+        JsonArray jsonArrayrevenueShare = jsonObj.getAsJsonArray("revenue_share");
+        if (jsonArrayrevenueShare != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("revenue_share").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `revenue_share` to be an array in the JSON string but got `%s`", jsonObj.get("revenue_share").toString()));
+          }
+
+          // validate the optional field `revenue_share` (array)
+          for (int i = 0; i < jsonArrayrevenueShare.size(); i++) {
+            RevenueShare.validateJsonElement(jsonArrayrevenueShare.get(i));
+          };
+        }
+      }
+      if ((jsonObj.get("decline_reason") != null && !jsonObj.get("decline_reason").isJsonNull()) && !jsonObj.get("decline_reason").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `decline_reason` to be a primitive type in the JSON string but got `%s`", jsonObj.get("decline_reason").toString()));
       }
       // validate the optional field `fees`
       if (jsonObj.get("fees") != null && !jsonObj.get("fees").isJsonNull()) {

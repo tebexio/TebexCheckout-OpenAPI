@@ -597,6 +597,10 @@
             "type" : "string",
             "example" : null
           },
+          "email_immutable" : {
+            "example" : false,
+            "type" : "boolean"
+          },
           "discounts" : {
             "items" : {
               "$ref" : "#/components/schemas/Discount"
@@ -651,6 +655,15 @@
           "complete_auto_redirect" : {
             "example" : false,
             "type" : "boolean"
+          },
+          "recurring_items" : {
+            "items" : {
+              "type" : "object"
+            },
+            "type" : "array"
+          },
+          "payment" : {
+            "$ref" : "#/components/schemas/Payment"
           },
           "custom" : {
             "example" : {
@@ -1001,6 +1014,21 @@
           },
           "price" : {
             "$ref" : "#/components/schemas/Payment_price"
+          },
+          "price_paid" : {
+            "$ref" : "#/components/schemas/Payment_price"
+          },
+          "payment_method" : {
+            "$ref" : "#/components/schemas/Payment_payment_method"
+          },
+          "revenue_share" : {
+            "items" : {
+              "$ref" : "#/components/schemas/RevenueShare"
+            },
+            "type" : "array"
+          },
+          "decline_reason" : {
+            "type" : "string"
           },
           "fees" : {
             "$ref" : "#/components/schemas/Payment_fees"
@@ -1440,7 +1468,7 @@
           },
           "ip" : {
             "description" : "The IP address of the customer using this basket. Provide the IP if creating a basket on your server backend.",
-            "example" : "127.0.0.1",
+            "example" : "1.2.3.4",
             "type" : "string"
           }
         },
@@ -1599,6 +1627,18 @@
           "currency" : {
             "example" : "USD",
             "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Payment_payment_method" : {
+        "properties" : {
+          "name" : {
+            "example" : "Test Payments"
+          },
+          "refundable" : {
+            "example" : true,
+            "type" : "boolean"
           }
         },
         "type" : "object"

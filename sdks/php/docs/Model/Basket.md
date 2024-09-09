@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **complete** | **bool** |  | [optional]
 **tax** | **float** |  | [optional]
 **username** | **string** |  | [optional]
+**email_immutable** | **bool** |  | [optional]
 **discounts** | **object[]** |  | [optional]
 **coupons** | **object[]** |  | [optional]
 **giftcards** | **object[]** |  | [optional]
@@ -24,6 +25,8 @@ Name | Type | Description | Notes
 **cancel_url** | **string** |  | [optional]
 **complete_url** | **string** |  | [optional]
 **complete_auto_redirect** | **bool** |  | [optional]
+**recurring_items** | **object[]** |  | [optional]
+**payment** | [**\TebexCheckout\Model\Payment**](.md) |  | [optional]
 **custom** | **object** |  | [optional]
 **links** | [**\TebexCheckout\Model\BasketLinks**](BasketLinks.md) |  | [optional]
 

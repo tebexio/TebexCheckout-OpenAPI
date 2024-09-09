@@ -2,7 +2,7 @@
 
 Tebex Checkout API
 - API version: 1.1.2
-  - Build date: 2024-08-14T08:33:53.505068-05:00[America/Chicago]
+  - Build date: 2024-09-09T15:30:05.763865-05:00[America/Chicago]
   - Generator version: 7.5.0
 
 The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.
@@ -160,6 +160,7 @@ Class | Method | HTTP request | Description
  - [PaymentFees](docs/PaymentFees.md)
  - [PaymentFeesGateway](docs/PaymentFeesGateway.md)
  - [PaymentFeesTax](docs/PaymentFeesTax.md)
+ - [PaymentPaymentMethod](docs/PaymentPaymentMethod.md)
  - [PaymentPrice](docs/PaymentPrice.md)
  - [PaymentProductsInner](docs/PaymentProductsInner.md)
  - [PaymentProductsInnerBasePrice](docs/PaymentProductsInnerBasePrice.md)

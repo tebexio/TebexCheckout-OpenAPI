@@ -126,6 +126,42 @@ class PaymentTest extends TestCase
     }
 
     /**
+     * Test attribute "price_paid"
+     */
+    public function testPropertyPricePaid()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "payment_method"
+     */
+    public function testPropertyPaymentMethod()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "revenue_share"
+     */
+    public function testPropertyRevenueShare()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "decline_reason"
+     */
+    public function testPropertyDeclineReason()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "fees"
      */
     public function testPropertyFees()

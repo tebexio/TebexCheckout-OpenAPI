@@ -14,9 +14,11 @@
 import ApiClient from '../ApiClient';
 import PaymentCustomer from './PaymentCustomer';
 import PaymentFees from './PaymentFees';
+import PaymentPaymentMethod from './PaymentPaymentMethod';
 import PaymentPrice from './PaymentPrice';
 import PaymentProductsInner from './PaymentProductsInner';
 import PaymentStatus from './PaymentStatus';
+import RevenueShare from './RevenueShare';
 
 /**
  * The Payment model module.
@@ -67,6 +69,18 @@ class Payment {
             if (data.hasOwnProperty('price')) {
                 obj['price'] = PaymentPrice.constructFromObject(data['price']);
             }
+            if (data.hasOwnProperty('price_paid')) {
+                obj['price_paid'] = PaymentPrice.constructFromObject(data['price_paid']);
+            }
+            if (data.hasOwnProperty('payment_method')) {
+                obj['payment_method'] = PaymentPaymentMethod.constructFromObject(data['payment_method']);
+            }
+            if (data.hasOwnProperty('revenue_share')) {
+                obj['revenue_share'] = ApiClient.convertToType(data['revenue_share'], [RevenueShare]);
+            }
+            if (data.hasOwnProperty('decline_reason')) {
+                obj['decline_reason'] = ApiClient.convertToType(data['decline_reason'], 'String');
+            }
             if (data.hasOwnProperty('fees')) {
                 obj['fees'] = PaymentFees.constructFromObject(data['fees']);
             }
@@ -113,6 +127,28 @@ class Payment {
         // validate the optional field `price`
         if (data['price']) { // data not null
           PaymentPrice.validateJSON(data['price']);
+        }
+        // validate the optional field `price_paid`
+        if (data['price_paid']) { // data not null
+          PaymentPrice.validateJSON(data['price_paid']);
+        }
+        // validate the optional field `payment_method`
+        if (data['payment_method']) { // data not null
+          PaymentPaymentMethod.validateJSON(data['payment_method']);
+        }
+        if (data['revenue_share']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['revenue_share'])) {
+                throw new Error("Expected the field `revenue_share` to be an array in the JSON data but got " + data['revenue_share']);
+            }
+            // validate the optional field `revenue_share` (array)
+            for (const item of data['revenue_share']) {
+                RevenueShare.validateJSON(item);
+            };
+        }
+        // ensure the json data is a string
+        if (data['decline_reason'] && !(typeof data['decline_reason'] === 'string' || data['decline_reason'] instanceof String)) {
+            throw new Error("Expected the field `decline_reason` to be a primitive type in the JSON string but got " + data['decline_reason']);
         }
         // validate the optional field `fees`
         if (data['fees']) { // data not null
@@ -177,6 +213,26 @@ Payment.prototype['created_at'] = undefined;
  * @member {module:TebexCheckout/model/PaymentPrice} price
  */
 Payment.prototype['price'] = undefined;
+
+/**
+ * @member {module:TebexCheckout/model/PaymentPrice} price_paid
+ */
+Payment.prototype['price_paid'] = undefined;
+
+/**
+ * @member {module:TebexCheckout/model/PaymentPaymentMethod} payment_method
+ */
+Payment.prototype['payment_method'] = undefined;
+
+/**
+ * @member {Array.<module:TebexCheckout/model/RevenueShare>} revenue_share
+ */
+Payment.prototype['revenue_share'] = undefined;
+
+/**
+ * @member {String} decline_reason
+ */
+Payment.prototype['decline_reason'] = undefined;
 
 /**
  * @member {module:TebexCheckout/model/PaymentFees} fees

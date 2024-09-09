@@ -55,6 +55,7 @@ from TebexCheckout.models.payment_customer import PaymentCustomer
 from TebexCheckout.models.payment_fees import PaymentFees
 from TebexCheckout.models.payment_fees_gateway import PaymentFeesGateway
 from TebexCheckout.models.payment_fees_tax import PaymentFeesTax
+from TebexCheckout.models.payment_payment_method import PaymentPaymentMethod
 from TebexCheckout.models.payment_price import PaymentPrice
 from TebexCheckout.models.payment_products_inner import PaymentProductsInner
 from TebexCheckout.models.payment_products_inner_base_price import PaymentProductsInnerBasePrice

@@ -49,7 +49,7 @@ import TebexCheckout.JSON;
 /**
  * BasketLinks
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-14T08:33:53.505068-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-09T15:30:05.763865-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class BasketLinks {
   public static final String SERIALIZED_NAME_PAYMENT = "payment";
   @SerializedName(SERIALIZED_NAME_PAYMENT)

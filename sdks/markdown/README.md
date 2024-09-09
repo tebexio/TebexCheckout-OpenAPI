@@ -46,6 +46,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
  - [Payment_fees](./Models/Payment_fees.md)
  - [Payment_fees_gateway](./Models/Payment_fees_gateway.md)
  - [Payment_fees_tax](./Models/Payment_fees_tax.md)
+ - [Payment_payment_method](./Models/Payment_payment_method.md)
  - [Payment_price](./Models/Payment_price.md)
  - [Payment_products_inner](./Models/Payment_products_inner.md)
  - [Payment_products_inner_base_price](./Models/Payment_products_inner_base_price.md)

@@ -26,6 +26,7 @@ import java.util.List;
 import org.openapitools.client.model.Address;
 import org.openapitools.client.model.BasketLinks;
 import org.openapitools.client.model.BasketRow;
+import org.openapitools.client.model.Payment;
 import org.openapitools.client.model.PriceDetails;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.junit.jupiter.api.Disabled;
@@ -118,6 +119,14 @@ public class BasketTest {
     }
 
     /**
+     * Test the property 'emailImmutable'
+     */
+    @Test
+    public void emailImmutableTest() {
+        // TODO: test emailImmutable
+    }
+
+    /**
      * Test the property 'discounts'
      */
     @Test
@@ -203,6 +212,22 @@ public class BasketTest {
     @Test
     public void completeAutoRedirectTest() {
         // TODO: test completeAutoRedirect
+    }
+
+    /**
+     * Test the property 'recurringItems'
+     */
+    @Test
+    public void recurringItemsTest() {
+        // TODO: test recurringItems
+    }
+
+    /**
+     * Test the property 'payment'
+     */
+    @Test
+    public void paymentTest() {
+        // TODO: test payment
     }
 
     /**

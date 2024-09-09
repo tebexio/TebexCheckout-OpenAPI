@@ -67,6 +67,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'complete' => 'bool',
         'tax' => 'float',
         'username' => 'string',
+        'email_immutable' => 'bool',
         'discounts' => 'object[]',
         'coupons' => 'object[]',
         'giftcards' => 'object[]',
@@ -78,6 +79,8 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'cancel_url' => 'string',
         'complete_url' => 'string',
         'complete_auto_redirect' => 'bool',
+        'recurring_items' => 'object[]',
+        'payment' => '\TebexCheckout\Model\Payment',
         'custom' => 'object',
         'links' => '\TebexCheckout\Model\BasketLinks'
     ];
@@ -99,6 +102,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'complete' => null,
         'tax' => 'int32',
         'username' => null,
+        'email_immutable' => null,
         'discounts' => null,
         'coupons' => null,
         'giftcards' => null,
@@ -110,6 +114,8 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'cancel_url' => null,
         'complete_url' => null,
         'complete_auto_redirect' => null,
+        'recurring_items' => null,
+        'payment' => null,
         'custom' => null,
         'links' => null
     ];
@@ -129,6 +135,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'complete' => false,
         'tax' => false,
         'username' => true,
+        'email_immutable' => false,
         'discounts' => false,
         'coupons' => false,
         'giftcards' => false,
@@ -140,6 +147,8 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'cancel_url' => false,
         'complete_url' => true,
         'complete_auto_redirect' => false,
+        'recurring_items' => false,
+        'payment' => true,
         'custom' => true,
         'links' => false
     ];
@@ -239,6 +248,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'complete' => 'complete',
         'tax' => 'tax',
         'username' => 'username',
+        'email_immutable' => 'email_immutable',
         'discounts' => 'discounts',
         'coupons' => 'coupons',
         'giftcards' => 'giftcards',
@@ -250,6 +260,8 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'cancel_url' => 'cancel_url',
         'complete_url' => 'complete_url',
         'complete_auto_redirect' => 'complete_auto_redirect',
+        'recurring_items' => 'recurring_items',
+        'payment' => 'payment',
         'custom' => 'custom',
         'links' => 'links'
     ];
@@ -269,6 +281,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'complete' => 'setComplete',
         'tax' => 'setTax',
         'username' => 'setUsername',
+        'email_immutable' => 'setEmailImmutable',
         'discounts' => 'setDiscounts',
         'coupons' => 'setCoupons',
         'giftcards' => 'setGiftcards',
@@ -280,6 +293,8 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'cancel_url' => 'setCancelUrl',
         'complete_url' => 'setCompleteUrl',
         'complete_auto_redirect' => 'setCompleteAutoRedirect',
+        'recurring_items' => 'setRecurringItems',
+        'payment' => 'setPayment',
         'custom' => 'setCustom',
         'links' => 'setLinks'
     ];
@@ -299,6 +314,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'complete' => 'getComplete',
         'tax' => 'getTax',
         'username' => 'getUsername',
+        'email_immutable' => 'getEmailImmutable',
         'discounts' => 'getDiscounts',
         'coupons' => 'getCoupons',
         'giftcards' => 'getGiftcards',
@@ -310,6 +326,8 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         'cancel_url' => 'getCancelUrl',
         'complete_url' => 'getCompleteUrl',
         'complete_auto_redirect' => 'getCompleteAutoRedirect',
+        'recurring_items' => 'getRecurringItems',
+        'payment' => 'getPayment',
         'custom' => 'getCustom',
         'links' => 'getLinks'
     ];
@@ -380,6 +398,7 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('complete', $data ?? [], null);
         $this->setIfExists('tax', $data ?? [], null);
         $this->setIfExists('username', $data ?? [], null);
+        $this->setIfExists('email_immutable', $data ?? [], null);
         $this->setIfExists('discounts', $data ?? [], null);
         $this->setIfExists('coupons', $data ?? [], null);
         $this->setIfExists('giftcards', $data ?? [], null);
@@ -391,6 +410,8 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('cancel_url', $data ?? [], null);
         $this->setIfExists('complete_url', $data ?? [], null);
         $this->setIfExists('complete_auto_redirect', $data ?? [], null);
+        $this->setIfExists('recurring_items', $data ?? [], null);
+        $this->setIfExists('payment', $data ?? [], null);
         $this->setIfExists('custom', $data ?? [], null);
         $this->setIfExists('links', $data ?? [], null);
     }
@@ -690,6 +711,33 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['username'] = $username;
+
+        return $this;
+    }
+
+    /**
+     * Gets email_immutable
+     *
+     * @return bool|null
+     */
+    public function getEmailImmutable()
+    {
+        return $this->container['email_immutable'];
+    }
+
+    /**
+     * Sets email_immutable
+     *
+     * @param bool|null $email_immutable email_immutable
+     *
+     * @return self
+     */
+    public function setEmailImmutable($email_immutable)
+    {
+        if (is_null($email_immutable)) {
+            throw new \InvalidArgumentException('non-nullable email_immutable cannot be null');
+        }
+        $this->container['email_immutable'] = $email_immutable;
 
         return $this;
     }
@@ -1008,6 +1056,67 @@ class Basket implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable complete_auto_redirect cannot be null');
         }
         $this->container['complete_auto_redirect'] = $complete_auto_redirect;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring_items
+     *
+     * @return object[]|null
+     */
+    public function getRecurringItems()
+    {
+        return $this->container['recurring_items'];
+    }
+
+    /**
+     * Sets recurring_items
+     *
+     * @param object[]|null $recurring_items recurring_items
+     *
+     * @return self
+     */
+    public function setRecurringItems($recurring_items)
+    {
+        if (is_null($recurring_items)) {
+            throw new \InvalidArgumentException('non-nullable recurring_items cannot be null');
+        }
+        $this->container['recurring_items'] = $recurring_items;
+
+        return $this;
+    }
+
+    /**
+     * Gets payment
+     *
+     * @return \TebexCheckout\Model\Payment|null
+     */
+    public function getPayment()
+    {
+        return $this->container['payment'];
+    }
+
+    /**
+     * Sets payment
+     *
+     * @param \TebexCheckout\Model\Payment|null $payment payment
+     *
+     * @return self
+     */
+    public function setPayment($payment)
+    {
+        if (is_null($payment)) {
+            array_push($this->openAPINullablesSetToNull, 'payment');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('payment', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['payment'] = $payment;
 
         return $this;
     }

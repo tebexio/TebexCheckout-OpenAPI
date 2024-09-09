@@ -158,6 +158,7 @@ Class | Method | HTTP request | Description
  - [Model.PaymentFees](docs/PaymentFees.md)
  - [Model.PaymentFeesGateway](docs/PaymentFeesGateway.md)
  - [Model.PaymentFeesTax](docs/PaymentFeesTax.md)
+ - [Model.PaymentPaymentMethod](docs/PaymentPaymentMethod.md)
  - [Model.PaymentPrice](docs/PaymentPrice.md)
  - [Model.PaymentProductsInner](docs/PaymentProductsInner.md)
  - [Model.PaymentProductsInnerBasePrice](docs/PaymentProductsInnerBasePrice.md)

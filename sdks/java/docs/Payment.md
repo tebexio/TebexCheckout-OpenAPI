@@ -12,6 +12,10 @@
 |**paymentSequence** | **String** |  |  [optional] |
 |**createdAt** | **OffsetDateTime** |  |  [optional] |
 |**price** | [**PaymentPrice**](PaymentPrice.md) |  |  [optional] |
+|**pricePaid** | [**PaymentPrice**](PaymentPrice.md) |  |  [optional] |
+|**paymentMethod** | [**PaymentPaymentMethod**](PaymentPaymentMethod.md) |  |  [optional] |
+|**revenueShare** | [**List&lt;RevenueShare&gt;**](RevenueShare.md) |  |  [optional] |
+|**declineReason** | **String** |  |  [optional] |
 |**fees** | [**PaymentFees**](PaymentFees.md) |  |  [optional] |
 |**customer** | [**PaymentCustomer**](PaymentCustomer.md) |  |  [optional] |
 |**products** | [**List&lt;PaymentProductsInner&gt;**](PaymentProductsInner.md) |  |  [optional] |

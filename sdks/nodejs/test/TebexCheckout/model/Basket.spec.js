@@ -108,6 +108,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property emailImmutable (base name: "email_immutable")', function() {
+      // uncomment below and update the code to test the property emailImmutable
+      //var instance = new TebexCheckoutApi.Basket();
+      //expect(instance).to.be();
+    });
+
     it('should have the property discounts (base name: "discounts")', function() {
       // uncomment below and update the code to test the property discounts
       //var instance = new TebexCheckoutApi.Basket();
@@ -170,6 +176,18 @@
 
     it('should have the property completeAutoRedirect (base name: "complete_auto_redirect")', function() {
       // uncomment below and update the code to test the property completeAutoRedirect
+      //var instance = new TebexCheckoutApi.Basket();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property recurringItems (base name: "recurring_items")', function() {
+      // uncomment below and update the code to test the property recurringItems
+      //var instance = new TebexCheckoutApi.Basket();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property payment (base name: "payment")', function() {
+      // uncomment below and update the code to test the property payment
       //var instance = new TebexCheckoutApi.Basket();
       //expect(instance).to.be();
     });

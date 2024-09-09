@@ -84,6 +84,30 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property pricePaid (base name: "price_paid")', function() {
+      // uncomment below and update the code to test the property pricePaid
+      //var instance = new TebexCheckoutApi.Payment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property paymentMethod (base name: "payment_method")', function() {
+      // uncomment below and update the code to test the property paymentMethod
+      //var instance = new TebexCheckoutApi.Payment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property revenueShare (base name: "revenue_share")', function() {
+      // uncomment below and update the code to test the property revenueShare
+      //var instance = new TebexCheckoutApi.Payment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property declineReason (base name: "decline_reason")', function() {
+      // uncomment below and update the code to test the property declineReason
+      //var instance = new TebexCheckoutApi.Payment();
+      //expect(instance).to.be();
+    });
+
     it('should have the property fees (base name: "fees")', function() {
       // uncomment below and update the code to test the property fees
       //var instance = new TebexCheckoutApi.Payment();

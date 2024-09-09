@@ -45,6 +45,19 @@ class TestPayment(unittest.TestCase):
                 price = TebexCheckout.models.payment_price.Payment_price(
                     amount = 5.35, 
                     currency = 'USD', ),
+                price_paid = TebexCheckout.models.payment_price.Payment_price(
+                    amount = 5.35, 
+                    currency = 'USD', ),
+                payment_method = TebexCheckout.models.payment_payment_method.Payment_payment_method(
+                    name = Test Payments, 
+                    refundable = True, ),
+                revenue_share = [
+                    TebexCheckout.models.revenue_share.RevenueShare(
+                        wallet_ref = 'centralised_404244_127', 
+                        amount = 0.5, 
+                        gateway_fee_percent = 50.0, )
+                    ],
+                decline_reason = '',
                 fees = TebexCheckout.models.payment_fees.Payment_fees(
                     tax = TebexCheckout.models.payment_fees_tax.Payment_fees_tax(
                         amount = 0.0, 
@@ -86,7 +99,7 @@ class TestPayment(unittest.TestCase):
                     None
                     ],
                 recurring_payment_reference = '',
-                custom = None
+                custom = TebexCheckout.models.custom.custom()
             )
         else:
             return Payment(

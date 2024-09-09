@@ -46,7 +46,7 @@ class TestCreateBasketRequest(unittest.TestCase):
                 complete_auto_redirect = True,
                 country = 'US',
                 creator_code = '',
-                ip = '127.0.0.1'
+                ip = '1.2.3.4'
             )
         else:
             return CreateBasketRequest(

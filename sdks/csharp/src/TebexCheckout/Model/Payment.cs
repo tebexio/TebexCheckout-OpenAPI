@@ -40,6 +40,10 @@ namespace TebexCheckout.Model
         /// <param name="paymentSequence">paymentSequence.</param>
         /// <param name="createdAt">createdAt.</param>
         /// <param name="price">price.</param>
+        /// <param name="pricePaid">pricePaid.</param>
+        /// <param name="paymentMethod">paymentMethod.</param>
+        /// <param name="revenueShare">revenueShare.</param>
+        /// <param name="declineReason">declineReason.</param>
         /// <param name="fees">fees.</param>
         /// <param name="customer">customer.</param>
         /// <param name="products">products.</param>
@@ -47,13 +51,17 @@ namespace TebexCheckout.Model
         /// <param name="giftCards">giftCards.</param>
         /// <param name="recurringPaymentReference">recurringPaymentReference.</param>
         /// <param name="custom">custom.</param>
-        public Payment(string transactionId = default(string), PaymentStatus status = default(PaymentStatus), string paymentSequence = default(string), DateTime createdAt = default(DateTime), PaymentPrice price = default(PaymentPrice), PaymentFees fees = default(PaymentFees), PaymentCustomer customer = default(PaymentCustomer), List<PaymentProductsInner> products = default(List<PaymentProductsInner>), List<Object> coupons = default(List<Object>), List<Object> giftCards = default(List<Object>), string recurringPaymentReference = default(string), Object custom = default(Object))
+        public Payment(string transactionId = default(string), PaymentStatus status = default(PaymentStatus), string paymentSequence = default(string), DateTime createdAt = default(DateTime), PaymentPrice price = default(PaymentPrice), PaymentPrice pricePaid = default(PaymentPrice), PaymentPaymentMethod paymentMethod = default(PaymentPaymentMethod), List<RevenueShare> revenueShare = default(List<RevenueShare>), string declineReason = default(string), PaymentFees fees = default(PaymentFees), PaymentCustomer customer = default(PaymentCustomer), List<PaymentProductsInner> products = default(List<PaymentProductsInner>), List<Object> coupons = default(List<Object>), List<Object> giftCards = default(List<Object>), string recurringPaymentReference = default(string), Object custom = default(Object))
         {
             this.TransactionId = transactionId;
             this.Status = status;
             this.PaymentSequence = paymentSequence;
             this.CreatedAt = createdAt;
             this.Price = price;
+            this.PricePaid = pricePaid;
+            this.PaymentMethod = paymentMethod;
+            this.RevenueShare = revenueShare;
+            this.DeclineReason = declineReason;
             this.Fees = fees;
             this.Customer = customer;
             this.Products = products;
@@ -95,6 +103,30 @@ namespace TebexCheckout.Model
         /// </summary>
         [DataMember(Name = "price", EmitDefaultValue = false)]
         public PaymentPrice Price { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PricePaid
+        /// </summary>
+        [DataMember(Name = "price_paid", EmitDefaultValue = false)]
+        public PaymentPrice PricePaid { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PaymentMethod
+        /// </summary>
+        [DataMember(Name = "payment_method", EmitDefaultValue = false)]
+        public PaymentPaymentMethod PaymentMethod { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RevenueShare
+        /// </summary>
+        [DataMember(Name = "revenue_share", EmitDefaultValue = false)]
+        public List<RevenueShare> RevenueShare { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DeclineReason
+        /// </summary>
+        [DataMember(Name = "decline_reason", EmitDefaultValue = false)]
+        public string DeclineReason { get; set; }
 
         /// <summary>
         /// Gets or Sets Fees
@@ -151,6 +183,10 @@ namespace TebexCheckout.Model
             sb.Append("  PaymentSequence: ").Append(PaymentSequence).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  Price: ").Append(Price).Append("\n");
+            sb.Append("  PricePaid: ").Append(PricePaid).Append("\n");
+            sb.Append("  PaymentMethod: ").Append(PaymentMethod).Append("\n");
+            sb.Append("  RevenueShare: ").Append(RevenueShare).Append("\n");
+            sb.Append("  DeclineReason: ").Append(DeclineReason).Append("\n");
             sb.Append("  Fees: ").Append(Fees).Append("\n");
             sb.Append("  Customer: ").Append(Customer).Append("\n");
             sb.Append("  Products: ").Append(Products).Append("\n");

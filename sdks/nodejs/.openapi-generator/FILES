@@ -25,6 +25,7 @@ docs/PaymentCustomer.md
 docs/PaymentFees.md
 docs/PaymentFeesGateway.md
 docs/PaymentFeesTax.md
+docs/PaymentPaymentMethod.md
 docs/PaymentPrice.md
 docs/PaymentProductsInner.md
 docs/PaymentProductsInnerBasePrice.md
@@ -81,6 +82,7 @@ src/TebexCheckout/model/PaymentCustomer.js
 src/TebexCheckout/model/PaymentFees.js
 src/TebexCheckout/model/PaymentFeesGateway.js
 src/TebexCheckout/model/PaymentFeesTax.js
+src/TebexCheckout/model/PaymentPaymentMethod.js
 src/TebexCheckout/model/PaymentPrice.js
 src/TebexCheckout/model/PaymentProductsInner.js
 src/TebexCheckout/model/PaymentProductsInnerBasePrice.js
@@ -130,6 +132,7 @@ test/TebexCheckout/model/PaymentCustomer.spec.js
 test/TebexCheckout/model/PaymentFees.spec.js
 test/TebexCheckout/model/PaymentFeesGateway.spec.js
 test/TebexCheckout/model/PaymentFeesTax.spec.js
+test/TebexCheckout/model/PaymentPaymentMethod.spec.js
 test/TebexCheckout/model/PaymentPrice.spec.js
 test/TebexCheckout/model/PaymentProductsInner.spec.js
 test/TebexCheckout/model/PaymentProductsInnerBasePrice.spec.js

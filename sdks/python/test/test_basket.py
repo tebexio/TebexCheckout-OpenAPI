@@ -45,6 +45,7 @@ class TestBasket(unittest.TestCase):
                 complete = False,
                 tax = 1.337,
                 username = '',
+                email_immutable = False,
                 discounts = [
                     TebexCheckout.models.discount.Discount()
                     ],
@@ -108,6 +109,74 @@ class TestBasket(unittest.TestCase):
                 cancel_url = 'https://tebex.io',
                 complete_url = '',
                 complete_auto_redirect = False,
+                recurring_items = [
+                    None
+                    ],
+                payment = TebexCheckout.models.payment.Payment(
+                    transaction_id = 'tbx-26929122a56954-0e15be', 
+                    status = TebexCheckout.models.payment_status.Payment_status(
+                        id = 1, 
+                        description = 'Complete', ), 
+                    payment_sequence = 'oneoff', 
+                    created_at = '2022-10-19T15:49:15Z', 
+                    price = TebexCheckout.models.payment_price.Payment_price(
+                        amount = 5.35, 
+                        currency = 'USD', ), 
+                    price_paid = TebexCheckout.models.payment_price.Payment_price(
+                        amount = 5.35, 
+                        currency = 'USD', ), 
+                    payment_method = TebexCheckout.models.payment_payment_method.Payment_payment_method(
+                        name = Test Payments, 
+                        refundable = True, ), 
+                    revenue_share = [
+                        TebexCheckout.models.revenue_share.RevenueShare(
+                            wallet_ref = 'centralised_404244_127', 
+                            amount = 0.5, 
+                            gateway_fee_percent = 50.0, )
+                        ], 
+                    decline_reason = '', 
+                    fees = TebexCheckout.models.payment_fees.Payment_fees(
+                        tax = TebexCheckout.models.payment_fees_tax.Payment_fees_tax(
+                            amount = 0.0, 
+                            currency = 'USD', ), 
+                        gateway = TebexCheckout.models.payment_fees_gateway.Payment_fees_gateway(
+                            amount = 0.45, 
+                            currency = 'USD', ), ), 
+                    customer = TebexCheckout.models.payment_customer.Payment_customer(
+                        first_name = 'Test', 
+                        last_name = 'Test', 
+                        email = 'test@test.com', 
+                        ip = '1.2.3.4', 
+                        username = '', 
+                        marketing_consent = False, 
+                        country = 'TS', 
+                        postal_code = '', ), 
+                    products = [
+                        TebexCheckout.models.payment_products_inner.Payment_products_inner(
+                            id = '', 
+                            name = '', 
+                            quantity = 56, 
+                            base_price = TebexCheckout.models.payment_products_inner_base_price.Payment_products_inner_base_price(
+                                amount = 1.337, 
+                                currency = '', ), 
+                            paid_price = TebexCheckout.models.payment_products_inner_paid_price.Payment_products_inner_paid_price(
+                                amount = 1.337, 
+                                currency = '', ), 
+                            variables = [
+                                ''
+                                ], 
+                            expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            custom = TebexCheckout.models.custom.custom(), 
+                            username = '', )
+                        ], 
+                    coupons = [
+                        None
+                        ], 
+                    gift_cards = [
+                        None
+                        ], 
+                    recurring_payment_reference = '', 
+                    custom = TebexCheckout.models.custom.custom(), ),
                 custom = {"foo":"bar","ref":1234},
                 links = TebexCheckout.models.basket_links.BasketLinks(
                     payment = 'https://checkout.tebex.io/api/payments/tbx-12345', 

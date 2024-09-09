@@ -27,6 +27,7 @@ import java.util.List;
 import org.openapitools.client.model.Address;
 import org.openapitools.client.model.BasketLinks;
 import org.openapitools.client.model.BasketRow;
+import org.openapitools.client.model.Payment;
 import org.openapitools.client.model.PriceDetails;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -57,7 +58,7 @@ import TebexCheckout.JSON;
 /**
  * Basket
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-08-14T08:33:53.505068-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-09T15:30:05.763865-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class Basket {
   public static final String SERIALIZED_NAME_IDENT = "ident";
   @SerializedName(SERIALIZED_NAME_IDENT)
@@ -94,6 +95,10 @@ public class Basket {
   public static final String SERIALIZED_NAME_USERNAME = "username";
   @SerializedName(SERIALIZED_NAME_USERNAME)
   private String username;
+
+  public static final String SERIALIZED_NAME_EMAIL_IMMUTABLE = "email_immutable";
+  @SerializedName(SERIALIZED_NAME_EMAIL_IMMUTABLE)
+  private Boolean emailImmutable;
 
   public static final String SERIALIZED_NAME_DISCOUNTS = "discounts";
   @SerializedName(SERIALIZED_NAME_DISCOUNTS)
@@ -138,6 +143,14 @@ public class Basket {
   public static final String SERIALIZED_NAME_COMPLETE_AUTO_REDIRECT = "complete_auto_redirect";
   @SerializedName(SERIALIZED_NAME_COMPLETE_AUTO_REDIRECT)
   private Boolean completeAutoRedirect;
+
+  public static final String SERIALIZED_NAME_RECURRING_ITEMS = "recurring_items";
+  @SerializedName(SERIALIZED_NAME_RECURRING_ITEMS)
+  private List<Object> recurringItems = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_PAYMENT = "payment";
+  @SerializedName(SERIALIZED_NAME_PAYMENT)
+  private Payment payment;
 
   public static final String SERIALIZED_NAME_CUSTOM = "custom";
   @SerializedName(SERIALIZED_NAME_CUSTOM)
@@ -318,6 +331,25 @@ public class Basket {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+
+  public Basket emailImmutable(Boolean emailImmutable) {
+    this.emailImmutable = emailImmutable;
+    return this;
+  }
+
+   /**
+   * Get emailImmutable
+   * @return emailImmutable
+  **/
+  @javax.annotation.Nullable
+  public Boolean getEmailImmutable() {
+    return emailImmutable;
+  }
+
+  public void setEmailImmutable(Boolean emailImmutable) {
+    this.emailImmutable = emailImmutable;
   }
 
 
@@ -562,6 +594,52 @@ public class Basket {
   }
 
 
+  public Basket recurringItems(List<Object> recurringItems) {
+    this.recurringItems = recurringItems;
+    return this;
+  }
+
+  public Basket addRecurringItemsItem(Object recurringItemsItem) {
+    if (this.recurringItems == null) {
+      this.recurringItems = new ArrayList<>();
+    }
+    this.recurringItems.add(recurringItemsItem);
+    return this;
+  }
+
+   /**
+   * Get recurringItems
+   * @return recurringItems
+  **/
+  @javax.annotation.Nullable
+  public List<Object> getRecurringItems() {
+    return recurringItems;
+  }
+
+  public void setRecurringItems(List<Object> recurringItems) {
+    this.recurringItems = recurringItems;
+  }
+
+
+  public Basket payment(Payment payment) {
+    this.payment = payment;
+    return this;
+  }
+
+   /**
+   * Get payment
+   * @return payment
+  **/
+  @javax.annotation.Nullable
+  public Payment getPayment() {
+    return payment;
+  }
+
+  public void setPayment(Payment payment) {
+    this.payment = payment;
+  }
+
+
   public Basket custom(Object custom) {
     this.custom = custom;
     return this;
@@ -619,6 +697,7 @@ public class Basket {
         Objects.equals(this.complete, basket.complete) &&
         Objects.equals(this.tax, basket.tax) &&
         Objects.equals(this.username, basket.username) &&
+        Objects.equals(this.emailImmutable, basket.emailImmutable) &&
         Objects.equals(this.discounts, basket.discounts) &&
         Objects.equals(this.coupons, basket.coupons) &&
         Objects.equals(this.giftcards, basket.giftcards) &&
@@ -630,6 +709,8 @@ public class Basket {
         Objects.equals(this.cancelUrl, basket.cancelUrl) &&
         Objects.equals(this.completeUrl, basket.completeUrl) &&
         Objects.equals(this.completeAutoRedirect, basket.completeAutoRedirect) &&
+        Objects.equals(this.recurringItems, basket.recurringItems) &&
+        Objects.equals(this.payment, basket.payment) &&
         Objects.equals(this.custom, basket.custom) &&
         Objects.equals(this.links, basket.links);
   }
@@ -640,7 +721,7 @@ public class Basket {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ident, expire, price, priceDetails, isPaymentMethodUpdate, returnUrl, complete, tax, username, discounts, coupons, giftcards, address, rows, fingerprint, creatorCode, roundup, cancelUrl, completeUrl, completeAutoRedirect, custom, links);
+    return Objects.hash(ident, expire, price, priceDetails, isPaymentMethodUpdate, returnUrl, complete, tax, username, emailImmutable, discounts, coupons, giftcards, address, rows, fingerprint, creatorCode, roundup, cancelUrl, completeUrl, completeAutoRedirect, recurringItems, payment, custom, links);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -663,6 +744,7 @@ public class Basket {
     sb.append("    complete: ").append(toIndentedString(complete)).append("\n");
     sb.append("    tax: ").append(toIndentedString(tax)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    emailImmutable: ").append(toIndentedString(emailImmutable)).append("\n");
     sb.append("    discounts: ").append(toIndentedString(discounts)).append("\n");
     sb.append("    coupons: ").append(toIndentedString(coupons)).append("\n");
     sb.append("    giftcards: ").append(toIndentedString(giftcards)).append("\n");
@@ -674,6 +756,8 @@ public class Basket {
     sb.append("    cancelUrl: ").append(toIndentedString(cancelUrl)).append("\n");
     sb.append("    completeUrl: ").append(toIndentedString(completeUrl)).append("\n");
     sb.append("    completeAutoRedirect: ").append(toIndentedString(completeAutoRedirect)).append("\n");
+    sb.append("    recurringItems: ").append(toIndentedString(recurringItems)).append("\n");
+    sb.append("    payment: ").append(toIndentedString(payment)).append("\n");
     sb.append("    custom: ").append(toIndentedString(custom)).append("\n");
     sb.append("    links: ").append(toIndentedString(links)).append("\n");
     sb.append("}");
@@ -707,6 +791,7 @@ public class Basket {
     openapiFields.add("complete");
     openapiFields.add("tax");
     openapiFields.add("username");
+    openapiFields.add("email_immutable");
     openapiFields.add("discounts");
     openapiFields.add("coupons");
     openapiFields.add("giftcards");
@@ -718,6 +803,8 @@ public class Basket {
     openapiFields.add("cancel_url");
     openapiFields.add("complete_url");
     openapiFields.add("complete_auto_redirect");
+    openapiFields.add("recurring_items");
+    openapiFields.add("payment");
     openapiFields.add("custom");
     openapiFields.add("links");
 
@@ -803,6 +890,10 @@ public class Basket {
       }
       if ((jsonObj.get("complete_url") != null && !jsonObj.get("complete_url").isJsonNull()) && !jsonObj.get("complete_url").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `complete_url` to be a primitive type in the JSON string but got `%s`", jsonObj.get("complete_url").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("recurring_items") != null && !jsonObj.get("recurring_items").isJsonNull() && !jsonObj.get("recurring_items").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `recurring_items` to be an array in the JSON string but got `%s`", jsonObj.get("recurring_items").toString()));
       }
       // validate the optional field `links`
       if (jsonObj.get("links") != null && !jsonObj.get("links").isJsonNull()) {

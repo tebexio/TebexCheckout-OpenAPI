@@ -606,6 +606,8 @@ components:
           example: false
         recurring_items:
           type: array
+          items:
+            type: object
         payment:
           type: object
           $ref: "#/components/schemas/Payment"

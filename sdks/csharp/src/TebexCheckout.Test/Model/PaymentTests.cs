@@ -101,6 +101,42 @@ namespace TebexCheckout.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'PricePaid'
+        /// </summary>
+        [Fact]
+        public void PricePaidTest()
+        {
+            // TODO unit test for the property 'PricePaid'
+        }
+
+        /// <summary>
+        /// Test the property 'PaymentMethod'
+        /// </summary>
+        [Fact]
+        public void PaymentMethodTest()
+        {
+            // TODO unit test for the property 'PaymentMethod'
+        }
+
+        /// <summary>
+        /// Test the property 'RevenueShare'
+        /// </summary>
+        [Fact]
+        public void RevenueShareTest()
+        {
+            // TODO unit test for the property 'RevenueShare'
+        }
+
+        /// <summary>
+        /// Test the property 'DeclineReason'
+        /// </summary>
+        [Fact]
+        public void DeclineReasonTest()
+        {
+            // TODO unit test for the property 'DeclineReason'
+        }
+
+        /// <summary>
         /// Test the property 'Fees'
         /// </summary>
         [Fact]

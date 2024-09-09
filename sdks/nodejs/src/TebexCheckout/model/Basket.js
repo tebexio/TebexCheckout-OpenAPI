@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import Address from './Address';
 import BasketLinks from './BasketLinks';
 import BasketRow from './BasketRow';
+import Payment from './Payment';
 import PriceDetails from './PriceDetails';
 
 /**
@@ -78,6 +79,9 @@ class Basket {
             if (data.hasOwnProperty('username')) {
                 obj['username'] = ApiClient.convertToType(data['username'], 'String');
             }
+            if (data.hasOwnProperty('email_immutable')) {
+                obj['email_immutable'] = ApiClient.convertToType(data['email_immutable'], 'Boolean');
+            }
             if (data.hasOwnProperty('discounts')) {
                 obj['discounts'] = ApiClient.convertToType(data['discounts'], [Object]);
             }
@@ -110,6 +114,12 @@ class Basket {
             }
             if (data.hasOwnProperty('complete_auto_redirect')) {
                 obj['complete_auto_redirect'] = ApiClient.convertToType(data['complete_auto_redirect'], 'Boolean');
+            }
+            if (data.hasOwnProperty('recurring_items')) {
+                obj['recurring_items'] = ApiClient.convertToType(data['recurring_items'], [Object]);
+            }
+            if (data.hasOwnProperty('payment')) {
+                obj['payment'] = Payment.constructFromObject(data['payment']);
             }
             if (data.hasOwnProperty('custom')) {
                 obj['custom'] = ApiClient.convertToType(data['custom'], Object);
@@ -189,6 +199,10 @@ class Basket {
         if (data['complete_url'] && !(typeof data['complete_url'] === 'string' || data['complete_url'] instanceof String)) {
             throw new Error("Expected the field `complete_url` to be a primitive type in the JSON string but got " + data['complete_url']);
         }
+        // ensure the json data is an array
+        if (!Array.isArray(data['recurring_items'])) {
+            throw new Error("Expected the field `recurring_items` to be an array in the JSON data but got " + data['recurring_items']);
+        }
         // validate the optional field `links`
         if (data['links']) { // data not null
           BasketLinks.validateJSON(data['links']);
@@ -248,6 +262,11 @@ Basket.prototype['tax'] = undefined;
 Basket.prototype['username'] = undefined;
 
 /**
+ * @member {Boolean} email_immutable
+ */
+Basket.prototype['email_immutable'] = undefined;
+
+/**
  * @member {Array.<Object>} discounts
  */
 Basket.prototype['discounts'] = undefined;
@@ -303,6 +322,16 @@ Basket.prototype['complete_url'] = undefined;
  * @member {Boolean} complete_auto_redirect
  */
 Basket.prototype['complete_auto_redirect'] = undefined;
+
+/**
+ * @member {Array.<Object>} recurring_items
+ */
+Basket.prototype['recurring_items'] = undefined;
+
+/**
+ * @member {module:TebexCheckout/model/Payment} payment
+ */
+Basket.prototype['payment'] = undefined;
 
 /**
  * @member {Object} custom

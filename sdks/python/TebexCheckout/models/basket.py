@@ -40,6 +40,7 @@ class Basket(BaseModel):
     complete: Optional[StrictBool] = None
     tax: Optional[Union[StrictFloat, StrictInt]] = None
     username: Optional[StrictStr] = None
+    email_immutable: Optional[StrictBool] = None
     discounts: Optional[List[Dict[str, Any]]] = None
     coupons: Optional[List[Dict[str, Any]]] = None
     giftcards: Optional[List[Dict[str, Any]]] = None
@@ -51,9 +52,11 @@ class Basket(BaseModel):
     cancel_url: Optional[StrictStr] = None
     complete_url: Optional[StrictStr] = None
     complete_auto_redirect: Optional[StrictBool] = None
+    recurring_items: Optional[List[Dict[str, Any]]] = None
+    payment: Optional[Dict[str, Any]] = None
     custom: Optional[Dict[str, Any]] = None
     links: Optional[BasketLinks] = None
-    __properties: ClassVar[List[str]] = ["ident", "expire", "price", "priceDetails", "isPaymentMethodUpdate", "returnUrl", "complete", "tax", "username", "discounts", "coupons", "giftcards", "address", "rows", "fingerprint", "creator_code", "roundup", "cancel_url", "complete_url", "complete_auto_redirect", "custom", "links"]
+    __properties: ClassVar[List[str]] = ["ident", "expire", "price", "priceDetails", "isPaymentMethodUpdate", "returnUrl", "complete", "tax", "username", "email_immutable", "discounts", "coupons", "giftcards", "address", "rows", "fingerprint", "creator_code", "roundup", "cancel_url", "complete_url", "complete_auto_redirect", "recurring_items", "payment", "custom", "links"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,6 +110,9 @@ class Basket(BaseModel):
                 if _item:
                     _items.append(_item.to_dict())
             _dict['rows'] = _items
+        # override the default output from pydantic by calling `to_dict()` of payment
+        if self.payment:
+            _dict['payment'] = self.payment.to_dict()
         # override the default output from pydantic by calling `to_dict()` of links
         if self.links:
             _dict['links'] = self.links.to_dict()
@@ -135,6 +141,11 @@ class Basket(BaseModel):
         if self.complete_url is None and "complete_url" in self.model_fields_set:
             _dict['complete_url'] = None
 
+        # set to None if payment (nullable) is None
+        # and model_fields_set contains the field
+        if self.payment is None and "payment" in self.model_fields_set:
+            _dict['payment'] = None
+
         # set to None if custom (nullable) is None
         # and model_fields_set contains the field
         if self.custom is None and "custom" in self.model_fields_set:
@@ -161,6 +172,7 @@ class Basket(BaseModel):
             "complete": obj.get("complete"),
             "tax": obj.get("tax"),
             "username": obj.get("username"),
+            "email_immutable": obj.get("email_immutable"),
             "discounts": obj.get("discounts"),
             "coupons": obj.get("coupons"),
             "giftcards": obj.get("giftcards"),
@@ -172,6 +184,8 @@ class Basket(BaseModel):
             "cancel_url": obj.get("cancel_url"),
             "complete_url": obj.get("complete_url"),
             "complete_auto_redirect": obj.get("complete_auto_redirect"),
+            "recurring_items": obj.get("recurring_items"),
+            "payment": Payment.from_dict(obj["payment"]) if obj.get("payment") is not None else None,
             "custom": obj.get("custom"),
             "links": BasketLinks.from_dict(obj["links"]) if obj.get("links") is not None else None
         })

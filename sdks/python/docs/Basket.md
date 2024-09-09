@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **complete** | **bool** |  | [optional] 
 **tax** | **float** |  | [optional] 
 **username** | **str** |  | [optional] 
+**email_immutable** | **bool** |  | [optional] 
 **discounts** | **List[object]** |  | [optional] 
 **coupons** | **List[object]** |  | [optional] 
 **giftcards** | **List[object]** |  | [optional] 
@@ -25,6 +26,8 @@ Name | Type | Description | Notes
 **cancel_url** | **str** |  | [optional] 
 **complete_url** | **str** |  | [optional] 
 **complete_auto_redirect** | **bool** |  | [optional] 
+**recurring_items** | **List[object]** |  | [optional] 
+**payment** | [**Payment**](.md) |  | [optional] 
 **custom** | **object** |  | [optional] 
 **links** | [**BasketLinks**](BasketLinks.md) |  | [optional] 
 

@@ -23,9 +23,11 @@ from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from TebexCheckout.models.payment_customer import PaymentCustomer
 from TebexCheckout.models.payment_fees import PaymentFees
+from TebexCheckout.models.payment_payment_method import PaymentPaymentMethod
 from TebexCheckout.models.payment_price import PaymentPrice
 from TebexCheckout.models.payment_products_inner import PaymentProductsInner
 from TebexCheckout.models.payment_status import PaymentStatus
+from TebexCheckout.models.revenue_share import RevenueShare
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -38,6 +40,10 @@ class Payment(BaseModel):
     payment_sequence: Optional[StrictStr] = None
     created_at: Optional[datetime] = None
     price: Optional[PaymentPrice] = None
+    price_paid: Optional[PaymentPrice] = None
+    payment_method: Optional[PaymentPaymentMethod] = None
+    revenue_share: Optional[List[Optional[RevenueShare]]] = None
+    decline_reason: Optional[StrictStr] = None
     fees: Optional[PaymentFees] = None
     customer: Optional[PaymentCustomer] = None
     products: Optional[List[PaymentProductsInner]] = None
@@ -45,7 +51,7 @@ class Payment(BaseModel):
     gift_cards: Optional[List[Dict[str, Any]]] = None
     recurring_payment_reference: Optional[StrictStr] = None
     custom: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["transaction_id", "status", "payment_sequence", "created_at", "price", "fees", "customer", "products", "coupons", "gift_cards", "recurring_payment_reference", "custom"]
+    __properties: ClassVar[List[str]] = ["transaction_id", "status", "payment_sequence", "created_at", "price", "price_paid", "payment_method", "revenue_share", "decline_reason", "fees", "customer", "products", "coupons", "gift_cards", "recurring_payment_reference", "custom"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,6 +98,19 @@ class Payment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of price
         if self.price:
             _dict['price'] = self.price.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of price_paid
+        if self.price_paid:
+            _dict['price_paid'] = self.price_paid.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of payment_method
+        if self.payment_method:
+            _dict['payment_method'] = self.payment_method.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in revenue_share (list)
+        _items = []
+        if self.revenue_share:
+            for _item in self.revenue_share:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['revenue_share'] = _items
         # override the default output from pydantic by calling `to_dict()` of fees
         if self.fees:
             _dict['fees'] = self.fees.to_dict()
@@ -127,6 +146,10 @@ class Payment(BaseModel):
             "payment_sequence": obj.get("payment_sequence"),
             "created_at": obj.get("created_at"),
             "price": PaymentPrice.from_dict(obj["price"]) if obj.get("price") is not None else None,
+            "price_paid": PaymentPrice.from_dict(obj["price_paid"]) if obj.get("price_paid") is not None else None,
+            "payment_method": PaymentPaymentMethod.from_dict(obj["payment_method"]) if obj.get("payment_method") is not None else None,
+            "revenue_share": [RevenueShare.from_dict(_item) for _item in obj["revenue_share"]] if obj.get("revenue_share") is not None else None,
+            "decline_reason": obj.get("decline_reason"),
             "fees": PaymentFees.from_dict(obj["fees"]) if obj.get("fees") is not None else None,
             "customer": PaymentCustomer.from_dict(obj["customer"]) if obj.get("customer") is not None else None,
             "products": [PaymentProductsInner.from_dict(_item) for _item in obj["products"]] if obj.get("products") is not None else None,

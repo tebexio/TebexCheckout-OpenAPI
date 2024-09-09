@@ -479,10 +479,103 @@ components:
       type: object
     Basket:
       example:
-        creator_code: creator_code
         giftcards:
         - null
         - null
+        ident: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        complete_auto_redirect: false
+        discounts:
+        - null
+        - null
+        coupons:
+        - null
+        - null
+        price: 1.27
+        fingerprint: ""
+        payment:
+          transaction_id: tbx-26929122a56954-0e15be
+          fees:
+            tax:
+              amount: 0.0
+              currency: USD
+            gateway:
+              amount: 0.45
+              currency: USD
+          recurring_payment_reference: recurring_payment_reference
+          price_paid:
+            amount: 5.35
+            currency: USD
+          revenue_share:
+          - amount: 0.5
+            wallet_ref: centralised_404244_127
+            gateway_fee_percent: 50.0
+          - amount: 0.5
+            wallet_ref: centralised_404244_127
+            gateway_fee_percent: 50.0
+          custom: "{}"
+          created_at: 2022-10-19T15:49:15Z
+          products:
+          - paid_price:
+              amount: 9.301444
+              currency: currency
+            variables:
+            - variables
+            - variables
+            quantity: 2
+            expires_at: 2000-01-23T04:56:07.000+00:00
+            custom: "{}"
+            name: name
+            base_price:
+              amount: 7.0614014
+              currency: currency
+            id: id
+            username: username
+          - paid_price:
+              amount: 9.301444
+              currency: currency
+            variables:
+            - variables
+            - variables
+            quantity: 2
+            expires_at: 2000-01-23T04:56:07.000+00:00
+            custom: "{}"
+            name: name
+            base_price:
+              amount: 7.0614014
+              currency: currency
+            id: id
+            username: username
+          payment_sequence: oneoff
+          gift_cards:
+          - "{}"
+          - "{}"
+          coupons:
+          - "{}"
+          - "{}"
+          price:
+            amount: 5.35
+            currency: USD
+          decline_reason: decline_reason
+          payment_method:
+            name: Test Payments
+            refundable: true
+          status:
+            description: Complete
+            id: 1
+          customer:
+            country: TS
+            ip: 1.2.3.4
+            last_name: Test
+            postal_code: postal_code
+            first_name: Test
+            marketing_consent: false
+            email: test@test.com
+            username: username
+        links:
+          payment: https://checkout.tebex.io/api/payments/tbx-12345
+          checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
+        returnUrl: returnUrl
+        creator_code: creator_code
         address:
           name: Ted Tebex
           first_name: Ted
@@ -492,7 +585,6 @@ components:
           state_id: null
           country: UK
           postal_code: NW6 3QT
-        ident: 1a-55fff4107740a1f40d844ff89607557f45bfafb3
         custom:
           foo: bar
           ref: 1234
@@ -587,14 +679,10 @@ components:
           id: 173125385
           override: 0
         isPaymentMethodUpdate: false
-        complete_auto_redirect: false
-        discounts:
-        - null
-        - null
-        coupons:
-        - null
-        - null
-        price: 1.27
+        email_immutable: false
+        recurring_items:
+        - "{}"
+        - "{}"
         expire: 2022-10-25 15:15:40
         priceDetails:
           fullPrice: 1.4
@@ -607,11 +695,6 @@ components:
           sales: []
           giftcards: []
           roundUp: null
-        fingerprint: ""
-        links:
-          payment: https://checkout.tebex.io/api/payments/tbx-12345
-          checkout: https://checkout.tebex.io/checkout/1a-55fff4107740a1f40d844ff89607557f45bfafb3
-        returnUrl: returnUrl
         complete: false
         roundup: false
         cancel_url: https://tebex.io
@@ -647,6 +730,9 @@ components:
           nullable: true
           type: string
           example: null
+        email_immutable:
+          example: false
+          type: boolean
         discounts:
           items:
             $ref: '#/components/schemas/Discount'
@@ -688,6 +774,12 @@ components:
         complete_auto_redirect:
           example: false
           type: boolean
+        recurring_items:
+          items:
+            type: object
+          type: array
+        payment:
+          $ref: '#/components/schemas/Payment'
         custom:
           example:
             foo: bar
@@ -874,6 +966,10 @@ components:
           type: array
       type: object
     RevenueShare:
+      example:
+        amount: 0.5
+        wallet_ref: centralised_404244_127
+        gateway_fee_percent: 50.0
       nullable: true
       properties:
         wallet_ref:
@@ -1016,7 +1112,6 @@ components:
     Payment:
       example:
         transaction_id: tbx-26929122a56954-0e15be
-        payment_sequence: oneoff
         fees:
           tax:
             amount: 0.0
@@ -1024,18 +1119,64 @@ components:
           gateway:
             amount: 0.45
             currency: USD
+        recurring_payment_reference: recurring_payment_reference
+        price_paid:
+          amount: 5.35
+          currency: USD
+        revenue_share:
+        - amount: 0.5
+          wallet_ref: centralised_404244_127
+          gateway_fee_percent: 50.0
+        - amount: 0.5
+          wallet_ref: centralised_404244_127
+          gateway_fee_percent: 50.0
+        custom: "{}"
+        created_at: 2022-10-19T15:49:15Z
+        products:
+        - paid_price:
+            amount: 9.301444
+            currency: currency
+          variables:
+          - variables
+          - variables
+          quantity: 2
+          expires_at: 2000-01-23T04:56:07.000+00:00
+          custom: "{}"
+          name: name
+          base_price:
+            amount: 7.0614014
+            currency: currency
+          id: id
+          username: username
+        - paid_price:
+            amount: 9.301444
+            currency: currency
+          variables:
+          - variables
+          - variables
+          quantity: 2
+          expires_at: 2000-01-23T04:56:07.000+00:00
+          custom: "{}"
+          name: name
+          base_price:
+            amount: 7.0614014
+            currency: currency
+          id: id
+          username: username
+        payment_sequence: oneoff
         gift_cards:
         - "{}"
         - "{}"
-        recurring_payment_reference: recurring_payment_reference
         coupons:
         - "{}"
         - "{}"
         price:
           amount: 5.35
           currency: USD
-        custom: "{}"
-        created_at: 2022-10-19T15:49:15Z
+        decline_reason: decline_reason
+        payment_method:
+          name: Test Payments
+          refundable: true
         status:
           description: Complete
           id: 1
@@ -1047,37 +1188,6 @@ components:
           first_name: Test
           marketing_consent: false
           email: test@test.com
-          username: username
-        products:
-        - paid_price:
-            amount: 1.4658129
-            currency: currency
-          variables:
-          - variables
-          - variables
-          quantity: 0
-          expires_at: 2000-01-23T04:56:07.000+00:00
-          custom: "{}"
-          name: name
-          base_price:
-            amount: 6.0274563
-            currency: currency
-          id: id
-          username: username
-        - paid_price:
-            amount: 1.4658129
-            currency: currency
-          variables:
-          - variables
-          - variables
-          quantity: 0
-          expires_at: 2000-01-23T04:56:07.000+00:00
-          custom: "{}"
-          name: name
-          base_price:
-            amount: 6.0274563
-            currency: currency
-          id: id
           username: username
       nullable: true
       properties:
@@ -1095,6 +1205,16 @@ components:
           type: string
         price:
           $ref: '#/components/schemas/Payment_price'
+        price_paid:
+          $ref: '#/components/schemas/Payment_price'
+        payment_method:
+          $ref: '#/components/schemas/Payment_payment_method'
+        revenue_share:
+          items:
+            $ref: '#/components/schemas/RevenueShare'
+          type: array
+        decline_reason:
+          type: string
         fees:
           $ref: '#/components/schemas/Payment_fees'
         customer:
@@ -1469,7 +1589,7 @@ components:
         ip:
           description: The IP address of the customer using this basket. Provide the
             IP if creating a basket on your server backend.
-          example: 127.0.0.1
+          example: 1.2.3.4
           type: string
       type: object
     BasketRow_meta_limits_user:
@@ -1635,6 +1755,17 @@ components:
           example: USD
           type: string
       type: object
+    Payment_payment_method:
+      example:
+        name: Test Payments
+        refundable: true
+      properties:
+        name:
+          example: Test Payments
+        refundable:
+          example: true
+          type: boolean
+      type: object
     Payment_fees_tax:
       example:
         amount: 0.0
@@ -1713,7 +1844,7 @@ components:
       type: object
     Payment_products_inner_base_price:
       example:
-        amount: 6.0274563
+        amount: 7.0614014
         currency: currency
       properties:
         amount:
@@ -1723,7 +1854,7 @@ components:
           type: string
     Payment_products_inner_paid_price:
       example:
-        amount: 1.4658129
+        amount: 9.301444
         currency: currency
       properties:
         amount:
@@ -1735,17 +1866,17 @@ components:
     Payment_products_inner:
       example:
         paid_price:
-          amount: 1.4658129
+          amount: 9.301444
           currency: currency
         variables:
         - variables
         - variables
-        quantity: 0
+        quantity: 2
         expires_at: 2000-01-23T04:56:07.000+00:00
         custom: "{}"
         name: name
         base_price:
-          amount: 6.0274563
+          amount: 7.0614014
           currency: currency
         id: id
         username: username

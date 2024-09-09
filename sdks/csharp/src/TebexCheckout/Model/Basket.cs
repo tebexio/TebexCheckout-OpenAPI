@@ -44,6 +44,7 @@ namespace TebexCheckout.Model
         /// <param name="complete">complete.</param>
         /// <param name="tax">tax.</param>
         /// <param name="username">username.</param>
+        /// <param name="emailImmutable">emailImmutable.</param>
         /// <param name="discounts">discounts.</param>
         /// <param name="coupons">coupons.</param>
         /// <param name="giftcards">giftcards.</param>
@@ -55,9 +56,11 @@ namespace TebexCheckout.Model
         /// <param name="cancelUrl">cancelUrl.</param>
         /// <param name="completeUrl">completeUrl.</param>
         /// <param name="completeAutoRedirect">completeAutoRedirect.</param>
+        /// <param name="recurringItems">recurringItems.</param>
+        /// <param name="payment">payment.</param>
         /// <param name="custom">custom.</param>
         /// <param name="links">links.</param>
-        public Basket(string ident = default(string), string expire = default(string), float price = default(float), PriceDetails priceDetails = default(PriceDetails), bool isPaymentMethodUpdate = default(bool), string returnUrl = default(string), bool complete = default(bool), decimal tax = default(decimal), string username = default(string), List<Object> discounts = default(List<Object>), List<Object> coupons = default(List<Object>), List<Object> giftcards = default(List<Object>), Address address = default(Address), List<BasketRow> rows = default(List<BasketRow>), string fingerprint = default(string), string creatorCode = default(string), bool? roundup = default(bool?), string cancelUrl = default(string), string completeUrl = default(string), bool completeAutoRedirect = default(bool), Object custom = default(Object), BasketLinks links = default(BasketLinks))
+        public Basket(string ident = default(string), string expire = default(string), float price = default(float), PriceDetails priceDetails = default(PriceDetails), bool isPaymentMethodUpdate = default(bool), string returnUrl = default(string), bool complete = default(bool), decimal tax = default(decimal), string username = default(string), bool emailImmutable = default(bool), List<Object> discounts = default(List<Object>), List<Object> coupons = default(List<Object>), List<Object> giftcards = default(List<Object>), Address address = default(Address), List<BasketRow> rows = default(List<BasketRow>), string fingerprint = default(string), string creatorCode = default(string), bool? roundup = default(bool?), string cancelUrl = default(string), string completeUrl = default(string), bool completeAutoRedirect = default(bool), List<Object> recurringItems = default(List<Object>), Payment payment = default(Payment), Object custom = default(Object), BasketLinks links = default(BasketLinks))
         {
             this.Ident = ident;
             this.Expire = expire;
@@ -68,6 +71,7 @@ namespace TebexCheckout.Model
             this.Complete = complete;
             this.Tax = tax;
             this.Username = username;
+            this.EmailImmutable = emailImmutable;
             this.Discounts = discounts;
             this.Coupons = coupons;
             this.Giftcards = giftcards;
@@ -79,6 +83,8 @@ namespace TebexCheckout.Model
             this.CancelUrl = cancelUrl;
             this.CompleteUrl = completeUrl;
             this.CompleteAutoRedirect = completeAutoRedirect;
+            this.RecurringItems = recurringItems;
+            this.Payment = payment;
             this.Custom = custom;
             this.Links = links;
         }
@@ -141,6 +147,13 @@ namespace TebexCheckout.Model
         /// </summary>
         [DataMember(Name = "username", EmitDefaultValue = true)]
         public string Username { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EmailImmutable
+        /// </summary>
+        /// <example>false</example>
+        [DataMember(Name = "email_immutable", EmitDefaultValue = true)]
+        public bool EmailImmutable { get; set; }
 
         /// <summary>
         /// Gets or Sets Discounts
@@ -214,6 +227,18 @@ namespace TebexCheckout.Model
         public bool CompleteAutoRedirect { get; set; }
 
         /// <summary>
+        /// Gets or Sets RecurringItems
+        /// </summary>
+        [DataMember(Name = "recurring_items", EmitDefaultValue = false)]
+        public List<Object> RecurringItems { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Payment
+        /// </summary>
+        [DataMember(Name = "payment", EmitDefaultValue = true)]
+        public Payment Payment { get; set; }
+
+        /// <summary>
         /// Gets or Sets Custom
         /// </summary>
         /// <example>{&quot;foo&quot;:&quot;bar&quot;,&quot;ref&quot;:1234}</example>
@@ -243,6 +268,7 @@ namespace TebexCheckout.Model
             sb.Append("  Complete: ").Append(Complete).Append("\n");
             sb.Append("  Tax: ").Append(Tax).Append("\n");
             sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("  EmailImmutable: ").Append(EmailImmutable).Append("\n");
             sb.Append("  Discounts: ").Append(Discounts).Append("\n");
             sb.Append("  Coupons: ").Append(Coupons).Append("\n");
             sb.Append("  Giftcards: ").Append(Giftcards).Append("\n");
@@ -254,6 +280,8 @@ namespace TebexCheckout.Model
             sb.Append("  CancelUrl: ").Append(CancelUrl).Append("\n");
             sb.Append("  CompleteUrl: ").Append(CompleteUrl).Append("\n");
             sb.Append("  CompleteAutoRedirect: ").Append(CompleteAutoRedirect).Append("\n");
+            sb.Append("  RecurringItems: ").Append(RecurringItems).Append("\n");
+            sb.Append("  Payment: ").Append(Payment).Append("\n");
             sb.Append("  Custom: ").Append(Custom).Append("\n");
             sb.Append("  Links: ").Append(Links).Append("\n");
             sb.Append("}\n");

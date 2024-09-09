@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **complete** | **Boolean** |  | [optional] 
 **tax** | **Number** |  | [optional] 
 **username** | **String** |  | [optional] 
+**emailImmutable** | **Boolean** |  | [optional] 
 **discounts** | **[Object]** |  | [optional] 
 **coupons** | **[Object]** |  | [optional] 
 **giftcards** | **[Object]** |  | [optional] 
@@ -24,6 +25,8 @@ Name | Type | Description | Notes
 **cancelUrl** | **String** |  | [optional] 
 **completeUrl** | **String** |  | [optional] 
 **completeAutoRedirect** | **Boolean** |  | [optional] 
+**recurringItems** | **[Object]** |  | [optional] 
+**payment** | [**Payment**](.md) |  | [optional] 
 **custom** | **Object** |  | [optional] 
 **links** | [**BasketLinks**](BasketLinks.md) |  | [optional] 
 

@@ -63,6 +63,10 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_sequence' => 'string',
         'created_at' => '\DateTime',
         'price' => '\TebexCheckout\Model\PaymentPrice',
+        'price_paid' => '\TebexCheckout\Model\PaymentPrice',
+        'payment_method' => '\TebexCheckout\Model\PaymentPaymentMethod',
+        'revenue_share' => '\TebexCheckout\Model\RevenueShare[]',
+        'decline_reason' => 'string',
         'fees' => '\TebexCheckout\Model\PaymentFees',
         'customer' => '\TebexCheckout\Model\PaymentCustomer',
         'products' => '\TebexCheckout\Model\PaymentProductsInner[]',
@@ -85,6 +89,10 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_sequence' => null,
         'created_at' => 'date-time',
         'price' => null,
+        'price_paid' => null,
+        'payment_method' => null,
+        'revenue_share' => null,
+        'decline_reason' => null,
         'fees' => null,
         'customer' => null,
         'products' => null,
@@ -105,6 +113,10 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_sequence' => false,
         'created_at' => false,
         'price' => false,
+        'price_paid' => false,
+        'payment_method' => false,
+        'revenue_share' => false,
+        'decline_reason' => false,
         'fees' => false,
         'customer' => false,
         'products' => false,
@@ -205,6 +217,10 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_sequence' => 'payment_sequence',
         'created_at' => 'created_at',
         'price' => 'price',
+        'price_paid' => 'price_paid',
+        'payment_method' => 'payment_method',
+        'revenue_share' => 'revenue_share',
+        'decline_reason' => 'decline_reason',
         'fees' => 'fees',
         'customer' => 'customer',
         'products' => 'products',
@@ -225,6 +241,10 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_sequence' => 'setPaymentSequence',
         'created_at' => 'setCreatedAt',
         'price' => 'setPrice',
+        'price_paid' => 'setPricePaid',
+        'payment_method' => 'setPaymentMethod',
+        'revenue_share' => 'setRevenueShare',
+        'decline_reason' => 'setDeclineReason',
         'fees' => 'setFees',
         'customer' => 'setCustomer',
         'products' => 'setProducts',
@@ -245,6 +265,10 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_sequence' => 'getPaymentSequence',
         'created_at' => 'getCreatedAt',
         'price' => 'getPrice',
+        'price_paid' => 'getPricePaid',
+        'payment_method' => 'getPaymentMethod',
+        'revenue_share' => 'getRevenueShare',
+        'decline_reason' => 'getDeclineReason',
         'fees' => 'getFees',
         'customer' => 'getCustomer',
         'products' => 'getProducts',
@@ -316,6 +340,10 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('payment_sequence', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('price', $data ?? [], null);
+        $this->setIfExists('price_paid', $data ?? [], null);
+        $this->setIfExists('payment_method', $data ?? [], null);
+        $this->setIfExists('revenue_share', $data ?? [], null);
+        $this->setIfExists('decline_reason', $data ?? [], null);
         $this->setIfExists('fees', $data ?? [], null);
         $this->setIfExists('customer', $data ?? [], null);
         $this->setIfExists('products', $data ?? [], null);
@@ -498,6 +526,114 @@ class Payment implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable price cannot be null');
         }
         $this->container['price'] = $price;
+
+        return $this;
+    }
+
+    /**
+     * Gets price_paid
+     *
+     * @return \TebexCheckout\Model\PaymentPrice|null
+     */
+    public function getPricePaid()
+    {
+        return $this->container['price_paid'];
+    }
+
+    /**
+     * Sets price_paid
+     *
+     * @param \TebexCheckout\Model\PaymentPrice|null $price_paid price_paid
+     *
+     * @return self
+     */
+    public function setPricePaid($price_paid)
+    {
+        if (is_null($price_paid)) {
+            throw new \InvalidArgumentException('non-nullable price_paid cannot be null');
+        }
+        $this->container['price_paid'] = $price_paid;
+
+        return $this;
+    }
+
+    /**
+     * Gets payment_method
+     *
+     * @return \TebexCheckout\Model\PaymentPaymentMethod|null
+     */
+    public function getPaymentMethod()
+    {
+        return $this->container['payment_method'];
+    }
+
+    /**
+     * Sets payment_method
+     *
+     * @param \TebexCheckout\Model\PaymentPaymentMethod|null $payment_method payment_method
+     *
+     * @return self
+     */
+    public function setPaymentMethod($payment_method)
+    {
+        if (is_null($payment_method)) {
+            throw new \InvalidArgumentException('non-nullable payment_method cannot be null');
+        }
+        $this->container['payment_method'] = $payment_method;
+
+        return $this;
+    }
+
+    /**
+     * Gets revenue_share
+     *
+     * @return \TebexCheckout\Model\RevenueShare[]|null
+     */
+    public function getRevenueShare()
+    {
+        return $this->container['revenue_share'];
+    }
+
+    /**
+     * Sets revenue_share
+     *
+     * @param \TebexCheckout\Model\RevenueShare[]|null $revenue_share revenue_share
+     *
+     * @return self
+     */
+    public function setRevenueShare($revenue_share)
+    {
+        if (is_null($revenue_share)) {
+            throw new \InvalidArgumentException('non-nullable revenue_share cannot be null');
+        }
+        $this->container['revenue_share'] = $revenue_share;
+
+        return $this;
+    }
+
+    /**
+     * Gets decline_reason
+     *
+     * @return string|null
+     */
+    public function getDeclineReason()
+    {
+        return $this->container['decline_reason'];
+    }
+
+    /**
+     * Sets decline_reason
+     *
+     * @param string|null $decline_reason decline_reason
+     *
+     * @return self
+     */
+    public function setDeclineReason($decline_reason)
+    {
+        if (is_null($decline_reason)) {
+            throw new \InvalidArgumentException('non-nullable decline_reason cannot be null');
+        }
+        $this->container['decline_reason'] = $decline_reason;
 
         return $this;
     }

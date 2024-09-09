@@ -8,6 +8,10 @@
 | **payment\_sequence** | **String** |  | [optional] [default to null] |
 | **created\_at** | **Date** |  | [optional] [default to null] |
 | **price** | [**Payment_price**](Payment_price.md) |  | [optional] [default to null] |
+| **price\_paid** | [**Payment_price**](Payment_price.md) |  | [optional] [default to null] |
+| **payment\_method** | [**Payment_payment_method**](Payment_payment_method.md) |  | [optional] [default to null] |
+| **revenue\_share** | [**List**](RevenueShare.md) |  | [optional] [default to null] |
+| **decline\_reason** | **String** |  | [optional] [default to null] |
 | **fees** | [**Payment_fees**](Payment_fees.md) |  | [optional] [default to null] |
 | **customer** | [**Payment_customer**](Payment_customer.md) |  | [optional] [default to null] |
 | **products** | [**List**](Payment_products_inner.md) |  | [optional] [default to null] |

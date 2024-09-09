@@ -144,7 +144,7 @@ namespace TebexCheckout.Model
         /// The IP address of the customer using this basket. Provide the IP if creating a basket on your server backend.
         /// </summary>
         /// <value>The IP address of the customer using this basket. Provide the IP if creating a basket on your server backend.</value>
-        /// <example>127.0.0.1</example>
+        /// <example>1.2.3.4</example>
         [DataMember(Name = "ip", EmitDefaultValue = false)]
         public string Ip { get; set; }
 

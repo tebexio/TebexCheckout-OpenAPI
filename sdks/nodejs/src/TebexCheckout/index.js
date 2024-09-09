@@ -33,6 +33,7 @@ import PaymentCustomer from './model/PaymentCustomer';
 import PaymentFees from './model/PaymentFees';
 import PaymentFeesGateway from './model/PaymentFeesGateway';
 import PaymentFeesTax from './model/PaymentFeesTax';
+import PaymentPaymentMethod from './model/PaymentPaymentMethod';
 import PaymentPrice from './model/PaymentPrice';
 import PaymentProductsInner from './model/PaymentProductsInner';
 import PaymentProductsInnerBasePrice from './model/PaymentProductsInnerBasePrice';
@@ -221,6 +222,12 @@ export {
      * @property {module:TebexCheckout/model/PaymentFeesTax}
      */
     PaymentFeesTax,
+
+    /**
+     * The PaymentPaymentMethod model constructor.
+     * @property {module:TebexCheckout/model/PaymentPaymentMethod}
+     */
+    PaymentPaymentMethod,
 
     /**
      * The PaymentPrice model constructor.

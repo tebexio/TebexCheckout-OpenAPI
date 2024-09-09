@@ -28,6 +28,7 @@ docs/PaymentCustomer.md
 docs/PaymentFees.md
 docs/PaymentFeesGateway.md
 docs/PaymentFeesTax.md
+docs/PaymentPaymentMethod.md
 docs/PaymentPrice.md
 docs/PaymentProductsInner.md
 docs/PaymentProductsInnerBasePrice.md
@@ -106,6 +107,7 @@ src/main/java/org/openapitools/client/model/PaymentCustomer.java
 src/main/java/org/openapitools/client/model/PaymentFees.java
 src/main/java/org/openapitools/client/model/PaymentFeesGateway.java
 src/main/java/org/openapitools/client/model/PaymentFeesTax.java
+src/main/java/org/openapitools/client/model/PaymentPaymentMethod.java
 src/main/java/org/openapitools/client/model/PaymentPrice.java
 src/main/java/org/openapitools/client/model/PaymentProductsInner.java
 src/main/java/org/openapitools/client/model/PaymentProductsInnerBasePrice.java
@@ -154,6 +156,7 @@ src/test/java/org/openapitools/client/model/PaymentCustomerTest.java
 src/test/java/org/openapitools/client/model/PaymentFeesGatewayTest.java
 src/test/java/org/openapitools/client/model/PaymentFeesTaxTest.java
 src/test/java/org/openapitools/client/model/PaymentFeesTest.java
+src/test/java/org/openapitools/client/model/PaymentPaymentMethodTest.java
 src/test/java/org/openapitools/client/model/PaymentPriceTest.java
 src/test/java/org/openapitools/client/model/PaymentProductsInnerBasePriceTest.java
 src/test/java/org/openapitools/client/model/PaymentProductsInnerPaidPriceTest.java

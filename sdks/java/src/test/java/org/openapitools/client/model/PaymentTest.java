@@ -25,9 +25,11 @@ import java.util.Arrays;
 import java.util.List;
 import org.openapitools.client.model.PaymentCustomer;
 import org.openapitools.client.model.PaymentFees;
+import org.openapitools.client.model.PaymentPaymentMethod;
 import org.openapitools.client.model.PaymentPrice;
 import org.openapitools.client.model.PaymentProductsInner;
 import org.openapitools.client.model.PaymentStatus;
+import org.openapitools.client.model.RevenueShare;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -84,6 +86,38 @@ public class PaymentTest {
     @Test
     public void priceTest() {
         // TODO: test price
+    }
+
+    /**
+     * Test the property 'pricePaid'
+     */
+    @Test
+    public void pricePaidTest() {
+        // TODO: test pricePaid
+    }
+
+    /**
+     * Test the property 'paymentMethod'
+     */
+    @Test
+    public void paymentMethodTest() {
+        // TODO: test paymentMethod
+    }
+
+    /**
+     * Test the property 'revenueShare'
+     */
+    @Test
+    public void revenueShareTest() {
+        // TODO: test revenueShare
+    }
+
+    /**
+     * Test the property 'declineReason'
+     */
+    @Test
+    public void declineReasonTest() {
+        // TODO: test declineReason
     }
 
     /**

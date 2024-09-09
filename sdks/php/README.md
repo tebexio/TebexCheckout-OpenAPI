@@ -116,6 +116,7 @@ Class | Method | HTTP request | Description
 - [PaymentFees](docs/Model/PaymentFees.md)
 - [PaymentFeesGateway](docs/Model/PaymentFeesGateway.md)
 - [PaymentFeesTax](docs/Model/PaymentFeesTax.md)
+- [PaymentPaymentMethod](docs/Model/PaymentPaymentMethod.md)
 - [PaymentPrice](docs/Model/PaymentPrice.md)
 - [PaymentProductsInner](docs/Model/PaymentProductsInner.md)
 - [PaymentProductsInnerBasePrice](docs/Model/PaymentProductsInnerBasePrice.md)

@@ -137,6 +137,15 @@ namespace TebexCheckout.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'EmailImmutable'
+        /// </summary>
+        [Fact]
+        public void EmailImmutableTest()
+        {
+            // TODO unit test for the property 'EmailImmutable'
+        }
+
+        /// <summary>
         /// Test the property 'Discounts'
         /// </summary>
         [Fact]
@@ -233,6 +242,24 @@ namespace TebexCheckout.Test.Model
         public void CompleteAutoRedirectTest()
         {
             // TODO unit test for the property 'CompleteAutoRedirect'
+        }
+
+        /// <summary>
+        /// Test the property 'RecurringItems'
+        /// </summary>
+        [Fact]
+        public void RecurringItemsTest()
+        {
+            // TODO unit test for the property 'RecurringItems'
+        }
+
+        /// <summary>
+        /// Test the property 'Payment'
+        /// </summary>
+        [Fact]
+        public void PaymentTest()
+        {
+            // TODO unit test for the property 'Payment'
         }
 
         /// <summary>

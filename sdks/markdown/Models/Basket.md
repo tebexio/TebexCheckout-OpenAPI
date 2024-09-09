@@ -12,6 +12,7 @@
 | **complete** | **Boolean** |  | [optional] [default to null] |
 | **tax** | **BigDecimal** |  | [optional] [default to null] |
 | **username** | **String** |  | [optional] [default to null] |
+| **email\_immutable** | **Boolean** |  | [optional] [default to null] |
 | **discounts** | **List** |  | [optional] [default to null] |
 | **coupons** | **List** |  | [optional] [default to null] |
 | **giftcards** | **List** |  | [optional] [default to null] |
@@ -23,6 +24,8 @@
 | **cancel\_url** | **String** |  | [optional] [default to null] |
 | **complete\_url** | **String** |  | [optional] [default to null] |
 | **complete\_auto\_redirect** | **Boolean** |  | [optional] [default to null] |
+| **recurring\_items** | **List** |  | [optional] [default to null] |
+| **payment** | [**Payment**](.md) |  | [optional] [default to null] |
 | **custom** | [**Object**](.md) |  | [optional] [default to null] |
 | **links** | [**BasketLinks**](BasketLinks.md) |  | [optional] [default to null] |
 

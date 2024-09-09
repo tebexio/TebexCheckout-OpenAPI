@@ -167,6 +167,7 @@ Class | Method | HTTP request | Description
  - [TebexCheckoutApi.PaymentFees](docs/PaymentFees.md)
  - [TebexCheckoutApi.PaymentFeesGateway](docs/PaymentFeesGateway.md)
  - [TebexCheckoutApi.PaymentFeesTax](docs/PaymentFeesTax.md)
+ - [TebexCheckoutApi.PaymentPaymentMethod](docs/PaymentPaymentMethod.md)
  - [TebexCheckoutApi.PaymentPrice](docs/PaymentPrice.md)
  - [TebexCheckoutApi.PaymentProductsInner](docs/PaymentProductsInner.md)
  - [TebexCheckoutApi.PaymentProductsInnerBasePrice](docs/PaymentProductsInnerBasePrice.md)

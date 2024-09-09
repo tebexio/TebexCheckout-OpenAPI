@@ -21,6 +21,7 @@ Models/Payment_customer.md
 Models/Payment_fees.md
 Models/Payment_fees_gateway.md
 Models/Payment_fees_tax.md
+Models/Payment_payment_method.md
 Models/Payment_price.md
 Models/Payment_products_inner.md
 Models/Payment_products_inner_base_price.md
