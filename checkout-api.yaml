@@ -225,8 +225,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Basket'
         '400':
-          description: Bad Request. See ErrorResponse.
-              
+          description: Bad Request. See ErrorResponse.             
   /payments/{txnId}?type=txn_id:
     get:
       tags:
@@ -515,7 +514,6 @@ components:
           type: string
           description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced
           example: /path/to/ref
-
     CheckoutItem:
       type: object
       description: An item added to a basket as part of the `/checkout` request.
@@ -525,16 +523,12 @@ components:
           example:
             price: 1.27
             name: 1000 Gold
-
-    GiftCard: #TODO
+    GiftCard:
       type: object
-
-    Discount: #TODO
+    Discount:
       type: object
-
-    Coupon: #TODO
+    Coupon:
       type: object
-
     Basket:
       type: object
       properties:
@@ -567,6 +561,9 @@ components:
           type: string
           example: null
           nullable: true
+        email_immutable:
+          type: boolean
+          example: false
         discounts:
           type: array 
           items:
@@ -607,6 +604,11 @@ components:
         complete_auto_redirect:
           type: boolean
           example: false
+        recurring_items:
+          type: array
+        payment:
+          type: object
+          $ref: "#/components/schemas/Payment"
         custom: 
           type: object
           nullable: true
@@ -615,7 +617,6 @@ components:
             ref: 1234
         links:
           $ref: "#/components/schemas/BasketLinks"
-
     Package:
       type: object
       properties:
@@ -986,6 +987,30 @@ components:
             currency:
               type: string
               example: "USD"
+        price_paid:
+          type: object
+          properties:
+            amount:
+              type: number
+              format: float
+              example: 5.35
+            currency:
+              type: string
+              example: "USD"
+        payment_method:
+          type: object
+          properties:
+            name:
+              example: "Test Payments"
+            refundable:
+              type: boolean
+              example: true
+        revenue_share:
+          type: array
+          items:
+            $ref: '#/components/schemas/RevenueShare'
+        decline_reason:
+          type: string
         fees:
           type: object
           properties:
