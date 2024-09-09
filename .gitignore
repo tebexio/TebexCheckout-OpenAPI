@@ -4,3 +4,4 @@
 .DS_Store
 e2e_test_results.csv
 git_push.sh
+scripts/e2e_config.yaml

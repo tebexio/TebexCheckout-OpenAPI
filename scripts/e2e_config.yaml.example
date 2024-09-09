@@ -1,0 +1,19 @@
+auth:
+  username: ''
+  password: ''
+variables: # path variable replacements for {varname} in the paths below
+  reference: ''
+  txnId: ''
+order:
+  - url: POST /baskets
+  - url: GET /baskets/{ident}
+  - url: POST /baskets/{ident}/packages
+  - url: POST /baskets/{ident}/sales
+  - url: DELETE /baskets/{ident}/packages/{rows.id}
+  - url: GET /payments/{txnId}?type=txn_id
+  - url: POST /payments/{txnId}/refund?type=txn_id
+  - url: GET /recurring-payments/{reference}
+  - url: PUT /recurring-payments/{reference}
+  - url: PUT /recurring-payments/{reference}/status
+  - url: DELETE /recurring-payments/{reference}
+  - url: POST /checkout
