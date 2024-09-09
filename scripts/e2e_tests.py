@@ -376,7 +376,7 @@ def writeTestResult(name: str, verb: str, path: str, url: str, request: str, exp
         'Status': "Pass" if passed else "Fail", 
         'Notes': notes})
     
-def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None, omitVars: list = None):
+def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None, omitVars: list = None, ignoreVars: list = None):
     """
         Tests a route against an expected response code. The appropriate requestBody will be fetched from the route definition.
     """
@@ -485,12 +485,15 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
                 # Headless defines values wrapped in a 'data' object, expand the ref so we test for the appropriate keys
                 if 'data' in expectedResponseJson and '$ref' in expectedResponseJson['data']:
                     expectedResponseJson = expandRef(expectedResponseJson['data']['$ref'])['properties']
-                
+
             keysMissing = []
             keysExtra = []
 
             # Test our expected keys against the received keys
             for key in expectedResponseJson:
+                if key in ignoreVars:
+                    continue
+
                 if type(testResponse.jsonBody) == list:
                     writeTestFail(f"unexpected list response") #TODO 
                     return
@@ -505,6 +508,9 @@ def testRoute(route: Route, expectedResponseCode: int, persistVars: list = None,
                     keysMissing.append(key)
 
             for key in testResponse.jsonBody.keys():
+                if key in ignoreVars:
+                    continue
+
                 if key not in expectedResponseJson.keys():
                     keysMissing.append(key)
 
@@ -570,12 +576,16 @@ def main():
                 for possibleResponseCode in possibleResponses:
                     print(f"  -> expect {possibleResponseCode}", end='')
                     omitVars = []
+                    ignoreVars = []
                     if 'omit' in order:
                         omitVars.append(order['omit'])
+                    if 'ignore' in order:
+                        ignoreVars = [s.strip() for s in order['ignore'].split(',')]
+                        print(f" ignoring {purple(ignoreVars)}", end='')
                     if 'persist' in order:
-                        testRoute(route, possibleResponseCode, [order['persist']],omitVars)
+                        testRoute(route, possibleResponseCode, [order['persist']],omitVars, ignoreVars)
                     else:
-                        testRoute(route, possibleResponseCode, None, omitVars)
+                        testRoute(route, possibleResponseCode, None, omitVars, ignoreVars)
                 routesTested.append(route)
                 numRoutesTested += 1
 
