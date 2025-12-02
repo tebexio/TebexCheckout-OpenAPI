@@ -5,7 +5,7 @@
 		    "content": "The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.\n\nYou must receive prior authorisation before the Checkout API is enabled on your account. Please contact customer support or your account manager to discover if you qualify to use the Checkout API before beginning integration.",
 		    "type": "text/markdown"
 		},
-		"version": "1.1.2",
+		"version": "1.1.4",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -116,49 +116,6 @@
                             ]
                         },
 	                        {
-    "name": "/baskets",
-                "description": "This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.",
-                 "item": [
-                            {
-                                "name": "Update a basket's details, including expiry date.",
-                                "request": {
-                                    "method": "PUT",
-                                    "header": [
-                                        {
-                                            "key": "Content-Type",
-                                            "value": "application/json",
-                                            "description": "",
-                                            "disabled": false
-                                        }
-                                    ],
-                                    "body": {
-                                        "mode": "raw",
-                                        "raw": "{\n \"country\": \"<string>\",\n \"name\": \"<string>\",\n \"state_id\": \"<string>\",\n \"first_name\": \"<string>\",\n \"last_name\": \"<string>\",\n \"postal_code\": \"<string>\",\n \"creator_code\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\",\n \"expires_at\": \"<string>\"\n}",
-                                        "options": {
-                                            "raw": {
-                                                "language": "json"
-                                            }
-                                        }
-                                    },
-                                    "url": {
-                                        "raw": "{{baseUrl}}/baskets",
-                                        "host": [
-                                            "{{baseUrl}}"
-                                        ],
-                                        "path": [
-                                            "baskets"
-                                        ],
-                                        "variable": [
-                                        ],
-                                        "query": [
-                                        ]
-                                    },
-                                    "description": "This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out."
-                                }
-                            }
-                            ]
-                        },
-	                        {
     "name": "/baskets/:ident",
                 "description": "Gets the basket associated with the provided identifier.",
                  "item": [
@@ -203,6 +160,55 @@
                                         ]
                                     },
                                     "description": "Gets the basket associated with the provided identifier."
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets/:ident",
+                "description": "This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.",
+                 "item": [
+                            {
+                                "name": "Update a basket's details, including expiry date.",
+                                "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"country\": \"<string>\",\n \"name\": \"<string>\",\n \"state_id\": \"<string>\",\n \"first_name\": \"<string>\",\n \"last_name\": \"<string>\",\n \"postal_code\": \"<string>\",\n \"creator_code\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\",\n \"expires_at\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets/:ident",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets",
+                                            ":ident"
+                                        ],
+                                        "variable": [
+                                            {
+                                                "key": "ident",
+                                                "value": "",
+                                                "description": "The basket identifier."
+                                            }
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out."
                                 }
                             }
                             ]

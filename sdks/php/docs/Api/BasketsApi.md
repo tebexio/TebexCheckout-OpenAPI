@@ -9,7 +9,7 @@ All URIs are relative to https://checkout.tebex.io/api, except if the operation 
 | [**createBasket()**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById()**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 | [**removeRowFromBasket()**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
-| [**updateBasket()**](BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date. |
+| [**updateBasket()**](BasketsApi.md#updateBasket) | **PUT** /baskets/{ident} | Update a basket&#39;s details, including expiry date. |
 
 
 ## `addPackage()`
@@ -330,7 +330,7 @@ void (empty response body)
 ## `updateBasket()`
 
 ```php
-updateBasket($update_basket_request)
+updateBasket($ident, $update_basket_request)
 ```
 
 Update a basket's details, including expiry date.
@@ -356,10 +356,11 @@ $apiInstance = new TebexCheckout\Api\BasketsApi(
     new GuzzleHttp\Client(),
     $config
 );
+$ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3; // string | The basket identifier.
 $update_basket_request = new \TebexCheckout\Model\UpdateBasketRequest(); // \TebexCheckout\Model\UpdateBasketRequest | The parameters of the basket you wish to update.
 
 try {
-    $apiInstance->updateBasket($update_basket_request);
+    $apiInstance->updateBasket($ident, $update_basket_request);
 } catch (Exception $e) {
     echo 'Exception when calling BasketsApi->updateBasket: ', $e->getMessage(), PHP_EOL;
 }
@@ -369,6 +370,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
+| **ident** | **string**| The basket identifier. | |
 | **update_basket_request** | [**\TebexCheckout\Model\UpdateBasketRequest**](../Model/UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] |
 
 ### Return type

@@ -9,7 +9,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 | [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
-| [**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date. |
+| [**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets/{ident} | Update a basket&#39;s details, including expiry date. |
 
 
 <a name="addPackage"></a>
@@ -152,7 +152,7 @@ null (empty response body)
 
 <a name="updateBasket"></a>
 # **updateBasket**
-> updateBasket(updateBasket\_request)
+> updateBasket(ident, updateBasket\_request)
 
 Update a basket&#39;s details, including expiry date.
 
@@ -162,6 +162,7 @@ Update a basket&#39;s details, including expiry date.
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **ident** | **String**| The basket identifier. | [default to null] |
 | **updateBasket\_request** | [**updateBasket_request**](../Models/updateBasket_request.md)| The parameters of the basket you wish to update. | [optional] |
 
 ### Return type

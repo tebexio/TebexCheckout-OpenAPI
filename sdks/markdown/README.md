@@ -12,7 +12,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 *BasketsApi* | [**createBasket**](Apis/BasketsApi.md#createbasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 *BasketsApi* | [**getBasketById**](Apis/BasketsApi.md#getbasketbyid) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 *BasketsApi* | [**removeRowFromBasket**](Apis/BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
-*BasketsApi* | [**updateBasket**](Apis/BasketsApi.md#updatebasket) | **PUT** /baskets | Update a basket's details, including expiry date. |
+*BasketsApi* | [**updateBasket**](Apis/BasketsApi.md#updatebasket) | **PUT** /baskets/{ident} | Update a basket's details, including expiry date. |
 | *CheckoutApi* | [**checkout**](Apis/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request |
 | *PaymentsApi* | [**getPaymentById**](Apis/PaymentsApi.md#getpaymentbyid) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID |
 *PaymentsApi* | [**refundPaymentById**](Apis/PaymentsApi.md#refundpaymentbyid) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID |

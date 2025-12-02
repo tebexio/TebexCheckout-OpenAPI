@@ -9,7 +9,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**CreateBasket**](BasketsApi.md#createbasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**GetBasketById**](BasketsApi.md#getbasketbyid) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 | [**RemoveRowFromBasket**](BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
-| [**UpdateBasket**](BasketsApi.md#updatebasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date. |
+| [**UpdateBasket**](BasketsApi.md#updatebasket) | **PUT** /baskets/{ident} | Update a basket&#39;s details, including expiry date. |
 
 <a id="addpackage"></a>
 # **AddPackage**
@@ -496,7 +496,7 @@ void (empty response body)
 
 <a id="updatebasket"></a>
 # **UpdateBasket**
-> void UpdateBasket (UpdateBasketRequest? updateBasketRequest = null)
+> void UpdateBasket (string ident, UpdateBasketRequest? updateBasketRequest = null)
 
 Update a basket's details, including expiry date.
 
@@ -523,12 +523,13 @@ namespace Example
             config.Password = "YOUR_PASSWORD";
 
             var apiInstance = new BasketsApi(config);
+            var ident = 1a-55fff4107740a1f40d844ff89607557f45bfafb3;  // string | The basket identifier.
             var updateBasketRequest = new UpdateBasketRequest?(); // UpdateBasketRequest? | The parameters of the basket you wish to update. (optional) 
 
             try
             {
                 // Update a basket's details, including expiry date.
-                apiInstance.UpdateBasket(updateBasketRequest);
+                apiInstance.UpdateBasket(ident, updateBasketRequest);
             }
             catch (ApiException  e)
             {
@@ -548,7 +549,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Update a basket's details, including expiry date.
-    apiInstance.UpdateBasketWithHttpInfo(updateBasketRequest);
+    apiInstance.UpdateBasketWithHttpInfo(ident, updateBasketRequest);
 }
 catch (ApiException e)
 {
@@ -562,6 +563,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **ident** | **string** | The basket identifier. |  |
 | **updateBasketRequest** | [**UpdateBasketRequest?**](UpdateBasketRequest?.md) | The parameters of the basket you wish to update. | [optional]  |
 
 ### Return type

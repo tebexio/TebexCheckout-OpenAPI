@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items
 [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier
 [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
-[**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date.
+[**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets/{ident} | Update a basket&#39;s details, including expiry date.
 
 
 
@@ -277,7 +277,7 @@ null (empty response body)
 
 ## updateBasket
 
-> updateBasket(opts)
+> updateBasket(ident, opts)
 
 Update a basket&#39;s details, including expiry date.
 
@@ -294,10 +294,11 @@ tebex_checkout_auth_basic.username = 'YOUR USERNAME';
 tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
 
 let apiInstance = new TebexCheckoutApi.BasketsApi();
+let ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
 let opts = {
   'updateBasketRequest': new TebexCheckoutApi.UpdateBasketRequest() // UpdateBasketRequest | The parameters of the basket you wish to update.
 };
-apiInstance.updateBasket(opts, (error, data, response) => {
+apiInstance.updateBasket(ident, opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -311,6 +312,7 @@ apiInstance.updateBasket(opts, (error, data, response) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **ident** | **String**| The basket identifier. | 
  **updateBasketRequest** | [**UpdateBasketRequest**](UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] 
 
 ### Return type

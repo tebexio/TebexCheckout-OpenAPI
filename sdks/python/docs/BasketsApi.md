@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**create_basket**](BasketsApi.md#create_basket) | **POST** /baskets | Create a basket that can be used to pay for items
 [**get_basket_by_id**](BasketsApi.md#get_basket_by_id) | **GET** /baskets/{ident} | Fetch a basket by its identifier
 [**remove_row_from_basket**](BasketsApi.md#remove_row_from_basket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
-[**update_basket**](BasketsApi.md#update_basket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date.
+[**update_basket**](BasketsApi.md#update_basket) | **PUT** /baskets/{ident} | Update a basket&#39;s details, including expiry date.
 
 
 # **add_package**
@@ -420,7 +420,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_basket**
-> update_basket(update_basket_request=update_basket_request)
+> update_basket(ident, update_basket_request=update_basket_request)
 
 Update a basket's details, including expiry date.
 
@@ -457,11 +457,12 @@ configuration = TebexCheckout.Configuration(
 with TebexCheckout.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = TebexCheckout.BasketsApi(api_client)
+    ident = '1a-55fff4107740a1f40d844ff89607557f45bfafb3' # str | The basket identifier.
     update_basket_request = TebexCheckout.UpdateBasketRequest() # UpdateBasketRequest | The parameters of the basket you wish to update. (optional)
 
     try:
         # Update a basket's details, including expiry date.
-        api_instance.update_basket(update_basket_request=update_basket_request)
+        api_instance.update_basket(ident, update_basket_request=update_basket_request)
     except Exception as e:
         print("Exception when calling BasketsApi->update_basket: %s\n" % e)
 ```
@@ -473,6 +474,7 @@ with TebexCheckout.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **ident** | **str**| The basket identifier. | 
  **update_basket_request** | [**UpdateBasketRequest**](UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] 
 
 ### Return type

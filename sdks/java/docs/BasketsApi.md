@@ -9,7 +9,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 | [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
-| [**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date. |
+| [**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets/{ident} | Update a basket&#39;s details, including expiry date. |
 
 
 <a id="addPackage"></a>
@@ -365,7 +365,7 @@ null (empty response body)
 
 <a id="updateBasket"></a>
 # **updateBasket**
-> updateBasket(updateBasketRequest)
+> updateBasket(ident, updateBasketRequest)
 
 Update a basket&#39;s details, including expiry date.
 
@@ -392,9 +392,10 @@ public class Example {
     tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
 
     BasketsApi apiInstance = new BasketsApi(defaultClient);
+    String ident = "1a-55fff4107740a1f40d844ff89607557f45bfafb3"; // String | The basket identifier.
     UpdateBasketRequest updateBasketRequest = new UpdateBasketRequest(); // UpdateBasketRequest | The parameters of the basket you wish to update.
     try {
-      apiInstance.updateBasket(updateBasketRequest);
+      apiInstance.updateBasket(ident, updateBasketRequest);
     } catch (ApiException e) {
       System.err.println("Exception when calling BasketsApi#updateBasket");
       System.err.println("Status code: " + e.getCode());
@@ -410,6 +411,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **ident** | **String**| The basket identifier. | |
 | **updateBasketRequest** | [**UpdateBasketRequest**](UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] |
 
 ### Return type
