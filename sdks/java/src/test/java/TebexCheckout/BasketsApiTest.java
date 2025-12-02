@@ -18,6 +18,7 @@ import org.openapitools.client.model.AddPackageRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.CreateBasketRequest;
 import org.openapitools.client.model.Sale;
+import org.openapitools.client.model.UpdateBasketRequest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -104,6 +105,20 @@ public class BasketsApiTest {
         String ident = null;
         Integer rowsId = null;
         api.removeRowFromBasket(ident, rowsId);
+        // TODO: test validations
+    }
+
+    /**
+     * Update a basket&#39;s details, including expiry date.
+     *
+     * This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateBasketTest() throws ApiException {
+        UpdateBasketRequest updateBasketRequest = null;
+        api.updateBasket(updateBasketRequest);
         // TODO: test validations
     }
 

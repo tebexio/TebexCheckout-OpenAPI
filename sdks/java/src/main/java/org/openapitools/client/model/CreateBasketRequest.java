@@ -49,7 +49,7 @@ import TebexCheckout.JSON;
 /**
  * CreateBasketRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-09T15:30:05.763865-05:00[America/Chicago]", comments = "Generator version: 7.5.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-12-02T12:40:16.225950-06:00[America/Chicago]", comments = "Generator version: 7.5.0")
 public class CreateBasketRequest {
   public static final String SERIALIZED_NAME_RETURN_URL = "return_url";
   @SerializedName(SERIALIZED_NAME_RETURN_URL)
@@ -74,10 +74,6 @@ public class CreateBasketRequest {
   public static final String SERIALIZED_NAME_EMAIL = "email";
   @SerializedName(SERIALIZED_NAME_EMAIL)
   private String email;
-
-  public static final String SERIALIZED_NAME_EXPIRES_AT = "expires_at";
-  @SerializedName(SERIALIZED_NAME_EXPIRES_AT)
-  private String expiresAt;
 
   public static final String SERIALIZED_NAME_COMPLETE_AUTO_REDIRECT = "complete_auto_redirect";
   @SerializedName(SERIALIZED_NAME_COMPLETE_AUTO_REDIRECT)
@@ -212,25 +208,6 @@ public class CreateBasketRequest {
   }
 
 
-  public CreateBasketRequest expiresAt(String expiresAt) {
-    this.expiresAt = expiresAt;
-    return this;
-  }
-
-   /**
-   * An ISO8601 formatted date. After this date the basket cannot be used to checkout.
-   * @return expiresAt
-  **/
-  @javax.annotation.Nullable
-  public String getExpiresAt() {
-    return expiresAt;
-  }
-
-  public void setExpiresAt(String expiresAt) {
-    this.expiresAt = expiresAt;
-  }
-
-
   public CreateBasketRequest completeAutoRedirect(Boolean completeAutoRedirect) {
     this.completeAutoRedirect = completeAutoRedirect;
     return this;
@@ -323,7 +300,6 @@ public class CreateBasketRequest {
         Objects.equals(this.firstName, createBasketRequest.firstName) &&
         Objects.equals(this.lastName, createBasketRequest.lastName) &&
         Objects.equals(this.email, createBasketRequest.email) &&
-        Objects.equals(this.expiresAt, createBasketRequest.expiresAt) &&
         Objects.equals(this.completeAutoRedirect, createBasketRequest.completeAutoRedirect) &&
         Objects.equals(this.country, createBasketRequest.country) &&
         Objects.equals(this.creatorCode, createBasketRequest.creatorCode) &&
@@ -332,7 +308,7 @@ public class CreateBasketRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(returnUrl, completeUrl, custom, firstName, lastName, email, expiresAt, completeAutoRedirect, country, creatorCode, ip);
+    return Objects.hash(returnUrl, completeUrl, custom, firstName, lastName, email, completeAutoRedirect, country, creatorCode, ip);
   }
 
   @Override
@@ -345,7 +321,6 @@ public class CreateBasketRequest {
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
     sb.append("    completeAutoRedirect: ").append(toIndentedString(completeAutoRedirect)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    creatorCode: ").append(toIndentedString(creatorCode)).append("\n");
@@ -378,7 +353,6 @@ public class CreateBasketRequest {
     openapiFields.add("first_name");
     openapiFields.add("last_name");
     openapiFields.add("email");
-    openapiFields.add("expires_at");
     openapiFields.add("complete_auto_redirect");
     openapiFields.add("country");
     openapiFields.add("creator_code");
@@ -423,9 +397,6 @@ public class CreateBasketRequest {
       }
       if ((jsonObj.get("email") != null && !jsonObj.get("email").isJsonNull()) && !jsonObj.get("email").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `email` to be a primitive type in the JSON string but got `%s`", jsonObj.get("email").toString()));
-      }
-      if ((jsonObj.get("expires_at") != null && !jsonObj.get("expires_at").isJsonNull()) && !jsonObj.get("expires_at").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `expires_at` to be a primitive type in the JSON string but got `%s`", jsonObj.get("expires_at").toString()));
       }
       if ((jsonObj.get("country") != null && !jsonObj.get("country").isJsonNull()) && !jsonObj.get("country").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `country` to be a primitive type in the JSON string but got `%s`", jsonObj.get("country").toString()));

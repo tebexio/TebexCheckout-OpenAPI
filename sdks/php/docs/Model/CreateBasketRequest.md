@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **first_name** | **string** | The first name of the customer | [optional]
 **last_name** | **string** | The last name of the customer | [optional]
 **email** | **string** | The email address of the customer | [optional]
-**expires_at** | **string** | An ISO8601 formatted date. After this date the basket cannot be used to checkout. | [optional]
 **complete_auto_redirect** | **bool** | Automatically redirect to the complete_url provided | [optional]
 **country** | **string** | An ISO 3166-1 alpha-2 character code representing the customer&#39;s country. | [optional]
 **creator_code** | **string** | The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes | [optional]

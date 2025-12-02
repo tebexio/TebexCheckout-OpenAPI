@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items
 [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier
 [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
+[**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date.
 
 
 
@@ -271,5 +272,57 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+
+## updateBasket
+
+> updateBasket(opts)
+
+Update a basket&#39;s details, including expiry date.
+
+This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+
+### Example
+
+```javascript
+import TebexCheckoutApi from 'tebex_checkout_api';
+let defaultClient = TebexCheckoutApi.ApiClient.instance;
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+let tebex_checkout_auth_basic = defaultClient.authentications['tebex_checkout_auth_basic'];
+tebex_checkout_auth_basic.username = 'YOUR USERNAME';
+tebex_checkout_auth_basic.password = 'YOUR PASSWORD';
+
+let apiInstance = new TebexCheckoutApi.BasketsApi();
+let opts = {
+  'updateBasketRequest': new TebexCheckoutApi.UpdateBasketRequest() // UpdateBasketRequest | The parameters of the basket you wish to update.
+};
+apiInstance.updateBasket(opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateBasketRequest** | [**UpdateBasketRequest**](UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: Not defined
 

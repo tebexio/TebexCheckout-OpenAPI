@@ -42,7 +42,6 @@ class TestCreateBasketRequest(unittest.TestCase):
                 first_name = 'Neil',
                 last_name = 'McNeil',
                 email = 'example@tebex.io',
-                expires_at = '2025-01-27T18:09:51Z',
                 complete_auto_redirect = True,
                 country = 'US',
                 creator_code = '',

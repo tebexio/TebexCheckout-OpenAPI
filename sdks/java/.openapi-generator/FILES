@@ -53,6 +53,7 @@ docs/RecurringPaymentsApi.md
 docs/RevenueShare.md
 docs/Sale.md
 docs/TebexWebhook.md
+docs/UpdateBasketRequest.md
 docs/UpdateRecurringPaymentRequest.md
 docs/UpdateSubscriptionRequest.md
 docs/UpdateSubscriptionRequestItemsInner.md
@@ -130,6 +131,7 @@ src/main/java/org/openapitools/client/model/RecurringPaymentSubjectStatus.java
 src/main/java/org/openapitools/client/model/RevenueShare.java
 src/main/java/org/openapitools/client/model/Sale.java
 src/main/java/org/openapitools/client/model/TebexWebhook.java
+src/main/java/org/openapitools/client/model/UpdateBasketRequest.java
 src/main/java/org/openapitools/client/model/UpdateRecurringPaymentRequest.java
 src/main/java/org/openapitools/client/model/UpdateSubscriptionRequest.java
 src/main/java/org/openapitools/client/model/UpdateSubscriptionRequestItemsInner.java
@@ -180,6 +182,7 @@ src/test/java/org/openapitools/client/model/RecurringPaymentTest.java
 src/test/java/org/openapitools/client/model/RevenueShareTest.java
 src/test/java/org/openapitools/client/model/SaleTest.java
 src/test/java/org/openapitools/client/model/TebexWebhookTest.java
+src/test/java/org/openapitools/client/model/UpdateBasketRequestTest.java
 src/test/java/org/openapitools/client/model/UpdateRecurringPaymentRequestTest.java
 src/test/java/org/openapitools/client/model/UpdateSubscriptionRequestItemsInnerTest.java
 src/test/java/org/openapitools/client/model/UpdateSubscriptionRequestTest.java

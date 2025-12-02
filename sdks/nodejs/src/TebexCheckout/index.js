@@ -56,6 +56,7 @@ import RecurringPaymentSubjectStatus from './model/RecurringPaymentSubjectStatus
 import RevenueShare from './model/RevenueShare';
 import Sale from './model/Sale';
 import TebexWebhook from './model/TebexWebhook';
+import UpdateBasketRequest from './model/UpdateBasketRequest';
 import UpdateRecurringPaymentRequest from './model/UpdateRecurringPaymentRequest';
 import UpdateSubscriptionRequest from './model/UpdateSubscriptionRequest';
 import UpdateSubscriptionRequestItemsInner from './model/UpdateSubscriptionRequestItemsInner';
@@ -360,6 +361,12 @@ export {
      * @property {module:TebexCheckout/model/TebexWebhook}
      */
     TebexWebhook,
+
+    /**
+     * The UpdateBasketRequest model constructor.
+     * @property {module:TebexCheckout/model/UpdateBasketRequest}
+     */
+    UpdateBasketRequest,
 
     /**
      * The UpdateRecurringPaymentRequest model constructor.

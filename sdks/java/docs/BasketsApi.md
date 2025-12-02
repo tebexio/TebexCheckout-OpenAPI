@@ -9,6 +9,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**createBasket**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 | [**removeRowFromBasket**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
+| [**updateBasket**](BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date. |
 
 
 <a id="addPackage"></a>
@@ -361,4 +362,72 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **204** | Successfully deleted a row from the basket. |  -  |
 | **404** | Row or basket not found. |  -  |
+
+<a id="updateBasket"></a>
+# **updateBasket**
+> updateBasket(updateBasketRequest)
+
+Update a basket&#39;s details, including expiry date.
+
+This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+
+### Example
+```java
+// Import classes:
+import TebexCheckout.ApiClient;
+import TebexCheckout.ApiException;
+import TebexCheckout.Configuration;
+import TebexCheckout.auth.*;
+import TebexCheckout.models.*;
+import TebexCheckout.BasketsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://checkout.tebex.io/api");
+    
+    // Configure HTTP basic authorization: tebex_checkout_auth_basic
+    HttpBasicAuth tebex_checkout_auth_basic = (HttpBasicAuth) defaultClient.getAuthentication("tebex_checkout_auth_basic");
+    tebex_checkout_auth_basic.setUsername("YOUR USERNAME");
+    tebex_checkout_auth_basic.setPassword("YOUR PASSWORD");
+
+    BasketsApi apiInstance = new BasketsApi(defaultClient);
+    UpdateBasketRequest updateBasketRequest = new UpdateBasketRequest(); // UpdateBasketRequest | The parameters of the basket you wish to update.
+    try {
+      apiInstance.updateBasket(updateBasketRequest);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling BasketsApi#updateBasket");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **updateBasketRequest** | [**UpdateBasketRequest**](UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Basket updated successfully |  -  |
+| **404** | Basket not found. |  -  |
 

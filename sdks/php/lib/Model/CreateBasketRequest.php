@@ -64,7 +64,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         'first_name' => 'string',
         'last_name' => 'string',
         'email' => 'string',
-        'expires_at' => 'string',
         'complete_auto_redirect' => 'bool',
         'country' => 'string',
         'creator_code' => 'string',
@@ -85,7 +84,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         'first_name' => null,
         'last_name' => null,
         'email' => null,
-        'expires_at' => null,
         'complete_auto_redirect' => null,
         'country' => null,
         'creator_code' => null,
@@ -104,7 +102,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         'first_name' => false,
         'last_name' => false,
         'email' => false,
-        'expires_at' => false,
         'complete_auto_redirect' => false,
         'country' => false,
         'creator_code' => false,
@@ -203,7 +200,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         'first_name' => 'first_name',
         'last_name' => 'last_name',
         'email' => 'email',
-        'expires_at' => 'expires_at',
         'complete_auto_redirect' => 'complete_auto_redirect',
         'country' => 'country',
         'creator_code' => 'creator_code',
@@ -222,7 +218,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         'first_name' => 'setFirstName',
         'last_name' => 'setLastName',
         'email' => 'setEmail',
-        'expires_at' => 'setExpiresAt',
         'complete_auto_redirect' => 'setCompleteAutoRedirect',
         'country' => 'setCountry',
         'creator_code' => 'setCreatorCode',
@@ -241,7 +236,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         'first_name' => 'getFirstName',
         'last_name' => 'getLastName',
         'email' => 'getEmail',
-        'expires_at' => 'getExpiresAt',
         'complete_auto_redirect' => 'getCompleteAutoRedirect',
         'country' => 'getCountry',
         'creator_code' => 'getCreatorCode',
@@ -311,7 +305,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('first_name', $data ?? [], null);
         $this->setIfExists('last_name', $data ?? [], null);
         $this->setIfExists('email', $data ?? [], null);
-        $this->setIfExists('expires_at', $data ?? [], null);
         $this->setIfExists('complete_auto_redirect', $data ?? [], null);
         $this->setIfExists('country', $data ?? [], null);
         $this->setIfExists('creator_code', $data ?? [], null);
@@ -518,33 +511,6 @@ class CreateBasketRequest implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable email cannot be null');
         }
         $this->container['email'] = $email;
-
-        return $this;
-    }
-
-    /**
-     * Gets expires_at
-     *
-     * @return string|null
-     */
-    public function getExpiresAt()
-    {
-        return $this->container['expires_at'];
-    }
-
-    /**
-     * Sets expires_at
-     *
-     * @param string|null $expires_at An ISO8601 formatted date. After this date the basket cannot be used to checkout.
-     *
-     * @return self
-     */
-    public function setExpiresAt($expires_at)
-    {
-        if (is_null($expires_at)) {
-            throw new \InvalidArgumentException('non-nullable expires_at cannot be null');
-        }
-        $this->container['expires_at'] = $expires_at;
 
         return $this;
     }

@@ -17,6 +17,7 @@ import AddPackageRequest from '../model/AddPackageRequest';
 import Basket from '../model/Basket';
 import CreateBasketRequest from '../model/CreateBasketRequest';
 import Sale from '../model/Sale';
+import UpdateBasketRequest from '../model/UpdateBasketRequest';
 
 /**
 * Baskets service.
@@ -255,6 +256,45 @@ export default class BasketsApi {
       let returnType = null;
       return this.apiClient.callApi(
         '/baskets/{ident}/packages/{rows.id}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the updateBasket operation.
+     * @callback module:TebexCheckout/TebexCheckout/BasketsApi~updateBasketCallback
+     * @param {String} error Error message, if any.
+     * @param data This operation does not return a value.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Update a basket's details, including expiry date.
+     * This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+     * @param {Object} opts Optional parameters
+     * @param {module:TebexCheckout/model/UpdateBasketRequest} [updateBasketRequest] The parameters of the basket you wish to update.
+     * @param {module:TebexCheckout/TebexCheckout/BasketsApi~updateBasketCallback} callback The callback function, accepting three arguments: error, data, response
+     */
+    updateBasket(opts, callback) {
+      opts = opts || {};
+      let postBody = opts['updateBasketRequest'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['tebex_checkout_auth_basic'];
+      let contentTypes = ['application/json'];
+      let accepts = [];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/baskets', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

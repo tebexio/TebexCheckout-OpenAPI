@@ -65,9 +65,6 @@ class CreateBasketRequest {
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
-            if (data.hasOwnProperty('expires_at')) {
-                obj['expires_at'] = ApiClient.convertToType(data['expires_at'], 'String');
-            }
             if (data.hasOwnProperty('complete_auto_redirect')) {
                 obj['complete_auto_redirect'] = ApiClient.convertToType(data['complete_auto_redirect'], 'Boolean');
             }
@@ -109,10 +106,6 @@ class CreateBasketRequest {
         // ensure the json data is a string
         if (data['email'] && !(typeof data['email'] === 'string' || data['email'] instanceof String)) {
             throw new Error("Expected the field `email` to be a primitive type in the JSON string but got " + data['email']);
-        }
-        // ensure the json data is a string
-        if (data['expires_at'] && !(typeof data['expires_at'] === 'string' || data['expires_at'] instanceof String)) {
-            throw new Error("Expected the field `expires_at` to be a primitive type in the JSON string but got " + data['expires_at']);
         }
         // ensure the json data is a string
         if (data['country'] && !(typeof data['country'] === 'string' || data['country'] instanceof String)) {
@@ -170,12 +163,6 @@ CreateBasketRequest.prototype['last_name'] = undefined;
  * @member {String} email
  */
 CreateBasketRequest.prototype['email'] = undefined;
-
-/**
- * An ISO8601 formatted date. After this date the basket cannot be used to checkout.
- * @member {String} expires_at
- */
-CreateBasketRequest.prototype['expires_at'] = undefined;
 
 /**
  * Automatically redirect to the complete_url provided

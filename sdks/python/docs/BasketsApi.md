@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**create_basket**](BasketsApi.md#create_basket) | **POST** /baskets | Create a basket that can be used to pay for items
 [**get_basket_by_id**](BasketsApi.md#get_basket_by_id) | **GET** /baskets/{ident} | Fetch a basket by its identifier
 [**remove_row_from_basket**](BasketsApi.md#remove_row_from_basket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
+[**update_basket**](BasketsApi.md#update_basket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date.
 
 
 # **add_package**
@@ -415,6 +416,84 @@ void (empty response body)
 |-------------|-------------|------------------|
 **204** | Successfully deleted a row from the basket. |  -  |
 **404** | Row or basket not found. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_basket**
+> update_basket(update_basket_request=update_basket_request)
+
+Update a basket's details, including expiry date.
+
+This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+
+### Example
+
+* Basic Authentication (tebex_checkout_auth_basic):
+
+```python
+import TebexCheckout
+from TebexCheckout.models.update_basket_request import UpdateBasketRequest
+from TebexCheckout.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://checkout.tebex.io/api
+# See configuration.py for a list of all supported configuration parameters.
+configuration = TebexCheckout.Configuration(
+    host = "https://checkout.tebex.io/api"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: tebex_checkout_auth_basic
+configuration = TebexCheckout.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Enter a context with an instance of the API client
+with TebexCheckout.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = TebexCheckout.BasketsApi(api_client)
+    update_basket_request = TebexCheckout.UpdateBasketRequest() # UpdateBasketRequest | The parameters of the basket you wish to update. (optional)
+
+    try:
+        # Update a basket's details, including expiry date.
+        api_instance.update_basket(update_basket_request=update_basket_request)
+    except Exception as e:
+        print("Exception when calling BasketsApi->update_basket: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **update_basket_request** | [**UpdateBasketRequest**](UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Basket updated successfully |  -  |
+**404** | Basket not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

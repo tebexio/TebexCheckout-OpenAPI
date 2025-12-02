@@ -116,5 +116,16 @@ namespace TebexCheckout.Test.Api
             //int rowsId = null;
             //instance.RemoveRowFromBasket(ident, rowsId);
         }
+
+        /// <summary>
+        /// Test UpdateBasket
+        /// </summary>
+        [Fact]
+        public void UpdateBasketTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //UpdateBasketRequest? updateBasketRequest = null;
+            //instance.UpdateBasket(updateBasketRequest);
+        }
     }
 }

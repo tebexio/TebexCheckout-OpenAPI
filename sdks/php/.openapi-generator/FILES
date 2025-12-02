@@ -51,6 +51,7 @@ docs/Model/RecurringPaymentSubjectStatus.md
 docs/Model/RevenueShare.md
 docs/Model/Sale.md
 docs/Model/TebexWebhook.md
+docs/Model/UpdateBasketRequest.md
 docs/Model/UpdateRecurringPaymentRequest.md
 docs/Model/UpdateSubscriptionRequest.md
 docs/Model/UpdateSubscriptionRequestItemsInner.md
@@ -104,6 +105,7 @@ lib/Model/RecurringPaymentSubjectStatus.php
 lib/Model/RevenueShare.php
 lib/Model/Sale.php
 lib/Model/TebexWebhook.php
+lib/Model/UpdateBasketRequest.php
 lib/Model/UpdateRecurringPaymentRequest.php
 lib/Model/UpdateSubscriptionRequest.php
 lib/Model/UpdateSubscriptionRequestItemsInner.php
@@ -158,6 +160,7 @@ test/Model/RecurringPaymentTest.php
 test/Model/RevenueShareTest.php
 test/Model/SaleTest.php
 test/Model/TebexWebhookTest.php
+test/Model/UpdateBasketRequestTest.php
 test/Model/UpdateRecurringPaymentRequestTest.php
 test/Model/UpdateSubscriptionRequestItemsInnerTest.php
 test/Model/UpdateSubscriptionRequestTest.php

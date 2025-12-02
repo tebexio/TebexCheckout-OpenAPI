@@ -103,6 +103,7 @@ Class | Method | HTTP request | Description
 *BasketsApi* | [**create_basket**](docs/BasketsApi.md#create_basket) | **POST** /baskets | Create a basket that can be used to pay for items
 *BasketsApi* | [**get_basket_by_id**](docs/BasketsApi.md#get_basket_by_id) | **GET** /baskets/{ident} | Fetch a basket by its identifier
 *BasketsApi* | [**remove_row_from_basket**](docs/BasketsApi.md#remove_row_from_basket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
+*BasketsApi* | [**update_basket**](docs/BasketsApi.md#update_basket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date.
 *CheckoutApi* | [**checkout**](docs/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request
 *PaymentsApi* | [**get_payment_by_id**](docs/PaymentsApi.md#get_payment_by_id) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID
 *PaymentsApi* | [**refund_payment_by_id**](docs/PaymentsApi.md#refund_payment_by_id) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID
@@ -157,6 +158,7 @@ Class | Method | HTTP request | Description
  - [RevenueShare](docs/RevenueShare.md)
  - [Sale](docs/Sale.md)
  - [TebexWebhook](docs/TebexWebhook.md)
+ - [UpdateBasketRequest](docs/UpdateBasketRequest.md)
  - [UpdateRecurringPaymentRequest](docs/UpdateRecurringPaymentRequest.md)
  - [UpdateSubscriptionRequest](docs/UpdateSubscriptionRequest.md)
  - [UpdateSubscriptionRequestItemsInner](docs/UpdateSubscriptionRequestItemsInner.md)

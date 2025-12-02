@@ -426,6 +426,28 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+    put:
+      description: "This will update the customer's details on the basket. If the\
+        \ customer is already logged in and a new email is provided, they will be\
+        \ logged out."
+      operationId: updateBasket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateBasket_request'
+        description: The parameters of the basket you wish to update.
+      responses:
+        "200":
+          description: Basket updated successfully
+        "404":
+          description: Basket not found.
+      summary: "Update a basket's details, including expiry date."
+      tags:
+      - Baskets
+      x-content-type: application/json
+      x-accepts:
+      - application/json
 components:
   requestBodies:
     Basket:
@@ -1539,6 +1561,40 @@ components:
           type: string
       required:
       - status
+    updateBasket_request:
+      properties:
+        country:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        state_id:
+          nullable: true
+          type: string
+        first_name:
+          nullable: true
+          type: string
+        last_name:
+          nullable: true
+          type: string
+        postal_code:
+          nullable: true
+          type: string
+        creator_code:
+          nullable: true
+          type: string
+        complete_auto_redirect:
+          nullable: true
+          type: boolean
+        expires_at:
+          description: An ISO8601 formatted date. After this date the basket cannot
+            be used to checkout.
+          example: 2025-01-27T18:09:51Z
+          format: date-time
+          nullable: true
+          type: string
+      type: object
     createBasket_request:
       properties:
         return_url:
@@ -1566,11 +1622,6 @@ components:
         email:
           description: The email address of the customer
           example: example@tebex.io
-          type: string
-        expires_at:
-          description: An ISO8601 formatted date. After this date the basket cannot
-            be used to checkout.
-          example: 2025-01-27T18:09:51Z
           type: string
         complete_auto_redirect:
           description: Automatically redirect to the complete_url provided

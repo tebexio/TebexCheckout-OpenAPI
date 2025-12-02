@@ -31,6 +31,7 @@ import org.openapitools.client.model.AddPackageRequest;
 import org.openapitools.client.model.Basket;
 import org.openapitools.client.model.CreateBasketRequest;
 import org.openapitools.client.model.Sale;
+import org.openapitools.client.model.UpdateBasketRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -721,6 +722,123 @@ public class BasketsApi {
     public okhttp3.Call removeRowFromBasketAsync(String ident, Integer rowsId, final ApiCallback<Void> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = removeRowFromBasketValidateBeforeCall(ident, rowsId, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for updateBasket
+     * @param updateBasketRequest The parameters of the basket you wish to update. (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Basket updated successfully </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Basket not found. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateBasketCall(UpdateBasketRequest updateBasketRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = updateBasketRequest;
+
+        // create path and map variables
+        String localVarPath = "/baskets";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "tebex_checkout_auth_basic" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateBasketValidateBeforeCall(UpdateBasketRequest updateBasketRequest, final ApiCallback _callback) throws ApiException {
+        return updateBasketCall(updateBasketRequest, _callback);
+
+    }
+
+    /**
+     * Update a basket&#39;s details, including expiry date.
+     * This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+     * @param updateBasketRequest The parameters of the basket you wish to update. (optional)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Basket updated successfully </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Basket not found. </td><td>  -  </td></tr>
+     </table>
+     */
+    public void updateBasket(UpdateBasketRequest updateBasketRequest) throws ApiException {
+        updateBasketWithHttpInfo(updateBasketRequest);
+    }
+
+    /**
+     * Update a basket&#39;s details, including expiry date.
+     * This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+     * @param updateBasketRequest The parameters of the basket you wish to update. (optional)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Basket updated successfully </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Basket not found. </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> updateBasketWithHttpInfo(UpdateBasketRequest updateBasketRequest) throws ApiException {
+        okhttp3.Call localVarCall = updateBasketValidateBeforeCall(updateBasketRequest, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * Update a basket&#39;s details, including expiry date. (asynchronously)
+     * This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+     * @param updateBasketRequest The parameters of the basket you wish to update. (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Basket updated successfully </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Basket not found. </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateBasketAsync(UpdateBasketRequest updateBasketRequest, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updateBasketValidateBeforeCall(updateBasketRequest, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

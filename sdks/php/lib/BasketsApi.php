@@ -87,6 +87,9 @@ class BasketsApi
         'removeRowFromBasket' => [
             'application/json',
         ],
+        'updateBasket' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -1645,6 +1648,232 @@ class BasketsApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateBasket
+     *
+     * Update a basket&#39;s details, including expiry date.
+     *
+     * @param  \TebexCheckout\Model\UpdateBasketRequest $update_basket_request The parameters of the basket you wish to update. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateBasket'] to see the possible values for this operation
+     *
+     * @throws \TebexCheckout\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function updateBasket($update_basket_request = null, string $contentType = self::contentTypes['updateBasket'][0])
+    {
+        $this->updateBasketWithHttpInfo($update_basket_request, $contentType);
+    }
+
+    /**
+     * Operation updateBasketWithHttpInfo
+     *
+     * Update a basket&#39;s details, including expiry date.
+     *
+     * @param  \TebexCheckout\Model\UpdateBasketRequest $update_basket_request The parameters of the basket you wish to update. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateBasket'] to see the possible values for this operation
+     *
+     * @throws \TebexCheckout\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateBasketWithHttpInfo($update_basket_request = null, string $contentType = self::contentTypes['updateBasket'][0])
+    {
+        $request = $this->updateBasketRequest($update_basket_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateBasketAsync
+     *
+     * Update a basket&#39;s details, including expiry date.
+     *
+     * @param  \TebexCheckout\Model\UpdateBasketRequest $update_basket_request The parameters of the basket you wish to update. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateBasket'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateBasketAsync($update_basket_request = null, string $contentType = self::contentTypes['updateBasket'][0])
+    {
+        return $this->updateBasketAsyncWithHttpInfo($update_basket_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateBasketAsyncWithHttpInfo
+     *
+     * Update a basket&#39;s details, including expiry date.
+     *
+     * @param  \TebexCheckout\Model\UpdateBasketRequest $update_basket_request The parameters of the basket you wish to update. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateBasket'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateBasketAsyncWithHttpInfo($update_basket_request = null, string $contentType = self::contentTypes['updateBasket'][0])
+    {
+        $returnType = '';
+        $request = $this->updateBasketRequest($update_basket_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateBasket'
+     *
+     * @param  \TebexCheckout\Model\UpdateBasketRequest $update_basket_request The parameters of the basket you wish to update. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateBasket'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateBasketRequest($update_basket_request = null, string $contentType = self::contentTypes['updateBasket'][0])
+    {
+
+
+
+        $resourcePath = '/baskets';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($update_basket_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($update_basket_request));
+            } else {
+                $httpBody = $update_basket_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

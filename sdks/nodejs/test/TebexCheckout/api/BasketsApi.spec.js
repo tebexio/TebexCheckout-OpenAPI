@@ -98,6 +98,16 @@
         done();
       });
     });
+    describe('updateBasket', function() {
+      it('should call updateBasket successfully', function(done) {
+        //uncomment below and update the code to test updateBasket
+        //instance.updateBasket(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
   });
 
 }));

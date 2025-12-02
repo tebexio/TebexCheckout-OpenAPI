@@ -110,15 +110,6 @@ namespace TebexCheckout.Test.Model
         }
 
         /// <summary>
-        /// Test the property 'ExpiresAt'
-        /// </summary>
-        [Fact]
-        public void ExpiresAtTest()
-        {
-            // TODO unit test for the property 'ExpiresAt'
-        }
-
-        /// <summary>
         /// Test the property 'CompleteAutoRedirect'
         /// </summary>
         [Fact]

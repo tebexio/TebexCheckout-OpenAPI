@@ -131,4 +131,16 @@ class BasketsApiTest extends TestCase
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test case for updateBasket
+     *
+     * Update a basket's details, including expiry date..
+     *
+     */
+    public function testUpdateBasket()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
 }

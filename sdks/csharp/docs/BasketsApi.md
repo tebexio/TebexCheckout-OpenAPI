@@ -9,6 +9,7 @@ All URIs are relative to *https://checkout.tebex.io/api*
 | [**CreateBasket**](BasketsApi.md#createbasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**GetBasketById**](BasketsApi.md#getbasketbyid) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 | [**RemoveRowFromBasket**](BasketsApi.md#removerowfrombasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
+| [**UpdateBasket**](BasketsApi.md#updatebasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date. |
 
 <a id="addpackage"></a>
 # **AddPackage**
@@ -490,6 +491,98 @@ void (empty response body)
 |-------------|-------------|------------------|
 | **204** | Successfully deleted a row from the basket. |  -  |
 | **404** | Row or basket not found. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="updatebasket"></a>
+# **UpdateBasket**
+> void UpdateBasket (UpdateBasketRequest? updateBasketRequest = null)
+
+Update a basket's details, including expiry date.
+
+This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using TebexCheckout.TebexCheckout;
+using TebexCheckout.Client;
+using TebexCheckout.Model;
+
+namespace Example
+{
+    public class UpdateBasketExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://checkout.tebex.io/api";
+            // Configure HTTP basic authorization: tebex_checkout_auth_basic
+            config.Username = "YOUR_USERNAME";
+            config.Password = "YOUR_PASSWORD";
+
+            var apiInstance = new BasketsApi(config);
+            var updateBasketRequest = new UpdateBasketRequest?(); // UpdateBasketRequest? | The parameters of the basket you wish to update. (optional) 
+
+            try
+            {
+                // Update a basket's details, including expiry date.
+                apiInstance.UpdateBasket(updateBasketRequest);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling BasketsApi.UpdateBasket: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the UpdateBasketWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Update a basket's details, including expiry date.
+    apiInstance.UpdateBasketWithHttpInfo(updateBasketRequest);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling BasketsApi.UpdateBasketWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **updateBasketRequest** | [**UpdateBasketRequest?**](UpdateBasketRequest?.md) | The parameters of the basket you wish to update. | [optional]  |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[tebex_checkout_auth_basic](../README.md#tebex_checkout_auth_basic)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Basket updated successfully |  -  |
+| **404** | Basket not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

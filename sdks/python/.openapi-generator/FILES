@@ -57,6 +57,7 @@ TebexCheckout/models/recurring_payment_subject_status.py
 TebexCheckout/models/revenue_share.py
 TebexCheckout/models/sale.py
 TebexCheckout/models/tebex_webhook.py
+TebexCheckout/models/update_basket_request.py
 TebexCheckout/models/update_recurring_payment_request.py
 TebexCheckout/models/update_subscription_request.py
 TebexCheckout/models/update_subscription_request_items_inner.py
@@ -109,6 +110,7 @@ docs/RecurringPaymentsApi.md
 docs/RevenueShare.md
 docs/Sale.md
 docs/TebexWebhook.md
+docs/UpdateBasketRequest.md
 docs/UpdateRecurringPaymentRequest.md
 docs/UpdateSubscriptionRequest.md
 docs/UpdateSubscriptionRequestItemsInner.md

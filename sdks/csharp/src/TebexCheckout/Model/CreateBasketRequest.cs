@@ -41,12 +41,11 @@ namespace TebexCheckout.Model
         /// <param name="firstName">The first name of the customer.</param>
         /// <param name="lastName">The last name of the customer.</param>
         /// <param name="email">The email address of the customer.</param>
-        /// <param name="expiresAt">An ISO8601 formatted date. After this date the basket cannot be used to checkout..</param>
         /// <param name="completeAutoRedirect">Automatically redirect to the complete_url provided.</param>
         /// <param name="country">An ISO 3166-1 alpha-2 character code representing the customer&#39;s country..</param>
         /// <param name="creatorCode">The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes.</param>
         /// <param name="ip">The IP address of the customer using this basket. Provide the IP if creating a basket on your server backend..</param>
-        public CreateBasketRequest(string returnUrl = default(string), string completeUrl = default(string), Object custom = default(Object), string firstName = default(string), string lastName = default(string), string email = default(string), string expiresAt = default(string), bool completeAutoRedirect = default(bool), string country = default(string), string creatorCode = default(string), string ip = default(string))
+        public CreateBasketRequest(string returnUrl = default(string), string completeUrl = default(string), Object custom = default(Object), string firstName = default(string), string lastName = default(string), string email = default(string), bool completeAutoRedirect = default(bool), string country = default(string), string creatorCode = default(string), string ip = default(string))
         {
             this.ReturnUrl = returnUrl;
             this.CompleteUrl = completeUrl;
@@ -54,7 +53,6 @@ namespace TebexCheckout.Model
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Email = email;
-            this.ExpiresAt = expiresAt;
             this.CompleteAutoRedirect = completeAutoRedirect;
             this.Country = country;
             this.CreatorCode = creatorCode;
@@ -110,14 +108,6 @@ namespace TebexCheckout.Model
         public string Email { get; set; }
 
         /// <summary>
-        /// An ISO8601 formatted date. After this date the basket cannot be used to checkout.
-        /// </summary>
-        /// <value>An ISO8601 formatted date. After this date the basket cannot be used to checkout.</value>
-        /// <example>2025-01-27T18:09:51Z</example>
-        [DataMember(Name = "expires_at", EmitDefaultValue = false)]
-        public string ExpiresAt { get; set; }
-
-        /// <summary>
         /// Automatically redirect to the complete_url provided
         /// </summary>
         /// <value>Automatically redirect to the complete_url provided</value>
@@ -162,7 +152,6 @@ namespace TebexCheckout.Model
             sb.Append("  FirstName: ").Append(FirstName).Append("\n");
             sb.Append("  LastName: ").Append(LastName).Append("\n");
             sb.Append("  Email: ").Append(Email).Append("\n");
-            sb.Append("  ExpiresAt: ").Append(ExpiresAt).Append("\n");
             sb.Append("  CompleteAutoRedirect: ").Append(CompleteAutoRedirect).Append("\n");
             sb.Append("  Country: ").Append(Country).Append("\n");
             sb.Append("  CreatorCode: ").Append(CreatorCode).Append("\n");

@@ -9,6 +9,7 @@ All URIs are relative to https://checkout.tebex.io/api, except if the operation 
 | [**createBasket()**](BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items |
 | [**getBasketById()**](BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier |
 | [**removeRowFromBasket()**](BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket |
+| [**updateBasket()**](BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date. |
 
 
 ## `addPackage()`
@@ -320,6 +321,67 @@ void (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateBasket()`
+
+```php
+updateBasket($update_basket_request)
+```
+
+Update a basket's details, including expiry date.
+
+This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure HTTP basic authorization: tebex_checkout_auth_basic
+$config = TebexCheckout\Configuration::getDefaultConfiguration()
+              ->setUsername('YOUR_USERNAME')
+              ->setPassword('YOUR_PASSWORD');
+
+
+$apiInstance = new TebexCheckout\Api\BasketsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$update_basket_request = new \TebexCheckout\Model\UpdateBasketRequest(); // \TebexCheckout\Model\UpdateBasketRequest | The parameters of the basket you wish to update.
+
+try {
+    $apiInstance->updateBasket($update_basket_request);
+} catch (Exception $e) {
+    echo 'Exception when calling BasketsApi->updateBasket: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **update_basket_request** | [**\TebexCheckout\Model\UpdateBasketRequest**](../Model/UpdateBasketRequest.md)| The parameters of the basket you wish to update. | [optional] |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[tebex_checkout_auth_basic](../../README.md#tebex_checkout_auth_basic)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

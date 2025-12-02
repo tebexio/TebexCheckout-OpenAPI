@@ -2,7 +2,7 @@
 
 Tebex Checkout API
 - API version: 1.1.2
-  - Build date: 2024-09-09T15:30:05.763865-05:00[America/Chicago]
+  - Build date: 2025-12-02T12:40:16.225950-06:00[America/Chicago]
   - Generator version: 7.5.0
 
 The Checkout APIs are designed to allow our creators to use the Tebex Checkout flow and payment acceptance capabilities without the need to set up a Tebex-powered webstore. Using these APIs allows you to create baskets with custom products (as opposed to pre-created products on our webstore platform), and send customers directly to the checkout flow to proceed with payment options.
@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
 *BasketsApi* | [**createBasket**](docs/BasketsApi.md#createBasket) | **POST** /baskets | Create a basket that can be used to pay for items
 *BasketsApi* | [**getBasketById**](docs/BasketsApi.md#getBasketById) | **GET** /baskets/{ident} | Fetch a basket by its identifier
 *BasketsApi* | [**removeRowFromBasket**](docs/BasketsApi.md#removeRowFromBasket) | **DELETE** /baskets/{ident}/packages/{rows.id} | Remove a row from the basket
+*BasketsApi* | [**updateBasket**](docs/BasketsApi.md#updateBasket) | **PUT** /baskets | Update a basket&#39;s details, including expiry date.
 *CheckoutApi* | [**checkout**](docs/CheckoutApi.md#checkout) | **POST** /checkout | Create a checkout request
 *PaymentsApi* | [**getPaymentById**](docs/PaymentsApi.md#getPaymentById) | **GET** /payments/{txnId}?type&#x3D;txn_id | Fetch a payment by its transaction ID
 *PaymentsApi* | [**refundPaymentById**](docs/PaymentsApi.md#refundPaymentById) | **POST** /payments/{txnId}/refund?type&#x3D;txn_id | Refund a payment by its transaction ID
@@ -183,6 +184,7 @@ Class | Method | HTTP request | Description
  - [RevenueShare](docs/RevenueShare.md)
  - [Sale](docs/Sale.md)
  - [TebexWebhook](docs/TebexWebhook.md)
+ - [UpdateBasketRequest](docs/UpdateBasketRequest.md)
  - [UpdateRecurringPaymentRequest](docs/UpdateRecurringPaymentRequest.md)
  - [UpdateSubscriptionRequest](docs/UpdateSubscriptionRequest.md)
  - [UpdateSubscriptionRequestItemsInner](docs/UpdateSubscriptionRequestItemsInner.md)

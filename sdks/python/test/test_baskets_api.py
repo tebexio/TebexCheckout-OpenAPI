@@ -62,6 +62,13 @@ class TestBasketsApi(unittest.TestCase):
         """
         pass
 
+    def test_update_basket(self) -> None:
+        """Test case for update_basket
+
+        Update a basket's details, including expiry date.
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

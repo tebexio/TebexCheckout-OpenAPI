@@ -135,15 +135,6 @@ class CreateBasketRequestTest extends TestCase
     }
 
     /**
-     * Test attribute "expires_at"
-     */
-    public function testPropertyExpiresAt()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test attribute "complete_auto_redirect"
      */
     public function testPropertyCompleteAutoRedirect()

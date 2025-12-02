@@ -78,6 +78,7 @@ from TebexCheckout.models.recurring_payment_subject_status import RecurringPayme
 from TebexCheckout.models.revenue_share import RevenueShare
 from TebexCheckout.models.sale import Sale
 from TebexCheckout.models.tebex_webhook import TebexWebhook
+from TebexCheckout.models.update_basket_request import UpdateBasketRequest
 from TebexCheckout.models.update_recurring_payment_request import UpdateRecurringPaymentRequest
 from TebexCheckout.models.update_subscription_request import UpdateSubscriptionRequest
 from TebexCheckout.models.update_subscription_request_items_inner import UpdateSubscriptionRequestItemsInner

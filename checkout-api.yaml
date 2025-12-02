@@ -459,10 +459,10 @@ paths:
                   type: string
                   description: The email address of the customer
                   example: example@tebex.io
-                expires_at:
-                  type: string
-                  description: An ISO8601 formatted date. After this date the basket cannot be used to checkout.
-                  example: 2025-01-27T18:09:51Z
+                # expires_at:
+                #   type: string
+                #   description: An ISO8601 formatted date. After this date the basket cannot be used to checkout.
+                #   example: 2025-01-27T18:09:51Z
                 complete_auto_redirect:
                   type: boolean
                   description: Automatically redirect to the complete_url provided
@@ -486,6 +486,54 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Basket"
+    put:
+      tags: 
+      - Baskets
+      summary: Update a basket's details, including expiry date.
+      description: This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+      operationId: updateBasket
+      requestBody:
+        description: The parameters of the basket you wish to update.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                  nullable: true
+                name:
+                  type: string
+                  nullable: true
+                state_id:
+                  type: string
+                  nullable: true
+                first_name:
+                  type: string
+                  nullable: true
+                last_name:
+                  type: string
+                  nullable: true
+                postal_code:
+                  type: string
+                  nullable: true
+                creator_code:
+                  type: string
+                  nullable: true
+                complete_auto_redirect:
+                  type: boolean
+                  nullable: true
+                expires_at:
+                  type: string
+                  format: date-time
+                  description: An ISO8601 formatted date. After this date the basket cannot be used to checkout.
+                  example: 2025-01-27T18:09:51Z
+                  nullable: true
+      responses:
+        '200':
+          description: Basket updated successfully
+        '404':
+          description: Basket not found.
 components:
   schemas:
     ErrorResponse:

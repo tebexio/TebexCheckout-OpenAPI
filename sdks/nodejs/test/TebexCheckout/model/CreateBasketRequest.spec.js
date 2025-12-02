@@ -90,12 +90,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property expiresAt (base name: "expires_at")', function() {
-      // uncomment below and update the code to test the property expiresAt
-      //var instance = new TebexCheckoutApi.CreateBasketRequest();
-      //expect(instance).to.be();
-    });
-
     it('should have the property completeAutoRedirect (base name: "complete_auto_redirect")', function() {
       // uncomment below and update the code to test the property completeAutoRedirect
       //var instance = new TebexCheckoutApi.CreateBasketRequest();

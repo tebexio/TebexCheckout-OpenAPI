@@ -33,12 +33,11 @@ class CreateBasketRequest(BaseModel):
     first_name: Optional[StrictStr] = Field(default=None, description="The first name of the customer")
     last_name: Optional[StrictStr] = Field(default=None, description="The last name of the customer")
     email: Optional[StrictStr] = Field(default=None, description="The email address of the customer")
-    expires_at: Optional[StrictStr] = Field(default=None, description="An ISO8601 formatted date. After this date the basket cannot be used to checkout.")
     complete_auto_redirect: Optional[StrictBool] = Field(default=None, description="Automatically redirect to the complete_url provided")
     country: Optional[StrictStr] = Field(default=None, description="An ISO 3166-1 alpha-2 character code representing the customer's country.")
     creator_code: Optional[StrictStr] = Field(default=None, description="The creator code is used to share a percentage of the payment with another party. See more about creator codes at https://docs.tebex.io/creators/tebex-control-panel/engagement/creator-codes")
     ip: Optional[StrictStr] = Field(default=None, description="The IP address of the customer using this basket. Provide the IP if creating a basket on your server backend.")
-    __properties: ClassVar[List[str]] = ["return_url", "complete_url", "custom", "first_name", "last_name", "email", "expires_at", "complete_auto_redirect", "country", "creator_code", "ip"]
+    __properties: ClassVar[List[str]] = ["return_url", "complete_url", "custom", "first_name", "last_name", "email", "complete_auto_redirect", "country", "creator_code", "ip"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,7 +96,6 @@ class CreateBasketRequest(BaseModel):
             "first_name": obj.get("first_name"),
             "last_name": obj.get("last_name"),
             "email": obj.get("email"),
-            "expires_at": obj.get("expires_at"),
             "complete_auto_redirect": obj.get("complete_auto_redirect"),
             "country": obj.get("country"),
             "creator_code": obj.get("creator_code"),

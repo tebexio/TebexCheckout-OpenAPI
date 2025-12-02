@@ -51,6 +51,7 @@ docs/RecurringPaymentsApi.md
 docs/RevenueShare.md
 docs/Sale.md
 docs/TebexWebhook.md
+docs/UpdateBasketRequest.md
 docs/UpdateRecurringPaymentRequest.md
 docs/UpdateSubscriptionRequest.md
 docs/UpdateSubscriptionRequestItemsInner.md
@@ -98,6 +99,7 @@ src/TebexCheckout.Test/Model/RecurringPaymentTests.cs
 src/TebexCheckout.Test/Model/RevenueShareTests.cs
 src/TebexCheckout.Test/Model/SaleTests.cs
 src/TebexCheckout.Test/Model/TebexWebhookTests.cs
+src/TebexCheckout.Test/Model/UpdateBasketRequestTests.cs
 src/TebexCheckout.Test/Model/UpdateRecurringPaymentRequestTests.cs
 src/TebexCheckout.Test/Model/UpdateSubscriptionRequestItemsInnerTests.cs
 src/TebexCheckout.Test/Model/UpdateSubscriptionRequestTests.cs
@@ -166,6 +168,7 @@ src/TebexCheckout/Model/RecurringPaymentSubjectStatus.cs
 src/TebexCheckout/Model/RevenueShare.cs
 src/TebexCheckout/Model/Sale.cs
 src/TebexCheckout/Model/TebexWebhook.cs
+src/TebexCheckout/Model/UpdateBasketRequest.cs
 src/TebexCheckout/Model/UpdateRecurringPaymentRequest.cs
 src/TebexCheckout/Model/UpdateSubscriptionRequest.cs
 src/TebexCheckout/Model/UpdateSubscriptionRequestItemsInner.cs

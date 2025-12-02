@@ -148,6 +148,29 @@ namespace TebexCheckout.TebexCheckout
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> RemoveRowFromBasketWithHttpInfo(string ident, int rowsId, int operationIndex = 0);
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date.
+        /// </summary>
+        /// <remarks>
+        /// This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </remarks>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        void UpdateBasket(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0);
+
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date.
+        /// </summary>
+        /// <remarks>
+        /// This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </remarks>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> UpdateBasketWithHttpInfo(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -288,6 +311,31 @@ namespace TebexCheckout.TebexCheckout
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> RemoveRowFromBasketWithHttpInfoAsync(string ident, int rowsId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date.
+        /// </summary>
+        /// <remarks>
+        /// This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </remarks>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task UpdateBasketAsync(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date.
+        /// </summary>
+        /// <remarks>
+        /// This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </remarks>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> UpdateBasketWithHttpInfoAsync(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -1187,6 +1235,148 @@ namespace TebexCheckout.TebexCheckout
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("RemoveRowFromBasket", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date. This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </summary>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns></returns>
+        public void UpdateBasket(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0)
+        {
+            UpdateBasketWithHttpInfo(updateBasketRequest);
+        }
+
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date. This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </summary>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public TebexCheckout.Client.ApiResponse<Object> UpdateBasketWithHttpInfo(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0)
+        {
+            TebexCheckout.Client.RequestOptions localVarRequestOptions = new TebexCheckout.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = TebexCheckout.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = TebexCheckout.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.Data = updateBasketRequest;
+
+            localVarRequestOptions.Operation = "BasketsApi.UpdateBasket";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+            // authentication (tebex_checkout_auth_basic) required
+            // http basic authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + TebexCheckout.Client.ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<Object>("/baskets", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateBasket", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date. This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </summary>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task UpdateBasketAsync(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            await UpdateBasketWithHttpInfoAsync(updateBasketRequest, operationIndex, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Update a basket&#39;s details, including expiry date. This will update the customer&#39;s details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.
+        /// </summary>
+        /// <exception cref="TebexCheckout.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="updateBasketRequest">The parameters of the basket you wish to update. (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<TebexCheckout.Client.ApiResponse<Object>> UpdateBasketWithHttpInfoAsync(UpdateBasketRequest? updateBasketRequest = default(UpdateBasketRequest?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            TebexCheckout.Client.RequestOptions localVarRequestOptions = new TebexCheckout.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = TebexCheckout.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = TebexCheckout.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.Data = updateBasketRequest;
+
+            localVarRequestOptions.Operation = "BasketsApi.UpdateBasket";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+            // authentication (tebex_checkout_auth_basic) required
+            // http basic authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + TebexCheckout.Client.ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+            }
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PutAsync<Object>("/baskets", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("UpdateBasket", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

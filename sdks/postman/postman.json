@@ -90,7 +90,7 @@
                                     ],
                                     "body": {
                                         "mode": "raw",
-                                        "raw": "{\n \"return_url\": \"<string>\",\n \"complete_url\": \"<string>\",\n \"custom\": \"<string>\",\n \"first_name\": \"<string>\",\n \"last_name\": \"<string>\",\n \"email\": \"<string>\",\n \"expires_at\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\",\n \"country\": \"<string>\",\n \"creator_code\": \"<string>\",\n \"ip\": \"<string>\"\n}",
+                                        "raw": "{\n \"return_url\": \"<string>\",\n \"complete_url\": \"<string>\",\n \"custom\": \"<string>\",\n \"first_name\": \"<string>\",\n \"last_name\": \"<string>\",\n \"email\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\",\n \"country\": \"<string>\",\n \"creator_code\": \"<string>\",\n \"ip\": \"<string>\"\n}",
                                         "options": {
                                             "raw": {
                                                 "language": "json"
@@ -111,6 +111,49 @@
                                         ]
                                     },
                                     "description": "This will create and return a `Basket` that can be paid for by redirecting the user to `links.checkout`"
+                                }
+                            }
+                            ]
+                        },
+	                        {
+    "name": "/baskets",
+                "description": "This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out.",
+                 "item": [
+                            {
+                                "name": "Update a basket's details, including expiry date.",
+                                "request": {
+                                    "method": "PUT",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json",
+                                            "description": "",
+                                            "disabled": false
+                                        }
+                                    ],
+                                    "body": {
+                                        "mode": "raw",
+                                        "raw": "{\n \"country\": \"<string>\",\n \"name\": \"<string>\",\n \"state_id\": \"<string>\",\n \"first_name\": \"<string>\",\n \"last_name\": \"<string>\",\n \"postal_code\": \"<string>\",\n \"creator_code\": \"<string>\",\n \"complete_auto_redirect\": \"<string>\",\n \"expires_at\": \"<string>\"\n}",
+                                        "options": {
+                                            "raw": {
+                                                "language": "json"
+                                            }
+                                        }
+                                    },
+                                    "url": {
+                                        "raw": "{{baseUrl}}/baskets",
+                                        "host": [
+                                            "{{baseUrl}}"
+                                        ],
+                                        "path": [
+                                            "baskets"
+                                        ],
+                                        "variable": [
+                                        ],
+                                        "query": [
+                                        ]
+                                    },
+                                    "description": "This will update the customer's details on the basket. If the customer is already logged in and a new email is provided, they will be logged out."
                                 }
                             }
                             ]

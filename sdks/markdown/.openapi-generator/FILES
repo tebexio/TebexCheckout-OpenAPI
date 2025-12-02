@@ -42,6 +42,7 @@ Models/addPackage_request.md
 Models/checkout_request.md
 Models/checkout_request_basket.md
 Models/createBasket_request.md
+Models/updateBasket_request.md
 Models/updateRecurringPayment_request.md
 Models/updateSubscription_request.md
 Models/updateSubscription_request_items_inner.md
